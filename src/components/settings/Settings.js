@@ -5,7 +5,7 @@ import classnames from 'classnames'
 import './settings.css'
 import Input from '../Input/Input'
 import VALIDATIONS from '../../constant/validation_types'
-import { ThemeContext } from '../../conext/Theme-context'
+import { ThemeContext } from '../../context/Theme-context'
 export default function Settings() {
     const {IsLightTheme, dark, light} = useContext(ThemeContext)
     

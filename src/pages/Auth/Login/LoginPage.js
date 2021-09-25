@@ -4,7 +4,7 @@ import './login.css'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import  { useHistory } from 'react-router-dom'
-import { ThemeContext } from '../../../conext/Theme-context';
+import { ThemeContext } from '../../../context/Theme-context';
 
 
 function LoginPage(props) {

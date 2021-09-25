@@ -1,6 +1,6 @@
 import React,{useEffect} from 'react'
 import { Link } from 'react-router-dom'
-import { useTweetState,useTweetDispatch,setHashtags } from '../../conext/TweetContext'
+import { useTweetState,useTweetDispatch,setHashtags } from '../../context/TweetContext'
 import useFetch from '../useFetch/useFetch'
 import './hashtagsList.css'
 export default function Hashtags({theme}) {

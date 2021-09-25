@@ -1,10 +1,10 @@
 import React, {useRef,useState,useContext,useEffect } from 'react'
 import  { Link, useHistory} from 'react-router-dom'
 import classnames from 'classnames'
-import { useTweetDispatch,setRetweet, useTweetState,setTweets ,setHashtags} from '../../conext/TweetContext';
+import { useTweetDispatch,setRetweet, useTweetState,setTweets ,setHashtags} from '../../context/TweetContext';
 import axios from 'axios'
 import Swal from 'sweetalert2'
-import { ThemeContext } from '../../conext/Theme-context';
+import { ThemeContext } from '../../context/Theme-context';
 import './homecss/tweet.css'
 import { heartIcon, QuoteTweetIcon, retweetIcon } from './icons';
 import { DeleteRetweetRequest, newRetweetRequest } from '../../api/api_tweet';

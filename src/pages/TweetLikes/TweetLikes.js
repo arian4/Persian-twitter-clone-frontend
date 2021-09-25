@@ -4,7 +4,7 @@ import Header from '../Home/header'
 import axios from 'axios'
 import FollowBtn from '../../components/FollowBtn/FollowBtn'
 import './tweetlikes.css'
-import { ThemeContext } from '../../conext/Theme-context'
+import { ThemeContext } from '../../context/Theme-context'
 export default function TweetLikes(props) {
     const {IsLightTheme, dark, light} = useContext(ThemeContext)
     window.scrollTo({ top: 0});

@@ -5,8 +5,8 @@ import useFetch from '../useFetch/useFetch';
 import Dropdown from '../dropdownMenu/Dropdown';
 import axios from 'axios'
 import { Link } from 'react-router-dom';
-import { ThemeContext } from '../../conext/Theme-context';
-import { AuthContext } from '../../conext/Auth-context';
+import { ThemeContext } from '../../context/Theme-context';
+import { AuthContext } from '../../context/Auth-context';
 
 
 function Leftsidebar() {

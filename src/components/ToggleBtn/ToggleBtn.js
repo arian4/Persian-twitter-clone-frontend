@@ -1,7 +1,7 @@
 import React,{useRef,useContext} from 'react'
 import classnames from 'classnames'
 import './toggle.css'
-import { ThemeContext } from '../../conext/Theme-context'
+import { ThemeContext } from '../../context/Theme-context'
 export default function ToggleBtn({toggleType}) {
     const {ToggleTheme} = useContext(ThemeContext)
     const toggle = useRef()

@@ -1,6 +1,6 @@
 import React, { useState,useEffect,useContext} from 'react'
 import { SearchResults } from '../../api/api_tweet';
-import { ThemeContext } from '../../conext/Theme-context';
+import { ThemeContext } from '../../context/Theme-context';
 // import axios from 'axios';
 import './search.css' 
 import useDebounce from './useDebounce';

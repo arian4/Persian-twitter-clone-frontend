@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useTweetDispatch, useTweetState,setnewTweets,setRetweet,setTweets } from '../../conext/TweetContext';
 import { ThemeContext } from '../../conext/Theme-context';
 import './homecss/newtweet.css'
-import { AuthContext } from '../../conext/Auth-context';
+import { AuthContext } from '../../context/Auth-context';
 
 function Newtweet({updateTweets,AddHashtags}) {
     const token  = localStorage.getItem('access_token')

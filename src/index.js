@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import { AuthContextProvider } from './conext/Auth-context';
-import { ThemeProvider } from './conext/Theme-context';
-import { TweetProvider } from './conext/TweetContext';
-import { UserProfileProvider } from './conext/User-profile-context';
+import { ThemeProvider } from './context/Theme-context';
+import { TweetProvider } from './context/TweetContext';
+import { UserProfileProvider } from './context/User-profile-context';
 
 
 ReactDOM.render(

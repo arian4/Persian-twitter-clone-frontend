@@ -2,7 +2,7 @@ import React,{useState,useRef} from 'react'
 import './sm_newtweet.css'
 import  { useHistory} from 'react-router-dom'
 import { getAllTweets, newTweetRequest } from '../../api/api_tweet'
-import { useTweetDispatch,useTweetState,setTweets } from '../../conext/TweetContext'
+import { useTweetDispatch,useTweetState,setTweets } from '../../context/TweetContext'
 import { toast, ToastContainer } from 'react-toastify'
 export default function Sm_newtweet() {
     const [NewTweetImg,setNewTweetImg] = useState()

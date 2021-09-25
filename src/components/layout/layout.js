@@ -9,7 +9,7 @@ import { useMediaQuery } from 'react-responsive'
 import HamburgerMenu from '../HamburgerMenu/HamburgerMenu'
 import H_navbar from '../H_navbar/H_navbar'
 import MiniLeftsidebar from '../leftsidebar/MiniLeftsidebar'
-import { ThemeContext } from '../../conext/Theme-context'
+import { ThemeContext } from '../../context/Theme-context'
 import AddTweetBtn from '../floating-button/AddTweetBtn'
 import Nav_Icons from '../nav-icon/Nav_Icons'
 

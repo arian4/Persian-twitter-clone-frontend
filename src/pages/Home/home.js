@@ -10,7 +10,7 @@ import TabList from '../../components/TabList/TabList'
 import SORT_TYPES from '../../constant/sort_type'
 import { ThemeContext } from '../../conext/Theme-context'
 import { useMediaQuery } from 'react-responsive'
-import { AuthContext } from '../../conext/Auth-context'
+import { AuthContext } from '../../context/Auth-context'
 
 
 

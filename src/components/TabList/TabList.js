@@ -1,5 +1,5 @@
 import React,{useState,useEffect,useContext} from 'react'
-import { ThemeContext } from '../../conext/Theme-context';
+import { ThemeContext } from '../../context/Theme-context';
 
 
 import SORT_TYPES from '../../constant/sort_type';

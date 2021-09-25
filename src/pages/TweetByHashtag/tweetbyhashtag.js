@@ -3,8 +3,8 @@ import Header from '../Home/header'
 import Tweet from '../Home/tweet'
 import '../Home/home.css'
 import useFetch from '../../components/useFetch/useFetch';
-import { useTweetState,useTweetDispatch,setTweets } from '../../conext/TweetContext';
-import { AuthContext } from './../../conext/Auth-context';
+import { useTweetState,useTweetDispatch,setTweets } from '../../context/TweetContext';
+import { AuthContext } from '../../context/Auth-context';
 
 function Tweetbyhashtag(props) {
     // window.scrollTo({ top: 0});

@@ -2,8 +2,8 @@ import React,{useState,useContext,useEffect} from 'react'
 import  { Link, useHistory} from 'react-router-dom'
 import './dropdown.css'
 import axios from 'axios';
-import { ThemeContext } from '../../conext/Theme-context';
-import { AuthContext } from '../../conext/Auth-context';
+import { ThemeContext } from '../../context/Theme-context';
+import { AuthContext } from '../../context/Auth-context';
 
 function Dropdown() {
     const token  = localStorage.getItem('access_token')

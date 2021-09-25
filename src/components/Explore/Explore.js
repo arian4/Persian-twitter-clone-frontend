@@ -1,5 +1,5 @@
 import React,{useContext,useEffect} from 'react'
-import { ThemeContext } from '../../conext/Theme-context'
+import { ThemeContext } from '../../context/Theme-context'
 import { useHistory } from 'react-router-dom'
 import Header from '../../pages/Home/header'
 import useFetch from '../useFetch/useFetch'

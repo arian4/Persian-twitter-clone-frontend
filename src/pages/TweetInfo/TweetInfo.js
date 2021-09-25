@@ -4,8 +4,8 @@ import axios from 'axios';
 import '../Home/home.css'
 import './tweetInfo.css'
 import Header from '../Home/header';
-import { ThemeContext } from '../../conext/Theme-context';
-import { AuthContext } from './../../conext/Auth-context';
+import { ThemeContext } from '../../context/Theme-context';
+import { AuthContext } from './../../context/Auth-context';
 import {getAllTweets, getAllComments , NewCommentRequest , getAllLikes , getAllRetweets } from './../../api/api_tweet';
 
 

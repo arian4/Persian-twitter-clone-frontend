@@ -1,5 +1,5 @@
 import React,{useState,useContext} from 'react'
-import { ThemeContext } from '../../conext/Theme-context';
+import { ThemeContext } from '../../context/Theme-context';
 import './input.css'
 import validation from './validations';
 

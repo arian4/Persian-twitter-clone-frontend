@@ -1,6 +1,6 @@
 import React,{useContext} from 'react'
 import { Link , useLocation } from 'react-router-dom'
-import { ThemeContext } from '../../conext/Theme-context'
+import { ThemeContext } from '../../context/Theme-context'
 import Dropdown from '../dropdownMenu/Dropdown'
 import useFetch from '../useFetch/useFetch'
 import './H_navbar.css'

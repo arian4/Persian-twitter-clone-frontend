@@ -1,6 +1,6 @@
 import React,{useContext} from 'react'
 import  { Link} from 'react-router-dom'
-import { ThemeContext } from '../../conext/Theme-context'
+import { ThemeContext } from '../../context/Theme-context'
 import { HomeIcon, MessageIcon, NotificationIcon, SearchIcon } from '../../pages/Home/icons'
 import './navicons.css'
 export default function Nav_Icons() {

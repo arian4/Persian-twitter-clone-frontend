@@ -1,7 +1,26 @@
-# Getting Started with Create React App
+# Persian Twitter Clone
+In progress... This project is a sample web app created by me to demonstrate my skills. It is made of two main folders. One is for the server which is entirely written by Django & DRF. The other is the client, which uses React.js 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Note: The server-side hasn't been deployed
+**This application is designed to be responsive**
+## What technologies does it use?
+I haven't used a hundreds of JS libraries but instead have used fundamental technologies and built everything upon them:
 
+## Virtual DOM: Powered by React.js
+* More than 20 components have currently been designed and more to come
+* Costume TextInputs, MultiSelects, Navbar, Hamburger Button,Toggle Button, A very responsive nav, A costume Theme Switching Button created by CSS and React and many more...
+
+## State Management: React.js Contexts
+* 4 Contexts have currently been created which make the entire application work in a smooth flow.
+* As the APIs are currently under development after their completion other contexts will be added for fetching datas.
+* for data fetching you can check /src/api/api_tweet.js (Data fetching is done using the Axios library)
+
+## How to run?
+* Install Node.js.
+* Clone the repository.
+* In the root directory type command: `$ npm i`
+* To start the server type commands:  `$ npm run start`
+* Open your browser and head to[http://localhost:3000] !
 ## Available Scripts
 
 In the project directory, you can run:
@@ -39,32 +58,4 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

@@ -4,7 +4,7 @@ import  { useHistory} from 'react-router-dom'
 import axios from 'axios'
 import './followpage.css'
 import FollowBtn from '../../components/FollowBtn/FollowBtn';
-import { ThemeContext } from '../../conext/Theme-context';
+import { ThemeContext } from '../../context/Theme-context';
 export default function FollowPage(props) {
     const {IsLightTheme, dark, light} = useContext(ThemeContext)
     window.scrollTo({ top: 0});

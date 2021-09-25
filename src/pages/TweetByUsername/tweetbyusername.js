@@ -5,8 +5,8 @@ import '../Home/home.css'
 import useFetch from '../../components/useFetch/useFetch';
 import User_profile from '../../components/User_profile/User_profile';
 
-import { ThemeContext } from '../../conext/Theme-context';
-import { AuthContext } from '../../conext/Auth-context';
+import { ThemeContext } from '../../context/Theme-context';
+import { AuthContext } from '../../context/Auth-context';
 
 
 function Tweetbyusername(props) {

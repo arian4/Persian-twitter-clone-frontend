@@ -2,7 +2,7 @@ import React,{useContext} from 'react'
 
 import { useMediaQuery } from 'react-responsive'
 import Search from '../../components/Search/Search';
-import { ThemeContext } from '../../conext/Theme-context';
+import { ThemeContext } from '../../context/Theme-context';
 
 import './homecss/header.css'
 function Header({title,icon}) {

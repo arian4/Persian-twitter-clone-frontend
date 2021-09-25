@@ -3,8 +3,8 @@ import  { useHistory} from 'react-router-dom'
 import './userprofile.css'
 import axios from 'axios'
 import FollowBtn from '../FollowBtn/FollowBtn'
-import { ThemeContext } from '../../conext/Theme-context'
-import { UserProfileContext } from '../../conext/User-profile-context'
+import { ThemeContext } from '../../context/Theme-context'
+import { UserProfileContext } from '../../context/User-profile-context'
 export default function User_profile({user_data}) {
     const history = useHistory()
     const {IsLightTheme, dark, light} = useContext(ThemeContext)

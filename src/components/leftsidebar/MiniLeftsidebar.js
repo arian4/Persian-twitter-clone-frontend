@@ -1,7 +1,7 @@
 import React,{useContext} from 'react'
 import './leftsidebar_m.css'
 import { useHistory } from 'react-router-dom'
-import { ThemeContext } from '../../conext/Theme-context'
+import { ThemeContext } from '../../context/Theme-context'
 export default function MiniLeftsidebar() {
     const {IsLightTheme, dark, light,ToggleTheme} = useContext(ThemeContext)
     const history = useHistory()

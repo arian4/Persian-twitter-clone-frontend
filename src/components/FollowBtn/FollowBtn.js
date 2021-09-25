@@ -1,9 +1,9 @@
 import React,{useState,useEffect,useContext} from 'react'
 import axios from 'axios'
 import './followbtn.css'
-import { ThemeContext } from '../../conext/Theme-context'
+import { ThemeContext } from '../../context/Theme-context'
 import classnames from 'classnames'
-import { UserProfileContext } from '../../conext/User-profile-context'
+import { UserProfileContext } from '../../context/User-profile-context'
 
 export default function FollowBtn({data}) {
     const {IsLightTheme} = useContext(ThemeContext)

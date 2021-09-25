@@ -2,7 +2,7 @@ import React, { useState,useContext} from 'react'
 import './rightsidebar.css'
 import { useMediaQuery } from 'react-responsive'
 import Hashtags from '../TwitterData/Hashtags'
-import { ThemeContext } from '../../conext/Theme-context'
+import { ThemeContext } from '../../context/Theme-context'
 import { Link,useHistory } from 'react-router-dom'
 import { HashtagIcon, SettingsIcon } from '../../pages/Home/icons'
 
