@@ -1,0 +1,62 @@
+.follow-data-container{
+    display: flex;
+    flex-direction: column;
+}
+.follow-data{
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    cursor: pointer;
+    
+}
+.follow-data-dark{
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    cursor: pointer;
+    
+}
+.follow-data:hover{
+    background-color: #f2f2f2;
+    
+}
+.follow-data-dark:hover{
+    background-color: #555;
+}
+.follow-pic{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-top: 0.5rem;
+    margin: .5rem;
+    cursor: pointer;
+    
+}
+.follow-user{
+    font-size: 13px;
+    direction: ltr;
+    
+}
+
+@media screen and (max-width : 480px) {
+    .follow-pic{
+        
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-top: .35rem;
+        margin-left:.1rem ;
+        cursor: pointer;
+            
+        
+
+    }
+    
+    
+    
+
+    
+    
+    
+    
+}

@@ -1,0 +1,34 @@
+.nav-icons{
+    width: 100%;
+    position: fixed;
+    display: flex;
+    flex-direction: row-reverse;
+   
+    left: 0;
+    bottom: 0;
+    /* background-color: #fff; */
+    border-top: 1px solid #ccc;
+    z-index: 2;
+}
+
+.nav-icons div{
+    display: flex;
+    justify-content: center;
+    flex: 1;
+    padding: 10px;
+    
+    
+}
+.nav-icons div a{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    /* color: #333; */
+    
+}
+
+.nav-icons div a svg{
+    width: 20px;
+    height: 20px;
+    text-align: center;
+}

@@ -1,0 +1,118 @@
+.twt-box{
+    
+    margin: 1rem;
+    
+    
+    
+    
+}
+.twt-box-header{
+    display: flex;
+    
+}
+.twt-box-content{
+    width: 90%;
+    border: 2px solid #53c6e6;
+    border-radius: 10px
+    
+   
+}
+
+
+.twt-box-header-textarea{
+    /* border: 3px solid red; */
+    border: unset;
+    border-radius: 8px;
+    width: 100%;
+    min-height: 30px;
+    padding: 0.7rem 0.8rem; 
+    /* border: none; */
+    outline: none;
+    font-size: .85rem;
+    font-family: Shabnam;
+    /* margin-bottom: 1rem; */
+    resize: none;
+    overflow: auto;
+    
+
+}
+
+
+.twt-box-footer{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.twt-box-footer button{
+    color: white;
+    font-size: .7em;
+    background-color: rgb(29, 161, 242);
+    padding: 0.5rem;
+    border-radius: 15px;
+    border: none;
+    outline: none;
+    margin: 0.5rem 1rem;
+    cursor: pointer;
+    transition: background 0.5s;
+    
+}
+.twt-box-footer button:hover{
+    background-color: #2ba3ff;
+    
+}
+.twt-box-footer i{
+    cursor: pointer;
+    font-size: 20px;
+    color: red;
+    
+    padding: 7px;
+    border: 1px solid #3337;
+    border-radius: 50%;
+}
+.twt-box-footer button:hover{
+    opacity: 0.85;
+}
+.twt-box-footer i:hover{
+    background-color: #ebebeb;
+}
+
+.addtweetImg{
+    width: 80%;
+    margin: 1rem 10%;
+    border-radius: 10px;
+}
+.retweet-section{
+    border: 1px solid silver;
+    padding: 1rem;
+    margin: 1rem;;
+    border-radius: 8px;
+    font-size: 9px;
+}
+.retweet-body{
+    font-size: 13px;
+}
+
+.twtImg{
+    display: flex;
+    
+    width: 45%;
+    margin: auto;
+    border-radius: 8px;
+    cursor: pointer;
+}
+@media screen and (max-width : 480px) {
+    
+    
+    
+    .twtImg{
+        width: 80%;
+        margin: auto;
+        border-radius: 8px;
+    }
+    
+
+    
+    
+    
+    
+}

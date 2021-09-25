@@ -1,0 +1,21 @@
+.float{
+    outline: none;
+    border: none;
+    position: fixed;
+    width: 44px;
+	height:44px;
+    bottom: 50px;
+    right: 10px;
+    color: #fff;
+    background-color: rgb(29, 161, 242);
+    border-radius: 30px;
+    text-align: center;
+    box-shadow: 2px 2px 3px #999; 
+}
+
+button svg{
+    margin-top: 4px;
+    width: 23px;
+    height: 23px;
+    fill: #fff;
+}

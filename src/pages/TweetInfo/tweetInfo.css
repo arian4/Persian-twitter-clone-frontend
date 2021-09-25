@@ -1,0 +1,82 @@
+.tweet-container{
+    
+    height: 100vh;
+    /* background-color: aqua; */
+}
+.input-inner{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    flex-direction: column;
+    position: relative;
+}
+.comment-insert{
+    position: relative;
+    margin: 1rem 0.5rem;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    font-size: 12px;
+    width: 95%;
+    height: 50px;
+    overflow: hidden;
+    resize: none;
+    border: 1px solid #aaa;
+    padding: 1rem;
+    
+   
+    
+    
+}
+.comment-insert-dark{
+    position: relative;
+    margin: 1rem 0.5rem;
+    outline: none;
+    border: none;
+    font-size: 12px;
+    width: 95%;
+    height: 50px;
+    overflow: hidden;
+    resize: none;
+    border: 1px solid #ccc;
+    padding: 1rem;
+    background-color: #555;
+    color: #fff;
+    
+   
+    
+    
+}
+.comment-insert-dark::placeholder{
+    color: #ccc;
+}
+.comment-insert:focus{
+    
+    border: 1px solid #00b3e9;
+}
+.comment-insert-dark:focus{
+    border: 1px solid #00b3e9 ;
+}
+
+.input-inner span{
+    position: absolute;
+    left:22px;
+    top: 30px;
+    color: #00b3e9;
+    direction: ltr;
+    font-size: 20px;
+    cursor: pointer;
+    margin-right: 22px ;
+    
+}
+
+.input-inner span:hover{
+    opacity: 0.7;
+    
+}
+
+.loading-dots{
+    margin-right: 45%;
+    width: 45px;
+    
+}

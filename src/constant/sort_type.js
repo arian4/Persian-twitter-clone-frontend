@@ -1,0 +1,11 @@
+const SORT_TYPES= {
+    
+    NEW_TWEETS:'NEW_TWEETS',
+    HOT_TWEETS:'HOT_TWEETS',
+    RETWEETS:'RETWEETS',
+    IMAGES_MEDIA:'IMAGES_MEDIA'
+
+    
+    
+}
+export default SORT_TYPES

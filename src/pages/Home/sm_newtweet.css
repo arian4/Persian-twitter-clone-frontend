@@ -1,0 +1,106 @@
+.sm-newtweet-container{
+    height: 100vh;
+}
+.sm-newtweet-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding:  1rem;
+    border-bottom: 1px solid #f2f2f2;
+   
+    
+}
+.sm-tweet-btn{
+    border: none;
+    outline: none;
+    font-size: 10px;
+    background-color: #53c6e6;
+    color: #fff;
+    border-radius: 10px;
+    padding: 5px 7px;
+}
+.sm-newtweet-content{
+    padding: 1rem;
+    display: flex;
+    /* align-items: center; */
+    /* justify-content: space-between; */
+}
+.sm-newtweet-box{
+    border: 1px solid #cccc;
+    border-radius: 5px;
+    min-height: 120px;
+    flex: 1;
+}
+
+#sm-textarea{
+    width: 95%;
+    border: none;
+    outline: none;
+    padding: 4px;
+    background-color: transparent;
+    resize: none;
+    font-size: 11px;
+    
+}
+
+.sm-newtweet-image-wrapper{
+    position: relative;
+}
+.sm-newtweet-image-wrapper i{
+    position: absolute;
+    font-size: 15px;
+    color: #111;
+    top: 8px;
+    left: 25px;
+}
+.sm-tweet-image{
+    position: relative;
+    width: 90%;
+    height: 160px;
+    border-radius: 7px;
+    margin-right: 8px;
+    cursor: pointer;
+}
+.avatar-sm-usr{
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-left: 5px;
+    
+}
+.sm-newtweet-footer{
+    padding: 1rem;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.sm-newtweet-footer img{
+   margin-right: 5px;
+}
+
+.Toastify__toast-container {
+    text-align: right;
+    font-size: 13px;
+   
+}
+
+@media screen and (max-width : 480px) {
+    .Toastify__toast-container {
+        width: 80%;
+        text-align: right;
+        font-size: 13px;
+       
+    }
+    .Toastify__toast-body {
+        margin: auto 0;
+        flex: 1 1 auto;
+        padding: 5px 7px ;
+    }
+    .Toastify__toast {
+        margin-bottom: 15px;
+        min-height: 45px;
+        border-radius: 0;
+    }
+
+}

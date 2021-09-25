@@ -1,0 +1,27 @@
+.settings-wrapper-div{
+    display: flex;
+    margin: 1rem 0.3rem;
+    padding: 8px 3px;
+
+}
+.settings-label{
+    
+    font-size: 12px;
+    margin-left: auto;
+}
+.twitter-data{
+    transition: background 0.5s;
+}
+.twitter-data-dark{
+    transition: background 0.5s;
+}
+.twitter-data:hover{
+    cursor: pointer;
+    background-color: lightblue;
+}
+.twitter-data-dark:hover{
+    cursor: pointer;
+    background-color: #737373;
+}
+
+

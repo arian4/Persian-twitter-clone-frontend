@@ -1,0 +1,257 @@
+.profile-container{
+  flex: 1;
+}
+.profile-h{
+  margin: 0.5rem 0.2rem 0.5rem 0.5rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  
+  /* align-items: baseline; */
+  
+  
+  
+}
+.prof--image{
+  /* padding: 1rem; */
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  cursor: pointer;
+  
+}
+.prof-fullname{
+  padding-right: 1.5rem;
+  font-size: 18px;
+  
+  font-weight: bold;
+}
+.prof-username{
+  padding-right: 1.5rem;
+  font-size: 12px;
+  
+  
+}
+.bio{
+  padding-right: 1.5rem;
+  font-size: 12px;
+
+}
+.user-data{
+  
+  display: flex;
+  flex-grow: 1;
+  flex-direction: row-reverse;
+  justify-content: flex-start;
+  margin-left: 1rem;
+  
+}
+.user-data div{
+  
+  padding: 0.8rem 0.3rem;
+  direction: ltr;
+  flex-grow: 1;
+  font-size: 12px;
+  
+}
+.user-location{
+  display: flex;
+  align-items: center;
+  
+}
+.user-link{
+  display: flex;
+  
+  
+  align-items: center;
+}
+.user-joined{
+  display: flex;
+  
+  align-items: center;
+  
+  
+}
+
+
+.follow-btn {
+  
+  align-self: center;
+  cursor: pointer;
+  outline: none;
+  border: 1px solid rgb(0, 170, 238);
+  background-color: rgb(0, 170, 238);
+  border-radius: 20px;
+  padding: 8px 17px;
+  
+  
+  
+  color:#fff;
+  
+  font-size: 13px;
+  
+  
+
+  
+}
+
+.f-follow-btn{
+  align-self: center;
+  cursor: pointer;
+  outline: none;
+  border: 1px solid rgb(0, 170, 238);
+  background-color: #fff;
+  border-radius: 20px;
+  padding: 8px 17px;
+  
+  
+  
+  color:rgb(0, 170, 238);
+  
+  font-size: 13px;
+
+}
+
+.follow-btn:hover {
+ 
+  opacity: 0.8;
+  
+}
+.f-counter{
+  display: flex;
+  flex-direction: row-reverse;
+  margin-left: 1rem;
+  color:rgb(83, 100, 113) ; 
+  font-size: 13px;
+}
+.f-counter span{
+  margin: 0 10px 10px 10px;
+  direction: ltr;
+  cursor: pointer;
+  padding: 0;
+}
+.f-counter span:hover{
+  opacity: 0.8;
+  
+}
+@media screen and (max-width : 995px) {
+  .prof--image{
+    padding: 1rem;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    cursor: pointer;
+    
+  }
+  
+
+
+}
+
+@media screen and (max-width : 480px) {
+  .user-data div{
+    display: flex;
+    padding: 0.8rem 0.4rem;
+    direction: ltr;
+    flex-grow: 1;
+    font-size: 10px;
+    color:rgb(83, 100, 113) ;
+  }
+  .follow-btn {
+  
+    align-self: center;
+    cursor: pointer;
+    outline: none;
+    
+    border-radius: 8px;
+    padding: 6px 10px;
+    font-size: 12px;
+    margin-left: 1rem;
+    
+  }
+  .profile-h{
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /* align-items: baseline; */
+    
+    
+    
+  }
+  .prof-fullname{
+    padding-right: 0.5rem;
+    font-size: 14px;
+    
+    font-weight: bold;
+  }
+  .prof-username{
+    padding-right: 0.5rem;
+    font-size: 12px;
+    
+    color: rgb(83, 100, 113);
+  }
+  .bio{
+    padding-right: 0.5rem;
+    font-size: 10px;
+  
+  }
+  .f-counter{
+    font-size: 12px;
+    
+  }
+  
+
+
+}
+
+@media screen and (max-width : 281px) {
+  .user-data{
+  
+    display: flex;
+    flex-grow: 1;
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+    margin-left: 0;
+    
+  }
+  .user-data div{
+    display: flex;
+    padding: 0.8rem 0.15rem;
+    direction: ltr;
+    flex-grow: 1;
+    font-size: 8px;
+    color:rgb(83, 100, 113) ;
+  }
+  .follow-btn {
+  
+    align-self: center;
+    cursor: pointer;
+    outline: none;
+    
+    border-radius: 8px;
+    padding: 6px;
+    font-size: 10px;
+    margin-left: 00.4rem;
+    
+    
+  
+    
+  }
+  .profile-h{
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /* align-items: baseline; */
+    
+    
+    
+  }
+  .f-counter{
+    margin-left: 0.2rem;
+  }
+  
+
+
+}

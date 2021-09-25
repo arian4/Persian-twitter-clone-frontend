@@ -1,0 +1,101 @@
+.follow-btn {
+  
+    align-self: center;
+    cursor: pointer;
+    outline: none;
+    border: 2px solid rgb(0, 170, 238);
+    background-color: rgb(0, 170, 238); 
+    
+    border-radius: 20px;
+    padding: 8px 20px;
+    color:#fff;
+    font-size: 13px;
+}
+  
+.f-follow-btn{
+    align-self: center;
+    cursor: pointer;
+    outline: none;
+    border: 2px solid rgb(0, 170, 238); 
+      
+    
+    border-radius: 20px;
+    padding: 8px 17px;
+    
+    
+    
+    color:rgb(0, 170, 238); 
+    
+    font-size: 13px;
+  
+}
+.follow-btn-dark{
+  
+    align-self: center;
+    cursor: pointer;
+    outline: none;
+    border: 1px solid rgb(0, 170, 238);
+    background-color: #555;
+    border-radius: 20px;
+    padding: 8px 20px;
+    color:#fff;
+    font-size: 13px;
+}
+.f-follow-btn-dark{
+    align-self: center;
+    cursor: pointer;
+    outline: none;
+    border: 2px solid rgb(0, 170, 238); 
+      
+    
+    border-radius: 20px;
+    padding: 8px 17px;
+    background-color: #555;
+    color: #fff;
+    
+    
+    /* color:rgb(0, 170, 238);  */
+    
+    font-size: 13px;
+  
+}
+  
+.follow-btn:hover {
+   
+    opacity: 0.8;
+    
+}
+.follow-btn-dark:hover{
+    opacity: 0.8;
+}
+
+@media screen and (max-width : 480px) {
+    .follow-btn{
+        padding: 8px 10px;
+        font-size: 11px;
+        margin-left: 5px;
+    }
+    .f-follow-btn{
+        padding: 8px 10px;
+        font-size: 11px;
+        margin-left: 5px;
+    }
+    .follow-btn-dark{
+        padding: 8px 10px;
+        font-size: 11px;
+        margin-left: 5px;
+    }
+    .f-follow-btn-dark{
+        padding: 8px 10px;
+        font-size: 11px;
+        margin-left: 5px;
+    }
+    
+    
+    
+
+    
+    
+    
+    
+}

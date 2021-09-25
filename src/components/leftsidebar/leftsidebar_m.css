@@ -1,0 +1,33 @@
+.leftsidebar_M{
+    width: 80px;
+    
+    
+    border-right: 1px solid #ccc;
+    /* width: 120px; */
+    /* height: 100%; */
+    background-color: #fff;
+    
+}
+
+.ls-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.ls-container div{
+    border-radius: 50%;
+    /* background-color: lightblue; */
+    margin: 8px 4px;
+
+}
+.ls-container div:hover{
+    background-color: lightblue
+   
+
+}
+
+.ls-container div img{
+    padding: 8px;
+}

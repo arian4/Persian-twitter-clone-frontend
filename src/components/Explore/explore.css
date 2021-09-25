@@ -1,0 +1,31 @@
+.hashtags-trend{
+    width: 100%;
+    padding: 0.5rem 0.4rem 0.5rem 0.2rem;
+    border-bottom: 1px solid #f2f2f2;
+    transition: background 0.5s ease;
+    cursor: pointer;
+}
+.hashtags-trend-dark{
+    width: 100%;
+    padding: 0.5rem 0.4rem 0.5rem 0.2rem;
+    border-bottom: 0.5px solid #555;
+    transition: background 0.5s ease;
+    cursor: pointer;
+}
+.hashtags-trend:hover{
+    background-color: #f2f2f2;
+    
+}
+.hashtags-trend-dark:hover{
+    background-color: #555
+}
+
+.trend-hashtag-name{
+    font-size: 15px;
+    margin-bottom: 6px;
+
+}
+.trend-hashtag-count{
+    font-size: 11px;
+
+}

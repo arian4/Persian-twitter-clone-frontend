@@ -1,0 +1,30 @@
+.main-header{
+    display: flex;
+    flex-wrap: wrap;
+    padding: .4rem;
+    padding: 0.5rem 0.8rem 0.6rem 0.2rem;
+    border-bottom: 1px solid #ececec;
+    align-items: center;
+    
+}
+
+.iconImg{
+    width: 22px;
+    margin-left: 10px;
+}
+
+
+
+
+@media screen and (max-width : 480px) {
+    .header-title{
+        font-size: 12px;
+        
+    }
+    
+
+    
+    
+    
+    
+}

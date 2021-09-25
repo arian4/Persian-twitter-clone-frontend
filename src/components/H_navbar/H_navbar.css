@@ -1,0 +1,74 @@
+.h-header{
+    display: flex;
+    align-items: center;
+    /* margin-bottom: 10px; */
+    
+}
+.h-logo{
+    width: 60px;
+    height: 60px;
+    margin: 0.65rem;
+}
+.h-avatar-usr{
+    border-radius: 50%;
+    
+    width: 40px;
+    height: 40px;
+    margin-left: 10px;
+    
+}
+.hamburger{
+    
+    width: 25px;
+    margin-left: 8px;
+    cursor: pointer;
+    
+    
+}
+#h-username{
+    /* max-width: 50px; */
+    text-overflow: ellipsis;
+    
+    font-size: 10px;
+    margin: 4px 6px;
+    
+}
+.h-navbar{
+    direction: ltr;
+    display: flex;
+    width: 100%;
+    overflow-x: scroll;
+    border-bottom: 3px solid royalblue;
+    /* min-height: 90px; */
+}
+.h-user-prof{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 5px;
+    
+    
+}
+
+.h-avatar{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin: 2px 4px;
+    /* margin-right: 0.3rem; */
+    cursor: pointer;
+    
+    
+    
+}
+
+@media screen and (max-width : 480px) {
+    .h-logo{
+        width: 40px;
+        height: 40px;
+        margin: 0.4rem;
+    }
+    
+    
+}

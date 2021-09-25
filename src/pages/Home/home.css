@@ -1,0 +1,96 @@
+.main{
+    /* background-color: white; */
+    flex: 1;
+    height: 100vh;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    /* height: 100%; */
+    /* background-color: #21222d; */
+}
+.main::-webkit-scrollbar{
+    display: none;
+}
+
+#username{
+    min-width: 80px;
+    text-overflow: ellipsis;
+    padding: 0.1rem 0.35rem;
+    font-size: 0.7rem;
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media screen and (max-width : 480px) {
+    
+    
+    .tweet-header p{
+        font-size: 0.75rem;
+    }
+    .hidden span{
+        display: block;
+    }
+    
+    .tweet-body{
+        color: #222;
+        padding: 1rem 1rem 1rem 0.5rem;
+        font-size:12px;
+        cursor: pointer;
+        
+    }
+
+    .addtweetImg{
+        width: 85%;
+        margin: 1rem;
+        border-radius: 10px;
+    }
+    .retweet-body{
+        font-size: 11px;
+        text-align: justify;
+    }
+    .avatar-usr{
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        margin: 0.45rem;
+        cursor: pointer;
+        
+    }
+
+    .avatar{
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        margin: 0.45rem 0.2rem 0.45rem 0.45rem;
+        cursor: pointer;
+
+    }
+   
+    
+
+    
+    
+    
+    
+}
+
+
+
+
+@media screen and (max-width : 281px) {
+    .main-header{
+        padding: 0.5rem;
+    }
+    
+    
+}
