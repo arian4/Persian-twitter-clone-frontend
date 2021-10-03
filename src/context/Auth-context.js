@@ -12,7 +12,7 @@ export function AuthContextProvider({children}){
             'access_token':token
         })
             .then(function (response) {
-                console.log(response.data);
+                
                 // handle success
                 SetUserData(response.data)
                 
@@ -23,10 +23,7 @@ export function AuthContextProvider({children}){
                 // handle error
                 console.log(error);
             })
-            .then(function () {
-                console.log('user data :' , userData);
-                // always executed
-            });
+            
     }
     return(
         <AuthContext.Provider value={{...userData,Ispending,FetchUserData}}>

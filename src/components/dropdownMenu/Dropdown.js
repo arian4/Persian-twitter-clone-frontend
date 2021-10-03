@@ -5,18 +5,15 @@ import axios from 'axios';
 import { ThemeContext } from '../../context/Theme-context';
 import { AuthContext } from '../../context/Auth-context';
 
-function Dropdown() {
-    const token  = localStorage.getItem('access_token')
-    const {Fullname,image,Ispending,FetchUserData} = useContext(AuthContext)
+function Dropdown({current_user_username, current_user_Fullname , current_user_image}) {
+    
+    const {Ispending} = useContext(AuthContext)
     
     // console.log(Theme);
     const {IsLightTheme,Reset} = useContext(ThemeContext)
-    const [profileImg,setprofileImg] = useState(Ispending?'/images/person.png':image)
+    const [profileImg,setprofileImg] = useState(Ispending?'/images/person.png':current_user_image)
     const history = useHistory()
-    // const getprofileImg = () =>{
-    //     FetchUserData(token)
-    //     setprofileImg(userData.image)
-    // }
+    
     
     
     const showDropdown = () =>{
@@ -72,20 +69,16 @@ function Dropdown() {
         
 
     }
-    useEffect(() => {
-        FetchUserData(token)
-        
-       
-    }, [])
+    
     
     return (
         <>
-        <img src={Ispending?'/images/person.png':image} alt={'avatar-usr'} className={"d-avatar-usr"} onClick={showDropdown}></img>
+        <img src={Ispending?'/images/person.png':current_user_image} alt={'avatar-usr'} className={"d-avatar-usr"} onClick={showDropdown}></img>
         <div id={"myDropdown"} >
                     
                     
                 <div className={IsLightTheme?"dropdown-content":'dropdown-content-dark'}>
-                    {!Ispending && <p >{Fullname}</p>}
+                    {!Ispending && <p >{current_user_Fullname}</p>}
                     
                     <hr></hr>
 
@@ -101,13 +94,10 @@ function Dropdown() {
                         </span>
                         
                     </p>
-                    {/* <p onClick={handleTheme}>  
-                        تغییر تم ({themeType})
-                        
-                    </p> */}
                     
                     
-                    <p>< Link style={{'color':IsLightTheme?'#111':'#adbac7'}} to={'/username/'+localStorage.getItem('username')}>توییت های شما</ Link></p>
+                    
+                    <p>< Link style={{'color':IsLightTheme?'#111':'#adbac7'}} to={`/username/${current_user_username}`}>توییت های شما</ Link></p>
                     <p style={{color:'red'}} onClick={LogOut}>خروج</p>
                 </div> 
                 

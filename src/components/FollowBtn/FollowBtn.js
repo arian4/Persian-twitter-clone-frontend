@@ -5,7 +5,10 @@ import { ThemeContext } from '../../context/Theme-context'
 import classnames from 'classnames'
 import { UserProfileContext } from '../../context/User-profile-context'
 
-export default function FollowBtn({data}) {
+
+export default function FollowBtn({data,current_user_id}) {
+    
+    
     const {IsLightTheme} = useContext(ThemeContext)
     
     const[checkFollowStatus,setcheckFollowStatus] = useState('Follow')
@@ -13,24 +16,26 @@ export default function FollowBtn({data}) {
     const[followBtnClass,setfollowBtnClass] = useState(IsLightTheme?'follow-btn':'follow-btn-dark')
     const[showButton,setshowButton] = useState(true)
     
+    
     // console.log(data);
     useEffect(() => {
         
         
-        if(data.Followers.includes(parseInt(localStorage.getItem('id')))){
-            console.log('includes USER');
+        console.log('current_user_id :' , current_user_id)
+        if(data.Followers.includes(current_user_id)){
             setfollowBtnClass(IsLightTheme?'f-follow-btn':'f-follow-btn-dark')
             setcheckFollowStatus('Following')
 
     }else{
-        console.log('not includes USER ');
+        
+        
         setfollowBtnClass(IsLightTheme?'follow-btn':'follow-btn-dark')
         setcheckFollowStatus('Follow')
 
     }
     
     // #########################
-    if(data.id===parseInt(localStorage.getItem('id'))){
+    if(data.id === current_user_id){
         setshowButton(false)
     }else{
         setshowButton(true)
@@ -38,11 +43,12 @@ export default function FollowBtn({data}) {
     // console.log(followBtnClass);
         
     }, [JSON.stringify(data),IsLightTheme])
+    
     const handleFollowBtn  = (e)=>{
         
         axios.post('http://127.0.0.1:8000/twitter/api/users/', {
             'owner_Id': data.id,
-            'user_Id'  : parseInt(localStorage.getItem('id')) ,
+            'user_Id'  : current_user_id ,
             
           })
           .then(function (response) {
@@ -50,7 +56,6 @@ export default function FollowBtn({data}) {
               if(e.target.classList.contains(IsLightTheme?'follow-btn':'follow-btn-dark')){
                 e.target.classList.remove(IsLightTheme?'follow-btn':'follow-btn-dark')
                 e.target.classList.add(IsLightTheme?'f-follow-btn':'f-follow-btn-dark')
-                // set_Followers_counter(Followers_counter+1)
                 
                 setcheckFollowStatus('Following')
             }else{

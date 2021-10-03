@@ -4,11 +4,11 @@ import Newtweet from './newtweet'
 import Header from './header'
 import Tweet from './tweet'
 import axios from 'axios'
-import { useTweetDispatch, useTweetState,setTweets,setHashtags} from '../../conext/TweetContext'
+import { useTweetDispatch, useTweetState,setTweets,setHashtags} from '../../context/TweetContext'
 import useFetch from '../../components/useFetch/useFetch'
 import TabList from '../../components/TabList/TabList'
 import SORT_TYPES from '../../constant/sort_type'
-import { ThemeContext } from '../../conext/Theme-context'
+import { ThemeContext } from '../../context/Theme-context'
 import { useMediaQuery } from 'react-responsive'
 import { AuthContext } from '../../context/Auth-context'
 
@@ -18,7 +18,7 @@ function Home() {
     const token  = localStorage.getItem('access_token')
     
     const {IsLightTheme} = useContext(ThemeContext)
-    const {username,FetchUserData} = useContext(AuthContext)
+    const {username} = useContext(AuthContext)
     
     // console.log("🚀 ~ file: home.js ~ line 19 ~ Home ~ Theme", IsLightTheme, dark, light)
     
@@ -36,7 +36,7 @@ function Home() {
     
     useEffect(() => {
         setTweets(tweetDispatch,data)
-        FetchUserData(token)
+        
         
     }, [JSON.stringify(data)])
     
@@ -78,7 +78,7 @@ function Home() {
     }
 
     const updateHashtags = () =>{
-        axios.get('http://127.0.0.1:8000/twitter/api/hashtags/')
+        axios.get('http://127.0.0.1:8000/twitter/api/hashtags')
         .then(function (response) {
             // handle success
             
@@ -150,7 +150,7 @@ function Home() {
                     const checkRetweet = Retweeted_tweets.some(R => R.tweet.id === twt.id);
                     let IsLiked = checkLikes?true:false
                     let IsRetweeted = checkRetweet?true:false
-                    return <Tweet  twtId={twt.id} senderId={twt.sender.id} id={twt.sender.username} username={twt.sender.Fullname} image={twt.sender.image} tweet={twt.Text} likes = {twt.likes} key={twt.id} twtImg={twt.image} Liked_tweet={IsLiked} IsRetweet={twt.IsRetweet} IsRetweeted={IsRetweeted} retweets={twt.retweets}   />
+                    return <Tweet key={twt.id}  twtId={twt.id} senderId={twt.sender.id} id={twt.sender.username} username={twt.sender.Fullname} image={twt.sender.image} tweet={twt.Text} likes = {twt.likes} key={twt.id} twtImg={twt.image} Liked_tweet={IsLiked} IsRetweet={twt.IsRetweet} IsRetweeted={IsRetweeted} retweets={twt.retweets}   />
                 })
             }
             

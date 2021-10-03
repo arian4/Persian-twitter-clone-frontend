@@ -8,18 +8,16 @@ import { AuthContext } from '../../context/Auth-context';
 
 function Tweetbyhashtag(props) {
     // window.scrollTo({ top: 0});
-    const token  = localStorage.getItem('access_token')
-    const {username,FetchUserData} = useContext(AuthContext)
+    
+    const {username} = useContext(AuthContext)
     const {tweets} = useTweetState()
     const tweetDispatch = useTweetDispatch()
     
     const {data , ispending , error } = useFetch('http://127.0.0.1:8000/twitter/api/tweets/')
     const { data:handleLike } = useFetch('http://127.0.0.1:8000/twitter/api/handlelike/')
     const { data:handleRetweet } = useFetch('http://127.0.0.1:8000/twitter/api/retweets/')
+    
     useEffect(() => {
-        FetchUserData(token)
-
-        
         setTweets(tweetDispatch,data)
     }, [JSON.stringify(data)])
     

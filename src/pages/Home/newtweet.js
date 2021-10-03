@@ -1,16 +1,16 @@
-import React, { useState,useRef,useContext,useEffect} from 'react'
+import React, { useState,useRef,useContext} from 'react'
+import './homecss/newtweet.css'
+import 'react-toastify/dist/ReactToastify.css';
 import classnames from 'classnames'
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { useTweetDispatch, useTweetState,setnewTweets,setRetweet,setTweets } from '../../conext/TweetContext';
-import { ThemeContext } from '../../conext/Theme-context';
-import './homecss/newtweet.css'
+import { useTweetDispatch, useTweetState,setnewTweets,setRetweet,setTweets } from '../../context/TweetContext';
+import { ThemeContext } from '../../context/Theme-context';
 import { AuthContext } from '../../context/Auth-context';
 
 function Newtweet({updateTweets,AddHashtags}) {
-    const token  = localStorage.getItem('access_token')
-    const {image,Ispending,FetchUserData} = useContext(AuthContext)
+    
+    const {image,Ispending} = useContext(AuthContext)
     const {IsLightTheme, dark, light} = useContext(ThemeContext)
     const [addtweetImg,setaddtweetImg] = useState('')
     const [sendtwtImg,setsendtwtImg] = useState('')
@@ -29,9 +29,7 @@ function Newtweet({updateTweets,AddHashtags}) {
     //     return userData.image
 
     // }
-    useEffect(() => {
-        FetchUserData(token)
-    }, [])
+    
     const newtweetclick = () =>{
         
         
@@ -41,7 +39,7 @@ function Newtweet({updateTweets,AddHashtags}) {
             return false;
         }
         const formData = new FormData()
-        formData.append('sender_username',localStorage.getItem('username'))
+        formData.append('access_token',localStorage.getItem('access_token'))
         formData.append('Text',newtweet)
         if(sendtwtImg){
             formData.append('image',sendtwtImg)
@@ -53,7 +51,7 @@ function Newtweet({updateTweets,AddHashtags}) {
         if(retweet){
             formData.append('retweet',true)
             formData.append('retweet_id',retweet['retweet_id'])
-            formData.append('user',localStorage.getItem('username'))
+            formData.append('user',localStorage.getItem('access_token'))
             
         }else{
             formData.append('retweet',false)

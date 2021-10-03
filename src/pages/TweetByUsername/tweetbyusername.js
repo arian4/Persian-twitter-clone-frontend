@@ -1,4 +1,4 @@
-import React,{useEffect,useContext} from 'react'
+import React,{useContext} from 'react'
 import Header from '../Home/header'
 import Tweet from '../Home/tweet'
 import '../Home/home.css'
@@ -10,8 +10,8 @@ import { AuthContext } from '../../context/Auth-context';
 
 
 function Tweetbyusername(props) {
-    const token  = localStorage.getItem('access_token')
-    const {username:current_user,FetchUserData} = useContext(AuthContext)
+    
+    const {username:current_user} = useContext(AuthContext)
     // window.scrollTo({ top: 0});
     const {IsLightTheme} = useContext(ThemeContext)
     
@@ -26,9 +26,7 @@ function Tweetbyusername(props) {
     const Retweeted_tweets = handleRetweet.filter((item)=>item.user.username.includes(current_user) && !item.IsEdited)
     // ############################
 
-    useEffect(() => {
-        FetchUserData(token)
-    }, [])
+    
     
     
     return (
@@ -52,7 +50,7 @@ function Tweetbyusername(props) {
                     let IsLiked = checkLikes?true:false
                     
                     return(
-                        <Tweet twtId={twt.tweet.id} id={twt.tweet.sender.username} username={twt.tweet.sender.Fullname} image={twt.tweet.sender.image} tweet={twt.tweet.Text} likes={twt.tweet.likes} twtImg={twt.tweet.image} Liked_tweet={IsLiked} IsRetweeted ={IsRetweeted }  IsRetweet={twt.tweet.IsRetweet} retweets={twt.tweet.retweets} retweetFlag={twt.user} retweet_id={twt.id} />
+                        <Tweet key={twt.tweet.id} twtId={twt.tweet.id} id={twt.tweet.sender.username} username={twt.tweet.sender.Fullname} image={twt.tweet.sender.image} tweet={twt.tweet.Text} likes={twt.tweet.likes} twtImg={twt.tweet.image} Liked_tweet={IsLiked} IsRetweeted ={IsRetweeted }  IsRetweet={twt.tweet.IsRetweet} retweets={twt.tweet.retweets} retweetFlag={twt.user} retweet_id={twt.id} />
                     )
                 })}
                 {!ispending && !!( data.tweets.length > 0 ) && data.tweets.map(twt =>{
@@ -63,7 +61,7 @@ function Tweetbyusername(props) {
                     let IsRetweeted = checkRetweet?true:false
                     let IsLiked = checkLikes?true:false
                     return(
-                        <Tweet twtId={twt.id} id={twt.sender.username} username={twt.sender.Fullname} image={twt.sender.image} tweet={twt.Text} likes={twt.likes} twtImg={twt.image} Liked_tweet={IsLiked} IsRetweeted={IsRetweeted} IsRetweet={twt.IsRetweet} retweets={twt.retweets} />
+                        <Tweet key={twt.id} twtId={twt.id} id={twt.sender.username} username={twt.sender.Fullname} image={twt.sender.image} tweet={twt.Text} likes={twt.likes} twtImg={twt.image} Liked_tweet={IsLiked} IsRetweeted={IsRetweeted} IsRetweet={twt.IsRetweet} retweets={twt.retweets} />
                     )
                 })}
 

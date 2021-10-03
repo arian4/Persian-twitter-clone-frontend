@@ -5,18 +5,20 @@ import axios from 'axios'
 import './followpage.css'
 import FollowBtn from '../../components/FollowBtn/FollowBtn';
 import { ThemeContext } from '../../context/Theme-context';
+import { AuthContext } from './../../context/Auth-context';
+
 export default function FollowPage(props) {
+    const {id} = useContext(AuthContext)
     const {IsLightTheme, dark, light} = useContext(ThemeContext)
     window.scrollTo({ top: 0});
     const history = useHistory()
     const user = props.match.params['username']
     const type = props.match.params['type']
-    console.log(type);
+    
     const[data,setdata] = useState([])
     const checkUser=(e,user)=>{
-        // console.log(e);
-        // console.log(user);
-        // console.log(e.currentTarget.classList.contains('followBtn-I'));
+        
+        
         if(!e.target.classList.contains('followBtn-I')){
             
             history.push('/username/'+user.username)
@@ -29,7 +31,7 @@ export default function FollowPage(props) {
         let sorted_data = []
         let other_data = []
         data.forEach(element => {
-            if(element.Followers.includes(parseInt(localStorage.getItem('id')))){
+            if(element.Followers.includes(id)){
                 sorted_data.push(element)
             }else{
                 other_data.push(element)
@@ -41,16 +43,10 @@ export default function FollowPage(props) {
     
     
     useEffect(() => {
-        axios.get('http://127.0.0.1:8000/twitter/api/'+user+'/'+type)
+        axios.get(`http://127.0.0.1:8000/twitter/api/${user}/${type}`)
         .then(function (response) {
             // handle success
             setdata(sort_by_followings(response.data))
-            
-            
-
-            
-            
-           
         })
         .catch(function (error) {
             // handle error
@@ -70,10 +66,14 @@ export default function FollowPage(props) {
                                 <img src={user.image} alt='follow-pic-alt' className={'follow-pic'}></img>
                                 
                                 <span className={'follow-user'} style={{color:IsLightTheme?'#111':dark.color}}>@{user.username}</span>
-                                <span style={{marginLeft:'auto',marginRight:'20px'}}>
-                                    <FollowBtn data={user} />
+                                {user.id !==id ?
+                                    <span style={{marginLeft:'auto',marginRight:'20px'}}>
+                                        <FollowBtn data={user} current_user_id = {id} />
 
-                                </span>
+                                    </span>
+                                    :null
+
+                                }
                                 
                             </div>
 

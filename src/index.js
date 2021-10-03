@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import { AuthContextProvider } from './conext/Auth-context';
+import { AuthContextProvider } from './context/Auth-context';
 import { ThemeProvider } from './context/Theme-context';
 import { TweetProvider } from './context/TweetContext';
 import { UserProfileProvider } from './context/User-profile-context';

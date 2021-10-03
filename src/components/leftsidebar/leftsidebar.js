@@ -1,4 +1,3 @@
-
 import React,{useState,useContext,useEffect} from 'react'
 import './leftsidebar.css'
 import useFetch from '../useFetch/useFetch';
@@ -10,14 +9,14 @@ import { AuthContext } from '../../context/Auth-context';
 
 
 function Leftsidebar() {
-    const token  = localStorage.getItem('access_token')
-    const {username,Ispending,FetchUserData} = useContext(AuthContext)
+    
+    const {Fullname,username,image,Ispending} = useContext(AuthContext)
     
     const {IsLightTheme, dark, light} = useContext(ThemeContext)
     const [Notifications, setNotifications] = useState([])
     const [showCounter, setshowCounter] = useState(false)
     const getNotifications = () =>{
-        axios.get('http://127.0.0.1:8000/twitter/api/notifications/'+localStorage.getItem('username'))
+        axios.get(`http://127.0.0.1:8000/twitter/api/notifications/${username}`)
         .then(function (response) {
             // handle success
             
@@ -57,9 +56,7 @@ function Leftsidebar() {
         
         
     }
-    useEffect(() => {
-        FetchUserData(token)
-    }, [])
+    
 
     
     
@@ -77,7 +74,7 @@ function Leftsidebar() {
                 <div style={{display:'flex'}}>
 
                     
-                    <Dropdown />
+                    <Dropdown current_user_username = {username} current_user_Fullname = {Fullname} current_user_image = {image} />
 
                 </div>
                 

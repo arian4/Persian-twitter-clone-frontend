@@ -1,24 +1,23 @@
-import React,{useState,useEffect,useContext} from 'react'
+import React,{useEffect,useContext} from 'react'
 import  { useHistory} from 'react-router-dom'
 import './userprofile.css'
-import axios from 'axios'
 import FollowBtn from '../FollowBtn/FollowBtn'
 import { ThemeContext } from '../../context/Theme-context'
 import { UserProfileContext } from '../../context/User-profile-context'
+import { AuthContext } from '../../context/Auth-context'
 export default function User_profile({user_data}) {
+    
     const history = useHistory()
     const {IsLightTheme, dark, light} = useContext(ThemeContext)
     const{Fullname,username,image,Followers,Followings,objectData,handleUserData,Ispending} = useContext(UserProfileContext)
     
     
-    // const Followings_counter = useRef()
-    // const Followers_counter = useRef()
+    const {id,Ispending:current_user_pending} = useContext(AuthContext)
     
-    
-    
-    
+
     useEffect(() => {
         handleUserData(user_data)
+        
         
         
         
@@ -37,23 +36,24 @@ export default function User_profile({user_data}) {
     return (
         
         <>
-            {
-                Ispending? <div className='loader'></div>:<div className={'profile-container'} style={{color:IsLightTheme?light.color:dark.color}} >
-                            <div className={'profile-h'}>
-                                <img src={image} alt={'prof--image'} className={'prof--image'}></img>
-                                <FollowBtn data={objectData} /> 
-                                
+            {Ispending && current_user_pending && <div className='loader'></div> }
+            {!Ispending && !current_user_pending &&
+                    <div className={'profile-container'} style={{color:IsLightTheme?light.color:dark.color}} >
+                    <div className={'profile-h'}>
+                        <img src={image} alt={'prof--image'} className={'prof--image'}></img>
+                        <FollowBtn data={objectData} current_user_id = {id} /> 
+                        
 
-                                
-                                
+                        
                         
                 
-                        
+        
+                
 
-                            </div>
-                            <p className={'prof-fullname'}>{Fullname}</p>
-                            <p className={'prof-username'} style={{color:IsLightTheme?'rgb(83, 100, 113)':'#0097a7'}}>@{username}</p>
-                            <p className={'bio'}>به صفحه رسمی من در توییتر فارسی خوش آمدید</p>
+                    </div>
+                    <p className={'prof-fullname'}>{Fullname}</p>
+                    <p className={'prof-username'} style={{color:IsLightTheme?'rgb(83, 100, 113)':'#0097a7'}}>@{username}</p>
+                    <p className={'bio'}>به صفحه رسمی من در توییتر فارسی خوش آمدید</p>
 
                     <div className={'user-data'}>
                         <div className={'user-location'}>
@@ -79,8 +79,10 @@ export default function User_profile({user_data}) {
                         <span style={{color:IsLightTheme?'rgb(83, 100, 113)':dark.color}} onClick={check_followings}><b>{Followings.length}</b> Followings</span>
                         <span style={{color:IsLightTheme?'rgb(83, 100, 113)':dark.color}} onClick={check_followers}><b>{Followers.length}</b> Followers</span>
                     </div>
-            </div>
+                </div>
+
             }
+            
         
             
         
