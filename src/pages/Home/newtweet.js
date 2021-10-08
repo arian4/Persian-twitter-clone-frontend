@@ -2,13 +2,14 @@ import React, { useState,useRef,useContext} from 'react'
 import './homecss/newtweet.css'
 import 'react-toastify/dist/ReactToastify.css';
 import classnames from 'classnames'
-import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
-import { useTweetDispatch, useTweetState,setnewTweets,setRetweet,setTweets } from '../../context/TweetContext';
+import { useTweetDispatch, useTweetState,setnewTweets,setRetweet,setTweets,setHashtags } from '../../context/TweetContext';
 import { ThemeContext } from '../../context/Theme-context';
 import { AuthContext } from '../../context/Auth-context';
+import { newTweetRequest , getAllTweets, AddHashtags, updateHashtags } from '../../api/api_tweet';
 
-function Newtweet({updateTweets,AddHashtags}) {
+
+function Newtweet() {
     
     const {image,Ispending} = useContext(AuthContext)
     const {IsLightTheme, dark, light} = useContext(ThemeContext)
@@ -23,12 +24,7 @@ function Newtweet({updateTweets,AddHashtags}) {
     
     const {newtweet,retweet} = useTweetState()
     const TweetDispatch = useTweetDispatch()
-    // console.log('retweet',retweet);
-    // const getprofileImg = ()=>{
-    //     FetchUserData(token)
-    //     return userData.image
-
-    // }
+    
     
     const newtweetclick = () =>{
         
@@ -57,45 +53,48 @@ function Newtweet({updateTweets,AddHashtags}) {
             formData.append('retweet',false)
 
         }
-
-        axios.post('http://127.0.0.1:8000/twitter/api/tweets/', formData
-            
-            
-          )
-          .then(function (response) {
-            console.log(response.data);
-            
-            const tweetId = response.data['id']
-            
+        
+        newTweetRequest(formData,(isOk,data)=>{
+            if(!isOk){
+                toast.error('توییت شما ارسال نگردید !!!')
+                return false
+            }
             toast.success("توییت شما با موفقیت ارسال گردید");
-            updateTweets()
-            // setTweets(TweetDispatch,updated_tweets)
             
-            
-            setnewTweets(TweetDispatch,'')
-            UTextarea.current.value = ''
-            setaddtweetImg('')
-            setsendtwtImg(false)
-            setRetweet(TweetDispatch,'')
-            return tweetId 
-            
-            
-            
-            
+            getAllTweets((isOk,data)=>{
+                if(!isOk){
+                    toast.warn('مشکلی در بروزرسانی توییت ها پیش آمده !')
+                    return
+                }
+                setTweets(TweetDispatch,data)
+                toast.success('توییت ها با موفقیت بروزرسانی شدند')
+                setnewTweets(TweetDispatch,'')
+                UTextarea.current.value = ''
+                setaddtweetImg('')
+                setsendtwtImg(false)
+                setRetweet(TweetDispatch,'')
             })
-            .then(function (tweetId) {
-                
-                
-                AddHashtags(tweetId)
-                
+            if(newtweet.includes('#')){
+                AddHashtags(data.id,(isOk)=>{
+                    if(!isOk){
+                        toast.warn('مشکلی در اضافه شدن هشتگ ها به دیتابیس پیش آمده !!!')
+                        return
+                    }
+                    toast('هشتگ های توییت با موفقیت اضافه شدند')
+                })
+            }
+            updateHashtags((isOk,data)=>{
+                if(!isOk){
+                    toast.warn('مشکلی در بروزرسانی هشتگ ها پیش آمده')
+                    return
+                }
+                setHashtags(TweetDispatch,data)
             })
+
             
-                
-          .catch(function (error) {
-            console.log(error);
-            toast.error('توییت شما ارسال نشد !!!')
-            
-          });
+        })
+
+        
         
           
         

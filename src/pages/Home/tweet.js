@@ -8,6 +8,8 @@ import { ThemeContext } from '../../context/Theme-context';
 import './homecss/tweet.css'
 import { heartIcon, QuoteTweetIcon, retweetIcon } from './icons';
 import { DeleteRetweetRequest, newRetweetRequest } from '../../api/api_tweet';
+import { AuthContext } from './../../context/Auth-context';
+import { DeleteTweetRequest, updateHashtags } from './../../api/api_tweet';
 
 
 
@@ -15,7 +17,7 @@ function Tweet({twtId,id,username,image,tweet,likes,twtImg,Liked_tweet,IsRetweet
     const history = useHistory()
     const {IsLightTheme, dark, light} = useContext(ThemeContext)
     // const {Theme} = useContext(ThemeContext)
-    
+    const {username:current_user_username} = useContext(AuthContext)
     const RenderTweet =(text)=>{
     
         
@@ -101,7 +103,7 @@ function Tweet({twtId,id,username,image,tweet,likes,twtImg,Liked_tweet,IsRetweet
         const formData = new FormData()
         formData.append('tweet_id',twtId)
         
-        newRetweetRequest(formData,localStorage.getItem('username'),(isOk)=>{
+        newRetweetRequest(formData,current_user_username,(isOk)=>{
             if(!isOk){
                 retweet_btn.current.style.color = '#111'
                 return alert('ری توییت شما ارسال نشد !!!!')
@@ -151,7 +153,7 @@ function Tweet({twtId,id,username,image,tweet,likes,twtImg,Liked_tweet,IsRetweet
             setisToggled(false)
         }
         
-        if (localStorage.getItem('username')==id){
+        if (current_user_username==id){
             setcheckPermissions(true)
         }
         
@@ -162,20 +164,20 @@ function Tweet({twtId,id,username,image,tweet,likes,twtImg,Liked_tweet,IsRetweet
         
         history.push('/tweet/status/'+retweets.tweet.id)
     }
-    const updateHashtags = () =>{
-        axios.get('http://127.0.0.1:8000/twitter/api/hashtags/')
-        .then(function (response) {
-            // handle success
-            console.log('hashtags updated ...');
-            console.log(response.data);
-            setHashtags(TweetDispatch,response.data)
-        })
-        .catch(function (error) {
-            // handle error
-            console.log(error);
-        })
+    // const updateHashtags = () =>{
+    //     axios.get('http://127.0.0.1:8000/twitter/api/hashtags/')
+    //     .then(function (response) {
+    //         // handle success
+    //         console.log('hashtags updated ...');
+    //         console.log(response.data);
+    //         setHashtags(TweetDispatch,response.data)
+    //     })
+    //     .catch(function (error) {
+    //         // handle error
+    //         console.log(error);
+    //     })
         
-    }
+    // }
     
 
     const AddHashtags = () =>{
@@ -185,7 +187,7 @@ function Tweet({twtId,id,username,image,tweet,likes,twtImg,Liked_tweet,IsRetweet
           })
           .then(function (response) {
               console.log(response.data);
-              updateHashtags()
+            //   updateHashtags()
             
           })
           .catch(function (error) {
@@ -198,7 +200,7 @@ function Tweet({twtId,id,username,image,tweet,likes,twtImg,Liked_tweet,IsRetweet
     const handleDelete = ()=>{
         Swal.fire({
             
-            text: "آیا از حذف توییت اطمینان داردید؟",
+            text: "آیا از حذف توییت اطمینان دارید؟",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -208,35 +210,38 @@ function Tweet({twtId,id,username,image,tweet,likes,twtImg,Liked_tweet,IsRetweet
           }).then((result) => {
               
             if (result.isConfirmed) {
-                    axios.delete('http://127.0.0.1:8000/twitter/api/tweets/', {
-                        data:{'twtId':twtId}
-                    
-                    
-                    })
-                    .then(function (response) {
-                        
-                        let current_tweets = (tweets.filter((item => item.id !== twtId)));
-                        
-                        setTweets(TweetDispatch,current_tweets)
-                        if(tweet.includes("#")){
+                DeleteTweetRequest(twtId , (isOk)=>{
+                    if(!isOk){
+                        Swal.fire({
+                            text:"توییت مورد نظر حذف نگردید !!!",
+                            icon:'error',
+                            confirmButtonText:'متوجه شدم!',
+                            confirmButtonColor:'tomato'
+                        })
+                        return
+                    }
+                    let current_tweets = (tweets.filter((item => item.id !== twtId)));
+                    setTweets(TweetDispatch,current_tweets)
+
+                    if(tweet.includes("#")){
                                 
-                            updateHashtags()
-                        }
-                        
-                    
-                        setisToggled(false)
-                    })
-                   
-                    .catch(function (error) {
-                        console.log(error);
-                    });
+                        updateHashtags((isOk)=>{
+                            if(!isOk){
+                                alert('مشکلی در بروزرسانی هشتگ ها پیش آمده !')
+                                return
+                            }
+                        })
+                    }
+                    setisToggled(false)
 
                     Swal.fire({
-                    text : 'توییت مورد نظر با موفقیت حذف گردید',
-                    icon: 'success',
-                    confirmButtonText: 'تایید',
-
+                        text : 'توییت مورد نظر با موفقیت حذف گردید',
+                        icon: 'success',
+                        confirmButtonText: 'تایید',
+    
                     })
+                })
+                
                     
                 
                 }
@@ -279,7 +284,7 @@ function Tweet({twtId,id,username,image,tweet,likes,twtImg,Liked_tweet,IsRetweet
                     }else{
                         axios.post('http://127.0.0.1:8000/twitter/api/edit-comment/',{
                             'twtId':twtId,
-                            'new_text':result.value
+                            'Text':result.value
                         }).then(function (response){
                             console.log(response.data);
                             if(result.value.includes("#")){

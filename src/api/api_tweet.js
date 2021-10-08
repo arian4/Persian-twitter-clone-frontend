@@ -16,12 +16,48 @@ export const getAllTweets = (callback)=>{
 export const newTweetRequest = (data,callback)=>{
     getAxiosInstance().post('tweets/',data)
     .then(response => {
+        const data = response.data
+        callback(true,data)
+    })
+    .catch(error =>{
+        console.log(error);
+        callback(false)
+    })
+}
+export const DeleteTweetRequest = (tweetId,callback)=>{
+    getAxiosInstance().delete('tweets/',{ data: { 'twtId': tweetId }})
+    .then(response => {
+        const data = response.data
+        callback(true,data)
+    })
+    .catch(error =>{
+        console.log(error);
+        callback(false)
+    })
+}
+export const AddHashtags = (tweetId,callback)=>{
+    getAxiosInstance().post('addhashtags/',{
+        newtweetId : tweetId
+    })
+    .then(response => {
         // const data = response.data
         callback(true)
     })
     .catch(error =>{
         console.log(error);
         callback(false)
+    })
+}
+export const updateHashtags = (callback)=>{
+    getAxiosInstance().get('hashtags')
+    .then(response => {
+        const data = response.data
+        callback(true,data)
+        
+    })
+    .catch(error =>{
+        console.log(error);
+        callback(false,error)
     })
 }
 //###################################################

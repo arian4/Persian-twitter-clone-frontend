@@ -3,8 +3,7 @@ import './home.css'
 import Newtweet from './newtweet'
 import Header from './header'
 import Tweet from './tweet'
-import axios from 'axios'
-import { useTweetDispatch, useTweetState,setTweets,setHashtags} from '../../context/TweetContext'
+import { useTweetDispatch, useTweetState,setTweets} from '../../context/TweetContext'
 import useFetch from '../../components/useFetch/useFetch'
 import TabList from '../../components/TabList/TabList'
 import SORT_TYPES from '../../constant/sort_type'
@@ -15,7 +14,7 @@ import { AuthContext } from '../../context/Auth-context'
 
 
 function Home() {
-    const token  = localStorage.getItem('access_token')
+   
     
     const {IsLightTheme} = useContext(ThemeContext)
     const {username} = useContext(AuthContext)
@@ -58,72 +57,11 @@ function Home() {
 
     
     
-    
-   
-    const updateTweets = () =>{
-        axios.get('http://127.0.0.1:8000/twitter/api/tweets/')
-        .then(function (response) {
-            // handle success
-            console.log('tweets updated ...');
-            setTweets(tweetDispatch,response.data)
-        })
-        .catch(function (error) {
-            // handle error
-            console.log(error);
-        })
-        .then(function () {
-            
-            // always executed
-        })
-    }
-
-    const updateHashtags = () =>{
-        axios.get('http://127.0.0.1:8000/twitter/api/hashtags')
-        .then(function (response) {
-            // handle success
-            
-            console.log(response.data);
-            console.log('hashtags updated ...');
-            setHashtags(tweetDispatch,response.data)
-        })
-        .catch(function (error) {
-            // handle error
-            console.log(error);
-        })
-        .then(function () {
-            
-            // always executed
-        })
-    }
-    const AddHashtags = (newtweetId) =>{
-        axios.post('http://127.0.0.1:8000/twitter/api/addhashtags/', {
-            'newtweetId': newtweetId,
-            
-          })
-          .then(function (response) {
-              console.log(response.data);
-              updateHashtags()
-            
-          })
-          .catch(function (error) {
-            console.log(error);
-            
-        });
-
-    }
-
-    
-
-    
-    
     const Liked_tweet = handleLike.filter((item => item.senders.includes(username)))
     const Retweeted_tweets = handleRetweet.filter((item)=>item.user.username.includes(username) && !item.IsEdited)
     
     
     
-    
-    
-
     return (
         
 
@@ -134,7 +72,7 @@ function Home() {
             <Header title={'خانه'} icon={IsLightTheme?'/images/home-page.png':'/images/home-page-w.png'} />
             
             
-            {!isMobileDevice && <Newtweet updateTweets = {updateTweets} AddHashtags={AddHashtags} /> }
+            {!isMobileDevice && <Newtweet /> }
             
             
             

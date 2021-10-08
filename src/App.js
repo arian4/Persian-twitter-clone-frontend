@@ -1,10 +1,10 @@
-import React,{useEffect,useContext} from 'react'
+import React from 'react'
 import Layout from './components/layout/layout'
 import Page404 from './pages/404/Page404'
 import Home from './pages/Home/home'
 import Tweetbyhashtag from './pages/TweetByHashtag/tweetbyhashtag'
 import Tweetbyusername from './pages/TweetByUsername/tweetbyusername'
-import {BrowserRouter,Route,Switch,Redirect} from 'react-router-dom'
+import {BrowserRouter,Route,Switch,Redirect,useHistory} from 'react-router-dom'
 import LoginPage from './pages/Auth/Login/LoginPage'
 import Register from './pages/Auth/Register/Register'
 import TweetInfo from './pages/TweetInfo/TweetInfo'
@@ -13,29 +13,19 @@ import TweetLikes from './pages/TweetLikes/TweetLikes'
 import Settings from './components/settings/Settings'
 import Sm_newtweet from './pages/Home/sm_newtweet'
 import Explore from './components/Explore/Explore'
-import { AuthContext } from './context/Auth-context';
-
-
 
 
 
 
 const App = (props) =>{
-    
-    // console.log(isLogin());
+   
     console.log('App ran !');
-    const token  = localStorage.getItem('access_token')
-    const {Ispending,FetchUserData} = useContext(AuthContext)
-
-    useEffect(() => {
-        console.log('Current user data Fetching ... ')
-        FetchUserData(token)
-    }, [])
+    
     
     return (
     <>
-    {Ispending && <div className='loader'></div> }
-    {!Ispending &&
+    
+    
             <BrowserRouter>
                     
 
@@ -103,7 +93,7 @@ const App = (props) =>{
             
         </BrowserRouter>
 
-    }
+    
         
             
 

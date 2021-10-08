@@ -25,8 +25,12 @@ export function AuthContextProvider({children}){
             })
             
     }
+    const LogOutUser = () =>{
+        SetUserData([])
+        localStorage.removeItem('access_token')
+    }
     return(
-        <AuthContext.Provider value={{...userData,Ispending,FetchUserData}}>
+        <AuthContext.Provider value={{...userData,Ispending,FetchUserData,LogOutUser}}>
             {children}
         </AuthContext.Provider>
     )

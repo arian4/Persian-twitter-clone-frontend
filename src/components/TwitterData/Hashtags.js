@@ -1,16 +1,16 @@
 import React,{useEffect} from 'react'
 import { Link } from 'react-router-dom'
-import { useTweetState,useTweetDispatch,setHashtags } from '../../context/TweetContext'
+// import { useTweetState,useTweetDispatch,setHashtags } from '../../context/TweetContext'
 import useFetch from '../useFetch/useFetch'
 import './hashtagsList.css'
 export default function Hashtags({theme}) {
-    const {hashtags} = useTweetState()
-    const HashtagDispatch = useTweetDispatch()
+    // const {hashtags} = useTweetState()
+    // const HashtagDispatch = useTweetDispatch()
     const {data , ispending , error } = useFetch('http://127.0.0.1:8000/twitter/api/hashtags?q=hottest')
-    useEffect(() => {
-        setHashtags(HashtagDispatch,data)
+    // useEffect(() => {
+    //     setHashtags(HashtagDispatch,data)
         
-    }, [JSON.stringify(data)])
+    // }, [JSON.stringify(data)])
     return (
         <>
             {!ispending &&
@@ -18,7 +18,7 @@ export default function Hashtags({theme}) {
                 {error && <p style={{color:'red'}}>{error}</p>}
                 <ul className={'hashtags-list'}>
                         {   
-                            hashtags.map(hashtag=>{
+                            data.map(hashtag=>{
                                 return(
                                     <li className={'hashtag-item'} key={hashtag.id}>
                             

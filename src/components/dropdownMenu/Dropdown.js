@@ -7,7 +7,7 @@ import { AuthContext } from '../../context/Auth-context';
 
 function Dropdown({current_user_username, current_user_Fullname , current_user_image}) {
     
-    const {Ispending} = useContext(AuthContext)
+    const {Ispending,LogOutUser} = useContext(AuthContext)
     
     // console.log(Theme);
     const {IsLightTheme,Reset} = useContext(ThemeContext)
@@ -22,8 +22,11 @@ function Dropdown({current_user_username, current_user_Fullname , current_user_i
         
     }
     const LogOut = () =>{
-        localStorage.clear()
+        LogOutUser()
         Reset()
+        // localStorage.clear()
+        
+        
         console.log('You Logged out !');
         history.push('/login')
 
