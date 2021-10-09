@@ -7,7 +7,7 @@ import Swal from 'sweetalert2'
 import { ThemeContext } from '../../context/Theme-context';
 import './homecss/tweet.css'
 import { heartIcon, QuoteTweetIcon, retweetIcon } from './icons';
-import { DeleteRetweetRequest, newRetweetRequest } from '../../api/api_tweet';
+import { DeleteRetweetRequest, EditTweetRequest, newRetweetRequest } from '../../api/api_tweet';
 import { AuthContext } from './../../context/Auth-context';
 import { DeleteTweetRequest, updateHashtags } from './../../api/api_tweet';
 
@@ -282,30 +282,32 @@ function Tweet({twtId,id,username,image,tweet,likes,twtImg,Liked_tweet,IsRetweet
                     
                 
                     }else{
-                        axios.post('http://127.0.0.1:8000/twitter/api/edit-comment/',{
-                            'twtId':twtId,
-                            'Text':result.value
-                        }).then(function (response){
-                            console.log(response.data);
-                            if(result.value.includes("#")){
-                                
-                                AddHashtags()
+                        const EditformData = new FormData()
+                        EditformData.append('id' , twtId)
+                        EditformData.append('Text',result.value)
+                        EditTweetRequest(EditformData,(isOk)=>{
+                            if(!isOk){
+                                Swal.fire({
+                                    icon: 'error',
+                                    text: 'مشکلی از سمت سرور رخ داده توییت شما ویراش نشد!!!',
+                                    confirmButtonText: 'تایید',
+                                })
+                                return
+
                             }
                             const found_index = tweets.findIndex((item)=>item.id===twtId);
                             const edited_data = [...tweets.slice(0,found_index),{...tweets[found_index],'Text':result.value},...tweets.slice(found_index+1)]
                             setTweets(TweetDispatch,edited_data)
-                            
-                            
+
                             Swal.fire({
                                 icon:'success',
                                 text:'توییت شما با موفقیت ویرایش گردید ',
                                 confirmButtonText: 'تایید',
                             })
                             setisToggled(false)
-
-                        }).catch(function (error) {
-                            console.log(error);
-                        });
+                            
+                        })
+                        
                     
                 }
 

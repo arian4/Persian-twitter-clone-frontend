@@ -24,6 +24,18 @@ export const newTweetRequest = (data,callback)=>{
         callback(false)
     })
 }
+export const EditTweetRequest = (data,callback)=>{
+    getAxiosInstance().patch('tweets/',data)
+    .then(response => {
+        const data = response.data
+        console.log(data)
+        callback(true,data)
+    })
+    .catch(error =>{
+        console.log(error);
+        callback(false)
+    })
+}
 export const DeleteTweetRequest = (tweetId,callback)=>{
     getAxiosInstance().delete('tweets/',{ data: { 'twtId': tweetId }})
     .then(response => {
