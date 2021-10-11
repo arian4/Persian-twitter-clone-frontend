@@ -1,13 +1,12 @@
-import React, {useRef,useState,useContext,useEffect } from 'react'
+import React, {useRef,useState,useContext } from 'react'
 import  { Link, useHistory} from 'react-router-dom'
 import classnames from 'classnames'
-import { useTweetDispatch,setRetweet, useTweetState,setTweets ,setHashtags} from '../../context/TweetContext';
-import axios from 'axios'
+import { useTweetDispatch,setRetweet, useTweetState,setTweets,setHashtags } from '../../context/TweetContext';
 import Swal from 'sweetalert2'
 import { ThemeContext } from '../../context/Theme-context';
 import './homecss/tweet.css'
 import { heartIcon, QuoteTweetIcon, retweetIcon } from './icons';
-import { DeleteRetweetRequest, EditTweetRequest, newRetweetRequest } from '../../api/api_tweet';
+import { DeleteRetweetRequest, EditTweetRequest, LikeTweetRequest, newRetweetRequest } from '../../api/api_tweet';
 import { AuthContext } from './../../context/Auth-context';
 import { DeleteTweetRequest, updateHashtags } from './../../api/api_tweet';
 
@@ -40,21 +39,8 @@ function Tweet({twtId,id,username,image,tweet,likes,twtImg,Liked_tweet,IsRetweet
     
     const {tweets} = useTweetState()
     const TweetDispatch = useTweetDispatch()
+    
     const likebtn = (e) =>{
-        
-        const token  = localStorage.getItem('access_token')
-        
-        axios.post('http://127.0.0.1:8000/twitter/api/handlelike/', {
-            'twtId': twtId,
-            'access_token': token
-          })
-          .then(function (response) {
-            console.log(response.data);
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-        
         let current_num_likes =parseInt(handleLike.current.innerHTML)
         
         if(e.target.classList.value==='fa fa-heart-o'){
@@ -64,9 +50,6 @@ function Tweet({twtId,id,username,image,tweet,likes,twtImg,Liked_tweet,IsRetweet
             handleLike.current.innerHTML = current_num_likes
             
             
-            
-            
-
         }else{
             // setlike('fa-heart-o')
             e.target.classList.value = 'fa fa-heart-o'
@@ -75,10 +58,42 @@ function Tweet({twtId,id,username,image,tweet,likes,twtImg,Liked_tweet,IsRetweet
             
         }
         
+        const token  = localStorage.getItem('access_token')
+        const LikeformData = new FormData()
+        LikeformData.append('twtId',twtId)
+        LikeformData.append('access_token',token)
         
-        
-        
+        LikeTweetRequest(LikeformData,(isOk,status)=>{
+            if(!isOk){
+                return
 
+            }
+            
+            if(status!==200){
+                if(e.target.classList.value==='fa fa-heart-o'){
+                    // setlike('fa-heart')
+                    e.target.classList.value = 'fa fa-heart'
+                    current_num_likes +=1
+                    handleLike.current.innerHTML = current_num_likes
+                    
+                    
+                }else{
+                    // setlike('fa-heart-o')
+                    e.target.classList.value = 'fa fa-heart-o'
+                    current_num_likes -=1
+                    handleLike.current.innerHTML = current_num_likes
+                    
+                }
+
+            }
+
+            
+
+        })
+        
+        
+        
+        
     }
     
     
@@ -164,38 +179,10 @@ function Tweet({twtId,id,username,image,tweet,likes,twtImg,Liked_tweet,IsRetweet
         
         history.push('/tweet/status/'+retweets.tweet.id)
     }
-    // const updateHashtags = () =>{
-    //     axios.get('http://127.0.0.1:8000/twitter/api/hashtags/')
-    //     .then(function (response) {
-    //         // handle success
-    //         console.log('hashtags updated ...');
-    //         console.log(response.data);
-    //         setHashtags(TweetDispatch,response.data)
-    //     })
-    //     .catch(function (error) {
-    //         // handle error
-    //         console.log(error);
-    //     })
-        
-    // }
+    
     
 
-    const AddHashtags = () =>{
-        axios.post('http://127.0.0.1:8000/twitter/api/addhashtags/', {
-            'newtweetId': twtId,
-            
-          })
-          .then(function (response) {
-              console.log(response.data);
-            //   updateHashtags()
-            
-          })
-          .catch(function (error) {
-            console.log(error);
-            
-        });
-
-    }
+    
     
     const handleDelete = ()=>{
         Swal.fire({
@@ -225,11 +212,12 @@ function Tweet({twtId,id,username,image,tweet,likes,twtImg,Liked_tweet,IsRetweet
 
                     if(tweet.includes("#")){
                                 
-                        updateHashtags((isOk)=>{
+                        updateHashtags((isOk,data)=>{
                             if(!isOk){
                                 alert('مشکلی در بروزرسانی هشتگ ها پیش آمده !')
                                 return
                             }
+                            setHashtags(TweetDispatch,data)
                         })
                     }
                     setisToggled(false)

@@ -161,3 +161,18 @@ export const getAllLikes = (callback)=>{
         callback(false,error)
     })
 }
+
+export const LikeTweetRequest = (data,callback)=>{
+    getAxiosInstance().post('handlelike/',data)
+    .then(response => {
+        // console.log(response);
+        const status = response.status
+        console.log(status);
+        callback(true,status)
+    })
+    
+    .catch(error =>{
+        console.log(error);
+        callback(false,error)
+    })
+}

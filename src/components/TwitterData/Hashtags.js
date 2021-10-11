@@ -1,16 +1,20 @@
 import React,{useEffect} from 'react'
 import { Link } from 'react-router-dom'
-// import { useTweetState,useTweetDispatch,setHashtags } from '../../context/TweetContext'
+import { useTweetState,useTweetDispatch,setHashtags } from '../../context/TweetContext'
 import useFetch from '../useFetch/useFetch'
 import './hashtagsList.css'
+import { HashtagIcon } from './../../pages/Home/icons';
 export default function Hashtags({theme}) {
-    // const {hashtags} = useTweetState()
-    // const HashtagDispatch = useTweetDispatch()
-    const {data , ispending , error } = useFetch('http://127.0.0.1:8000/twitter/api/hashtags?q=hottest')
-    // useEffect(() => {
-    //     setHashtags(HashtagDispatch,data)
+    
+    const {hashtags} = useTweetState()
+    const HashtagDispatch = useTweetDispatch()
+    
+    const {data , ispending , error } = useFetch('http://127.0.0.1:8000/twitter/api/hashtags')
+    useEffect(() => {
+        setHashtags(HashtagDispatch,data)
         
-    // }, [JSON.stringify(data)])
+    }, [JSON.stringify(data)])
+    
     return (
         <>
             {!ispending &&
@@ -18,13 +22,18 @@ export default function Hashtags({theme}) {
                 {error && <p style={{color:'red'}}>{error}</p>}
                 <ul className={'hashtags-list'}>
                         {   
-                            data.map(hashtag=>{
+                            hashtags.map((hashtag,index)=>{
+                                if(index > 7){
+                                    return
+                                }
                                 return(
                                     <li className={'hashtag-item'} key={hashtag.id}>
                             
                                         <Link to={'/hashtags/'+hashtag.hashtag} className={theme.IsLightTheme?'hashtag-item-link':'hashtag-item-link-dark'}>
-                                            <i className="material-icons" style={{fontSize:'22px'}}>tag</i>
-                                            {hashtag.hashtag} ({hashtag.count})
+                                            {HashtagIcon}
+                                            <p>{hashtag.hashtag} ({hashtag.count})</p>
+                                            
+                                            
 
                                         </Link>
                                         

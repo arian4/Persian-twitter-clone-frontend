@@ -67,7 +67,7 @@ function Newtweet() {
                     return
                 }
                 setTweets(TweetDispatch,data)
-                toast.success('توییت ها با موفقیت بروزرسانی شدند')
+                // toast.success('توییت ها با موفقیت بروزرسانی شدند')
                 setnewTweets(TweetDispatch,'')
                 UTextarea.current.value = ''
                 setaddtweetImg('')
@@ -80,16 +80,18 @@ function Newtweet() {
                         toast.warn('مشکلی در اضافه شدن هشتگ ها به دیتابیس پیش آمده !!!')
                         return
                     }
-                    toast('هشتگ های توییت با موفقیت اضافه شدند')
+
+                    updateHashtags((isOk,data)=>{
+                        if(!isOk){
+                            toast.warn('مشکلی در بروزرسانی هشتگ ها پیش آمده')
+                            return
+                        }
+                        setHashtags(TweetDispatch,data)
+                    })
+                    
                 })
             }
-            updateHashtags((isOk,data)=>{
-                if(!isOk){
-                    toast.warn('مشکلی در بروزرسانی هشتگ ها پیش آمده')
-                    return
-                }
-                setHashtags(TweetDispatch,data)
-            })
+            
 
             
         })

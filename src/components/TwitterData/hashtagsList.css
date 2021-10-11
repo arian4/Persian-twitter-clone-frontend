@@ -31,6 +31,13 @@
     
     
 }
+.hashtag-item-link svg{
+    width: 20px;
+    height: 20px;
+    margin-left: 5px;
+    
+    
+}
 .hashtag-item-link-dark{
     width: max-content;
     display: flex;
@@ -40,6 +47,13 @@
     /* color: #adbac7; */
     transition: color .5s;
 
+}
+.hashtag-item-link-dark svg{
+    width: 20px;
+    height: 20px;
+    margin-left: 5px;
+    
+    
 }
 
 .hashtag-item-link:hover{

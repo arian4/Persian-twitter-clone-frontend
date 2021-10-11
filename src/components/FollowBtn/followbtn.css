@@ -34,41 +34,44 @@
     align-self: center;
     cursor: pointer;
     outline: none;
-    border: 1px solid rgb(0, 170, 238);
-    background-color: #555;
+    border: none;
+    /* border: 1px solid rgb(0, 170, 238); */
+    background-color: rgb(239, 243, 244);
     border-radius: 20px;
-    padding: 8px 20px;
-    color:#fff;
+    padding: 8px 18px;
+    color:#000;
     font-size: 13px;
+    transition: all 0.4s;
+    
 }
 .f-follow-btn-dark{
     align-self: center;
     cursor: pointer;
     outline: none;
-    border: 2px solid rgb(0, 170, 238); 
-      
+    border: none;
     
     border-radius: 20px;
     padding: 8px 17px;
-    background-color: #555;
-    color: #fff;
-    
-    
-    /* color:rgb(0, 170, 238);  */
+    background-color: rgb(239, 243, 244);
+    color: #000;
     
     font-size: 13px;
+    transition: all 0.4s;
   
 }
   
 .follow-btn:hover {
    
-    opacity: 0.8;
+    background-color: #aaa;
     
 }
 .follow-btn-dark:hover{
     opacity: 0.8;
 }
+.f-follow-btn-dark:hover{
+    background-color: #aaa;
 
+}
 @media screen and (max-width : 480px) {
     .follow-btn{
         padding: 8px 10px;

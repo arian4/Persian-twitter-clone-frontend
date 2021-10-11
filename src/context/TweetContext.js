@@ -13,8 +13,8 @@ function TweetReducer(state, action) {
       return {...state, loggedInUser: action.payload};
     case "GET_Hashtags":
       return {...state, hashtags: action.payload};
-      
-    case "setRetweet":
+    
+      case "setRetweet":
       return {...state, retweet: action.payload};
     
     
@@ -99,3 +99,4 @@ function setHashtags(dispatch, data) {
     payload: data
   });
 }
+
