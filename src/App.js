@@ -35,6 +35,7 @@ const App = (props) =>{
 
             
                 <PublicRoute  path={'/login'} component={LoginPage} />
+                
 
             
                 

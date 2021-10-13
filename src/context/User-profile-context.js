@@ -1,5 +1,5 @@
 import React,{useState} from "react";
-import axios from 'axios'
+import { GetUserData} from "../api/api_tweet";
 export const UserProfileContext = React.createContext()
 
 export function UserProfileProvider({children}){
@@ -7,25 +7,24 @@ export function UserProfileProvider({children}){
     const [objectData,setobjectData] = useState({})
     const[Ispending,setIspending] = useState(true)
     
+    
     const handleUserData = (username)=>{
-        axios.get('http://127.0.0.1:8000/twitter/api/username/'+username)
-            .then(function (response) {
-                // handle success
-                SetUser(response.data[0])
-                setobjectData(response.data[0])
-                setIspending(false)
-                
-                console.log('user data updated ...');
-                // console.log(response);
-            })
-            .catch(function (error) {
-                // handle error
-                console.log(error);
-            })
-            .then(function () {
-                // always executed
-            });
+        
+        GetUserData(username,(isOk,data)=>{
+            if(!isOk){
+                alert('مشکلی از سمت سرور پیش آمده ! اطلاعات کاربر مورد نظر دریافت نشد')
+                return
+            }
+            SetUser(data[0])
+            setobjectData(data[0])
+            setIspending(false)
+            console.log('user data updated ...');
+
+        })
+        
     }
+
+    
     return(
         <UserProfileContext.Provider value={{...user,objectData,handleUserData,Ispending}}>
             {children}

@@ -1,5 +1,5 @@
 import React,{useState} from "react";
-import axios from 'axios'
+import { GetLoggedInUserData } from "../api/api_tweet";
 export const AuthContext = React.createContext()
 
 export function AuthContextProvider({children}){
@@ -8,21 +8,17 @@ export function AuthContextProvider({children}){
     const[Ispending,setIspending] = useState(true)
     
     const FetchUserData = (token)=>{
-        axios.post('http://127.0.0.1:8000/twitter/api/user-authentication/',{
-            'access_token':token
+        GetLoggedInUserData(token,(isOk,data)=>{
+            if(!isOk){
+                alert('مشکلی از سمت سرور پیش آمده ! اطلاعات کاربر مورد نظر دریافت نشد')
+                return
+            }
+            
+            SetUserData(data)
+            setIspending(false)
+
         })
-            .then(function (response) {
-                
-                // handle success
-                SetUserData(response.data)
-                
-                setIspending(false)
-                
-            })
-            .catch(function (error) {
-                // handle error
-                console.log(error);
-            })
+        
             
     }
     const LogOutUser = () =>{

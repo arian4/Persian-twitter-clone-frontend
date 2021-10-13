@@ -13,6 +13,9 @@ import { ThemeContext } from '../../context/Theme-context'
 import AddTweetBtn from '../floating-button/AddTweetBtn'
 import Nav_Icons from '../nav-icon/Nav_Icons'
 import { AuthContext } from './../../context/Auth-context';
+import useFetch from './../useFetch/useFetch';
+import { useTweetDispatch , setTweets } from '../../context/TweetContext'
+import LoadingPage from '../LoadingPage/LoadingPage'
 
 
 function Layout(props) {
@@ -23,11 +26,20 @@ function Layout(props) {
     // console.log(token);
     
     const {FetchUserData} = useContext(AuthContext)
+    
+    const {data:all_tweets , ispending , error } = useFetch('http://127.0.0.1:8000/twitter/api/tweets/')
+    const tweetDispatch = useTweetDispatch()
 
     useEffect(() => {
         FetchUserData(token)
         
     }, [])
+
+    useEffect(() => {
+        setTweets(tweetDispatch,all_tweets)
+        
+        
+    }, [JSON.stringify(all_tweets)])
     
     
     const isTabletDevice = useMediaQuery({ minWidth: 481, maxWidth: 768 })
@@ -38,10 +50,16 @@ function Layout(props) {
            
         
             
+            {error && <p>{error}</p>}
+            {ispending && <LoadingPage />}
+            {!ispending &&
+                <>
+                    {isMobileDevice && <div className='container' style={{flexDirection:'column',backgroundColor:IsLightTheme?light.backgroundColor:dark.backgroundColor}}> <H_navbar/> {props.children} <AddTweetBtn /> <Nav_Icons /> <HamburgerMenu/> </div> }
+                    {isTabletDevice && <div className='container' style={{backgroundColor:IsLightTheme?light.backgroundColor:dark.backgroundColor}}> <HamburgerMenu/> {props.children}  <MiniLeftsidebar/></div> }
+                    {isDesktop && <div className='container' style={{backgroundColor:IsLightTheme?light.backgroundColor:dark.backgroundColor}}><Rightsidebar/> {props.children} <Leftsidebar /></div>}
+                </>
+            }
             
-            {isMobileDevice && <div className='container' style={{flexDirection:'column',backgroundColor:IsLightTheme?light.backgroundColor:dark.backgroundColor}}> <H_navbar/> {props.children} <AddTweetBtn /> <Nav_Icons /> <HamburgerMenu/> </div> }
-            {isTabletDevice && <div className='container' style={{backgroundColor:IsLightTheme?light.backgroundColor:dark.backgroundColor}}> <HamburgerMenu/> {props.children}  <MiniLeftsidebar/></div> }
-            {isDesktop && <div className='container' style={{backgroundColor:IsLightTheme?light.backgroundColor:dark.backgroundColor}}><Rightsidebar/> {props.children} <Leftsidebar /></div>}
             
             
             

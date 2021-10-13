@@ -6,6 +6,8 @@ import axios from 'axios'
 import { Link } from 'react-router-dom';
 import { ThemeContext } from '../../context/Theme-context';
 import { AuthContext } from '../../context/Auth-context';
+import UserProfileCard from '../UserProfileCard/UserCardProfile';
+
 
 
 function Leftsidebar() {
@@ -71,6 +73,9 @@ function Leftsidebar() {
             
             {error && <div>{error}</div>}
             <div className={"leftsidebar-header"}>
+                <UserProfileCard />
+            </div>
+            {/* <div className={"leftsidebar-header"}>
                 <div style={{display:'flex'}}>
 
                     
@@ -94,8 +99,8 @@ function Leftsidebar() {
                 </div>
                 
                 
-            </div>
-            <div className={'notif--part'} >
+            </div> */}
+            {/* <div className={'notif--part'} >
                 {Notifications.length>0?
                     Notifications.map(notif=>{
                         
@@ -113,7 +118,7 @@ function Leftsidebar() {
                     })
                     :<p style={{fontSize:'13px',margin:'1rem'}}>اطلاعیه ای وجود ندارد</p>
                 }
-            </div>
+            </div> */}
             
             
                 

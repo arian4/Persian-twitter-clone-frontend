@@ -1,9 +1,9 @@
-import React, { useEffect,useState,useContext} from 'react'
+import React, {useState,useContext} from 'react'
 import './home.css'
 import Newtweet from './newtweet'
 import Header from './header'
 import Tweet from './tweet'
-import { useTweetDispatch, useTweetState,setTweets} from '../../context/TweetContext'
+import { useTweetState} from '../../context/TweetContext'
 import useFetch from '../../components/useFetch/useFetch'
 import TabList from '../../components/TabList/TabList'
 import SORT_TYPES from '../../constant/sort_type'
@@ -26,18 +26,14 @@ function Home() {
     const[sortType,setsortType] = useState(SORT_TYPES.NEW_TWEETS)
     
     const {tweets} = useTweetState()
-    const tweetDispatch = useTweetDispatch()
     
     
-    const {data , ispending , error } = useFetch('http://127.0.0.1:8000/twitter/api/tweets/')
+    
+    
     const { data:handleLike} = useFetch('http://127.0.0.1:8000/twitter/api/handlelike/')
     const { data:handleRetweet } = useFetch('http://127.0.0.1:8000/twitter/api/retweets/')
     
-    useEffect(() => {
-        setTweets(tweetDispatch,data)
-        
-        
-    }, [JSON.stringify(data)])
+    
     
     const getSortedTweets = (sortType, tweetsArr) => {
         
@@ -67,7 +63,7 @@ function Home() {
 
         <div className={'main'}>
             
-            {error && <div>{error}</div>}
+            
             
             <Header title={'خانه'} icon={IsLightTheme?'/images/home-page.png':'/images/home-page-w.png'} />
             
@@ -78,10 +74,10 @@ function Home() {
             
             <TabList setsortType={setsortType} />
             
-            {ispending && <div className='loader'></div>}
+            
 
 
-            {!ispending &&
+            {
                 getSortedTweets(sortType, tweets).map((twt)=>{
                     
                     const checkLikes = Liked_tweet.some(L => L.tweet === twt.id);

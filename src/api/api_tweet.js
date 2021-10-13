@@ -47,6 +47,7 @@ export const DeleteTweetRequest = (tweetId,callback)=>{
         callback(false)
     })
 }
+// ###################################################33
 export const AddHashtags = (tweetId,callback)=>{
     getAxiosInstance().post('addhashtags/',{
         newtweetId : tweetId
@@ -171,6 +172,32 @@ export const LikeTweetRequest = (data,callback)=>{
         callback(true,status)
     })
     
+    .catch(error =>{
+        console.log(error);
+        callback(false,error)
+    })
+}
+
+export const GetUserData = (username,callback)=>{
+    getAxiosInstance().get(`username/${username}`)
+    .then(response => {
+        const data = response.data
+        // console.log(data);
+        callback(true,data)
+    })
+    .catch(error =>{
+        console.log(error);
+        callback(false,error)
+    })
+}
+
+export const GetLoggedInUserData = (token,callback)=>{
+    getAxiosInstance().post(`user-authentication/`,{'access_token':token})
+    .then(response => {
+        const data = response.data
+        console.log(data);
+        callback(true,data)
+    })
     .catch(error =>{
         console.log(error);
         callback(false,error)
