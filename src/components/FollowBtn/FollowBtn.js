@@ -6,7 +6,7 @@ import classnames from 'classnames'
 import { UserProfileContext } from '../../context/User-profile-context'
 
 
-export default function FollowBtn({data,current_user_id}) {
+export default function FollowBtn({data,current_user_id,style}) {
     
     
     const {IsLightTheme} = useContext(ThemeContext)
@@ -90,7 +90,7 @@ export default function FollowBtn({data,current_user_id}) {
     
     return (
         <>
-            {showButton && <button className={classnames('followBtn-I',followBtnClass)}  onClick={handleFollowBtn}>{checkFollowStatus}</button>}
+            {showButton && <button style={style} className={classnames('followBtn-I',followBtnClass)}  onClick={handleFollowBtn}>{checkFollowStatus}</button>}
             
             
         </>

@@ -177,7 +177,17 @@ export const LikeTweetRequest = (data,callback)=>{
         callback(false,error)
     })
 }
-
+export const getAllUsers = (callback)=>{
+    getAxiosInstance().get('users/')
+    .then(response => {
+        const data = response.data
+        callback(true,data)
+    })
+    .catch(error =>{
+        console.log(error);
+        callback(false,error)
+    })
+}
 export const GetUserData = (username,callback)=>{
     getAxiosInstance().get(`username/${username}`)
     .then(response => {

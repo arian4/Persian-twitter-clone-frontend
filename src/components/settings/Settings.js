@@ -26,7 +26,7 @@ export default function Settings() {
 
                 </div> */}
 
-                <div className={classnames('settings-wrapper-div',IsLightTheme?"twitter-data":'twitter-data-dark')}>
+                {/* <div className={classnames('settings-wrapper-div',IsLightTheme?"twitter-data":'twitter-data-dark')}>
                     <label className='settings-label' style={{color:IsLightTheme?light.color:dark.color}}>اطلاعات شما در توییتر فارسی</label>
                     <i className='material-icons' style={{color:IsLightTheme?'#222':'#fff',fontSize:'20px'}}>keyboard_arrow_down</i>
                     
@@ -42,7 +42,7 @@ export default function Settings() {
                     <Input  label={'نام کاربری'} validations={[VALIDATIONS.REQUIRED,VALIDATIONS.LENGTH]} />
                     
 
-                </div>
+                </div> */}
                 
                 
                 

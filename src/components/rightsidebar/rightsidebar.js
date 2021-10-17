@@ -1,10 +1,11 @@
 import React, { useState,useContext} from 'react'
 import './rightsidebar.css'
 import { useMediaQuery } from 'react-responsive'
-import Hashtags from '../TwitterData/Hashtags'
+import Hashtags from '../RightSide-content/Hashtags'
 import { ThemeContext } from '../../context/Theme-context'
 import { Link,useHistory } from 'react-router-dom'
 import { HashtagIcon, SettingsIcon } from '../../pages/Home/icons'
+import Suggestions from '../RightSide-content/suggestions'
 
 
 function Rightsidebar() {
@@ -93,6 +94,7 @@ function Rightsidebar() {
             </button>
             <h3 className={'h--title'} style={{color:IsLightTheme?light.color:dark.color}}>داغ ترین هشتگ ها</h3>
             <Hashtags theme={{IsLightTheme, dark, light}} />
+            <Suggestions />
             
             
 

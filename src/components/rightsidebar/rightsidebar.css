@@ -16,14 +16,19 @@
 
     
    
-    width: 22%;
+    width: 24%;
     border-left: 2px solid #53c6e6;
+    height: 100vh;
+    overflow: scroll;
+    scrollbar-width: none;
     /* background-color: #21222d;
     color: #dbdbe5; */
     
 
 }
-
+.rightsidebar::-webkit-scrollbar{
+    display: none;
+}
 .rightsidebar-header{
     display: flex;
     padding: 0 .5rem;

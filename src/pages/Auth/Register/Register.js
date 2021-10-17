@@ -67,8 +67,14 @@ function Register() {
             },6000)
           })
           .catch(function (error) {
-            console.log(error);
-            // setisRegistered(false)
+            if (error.response) {
+                const {username:username_error} = error.response.data
+                toast.error(username_error[0])
+                // console.log(error.response);
+                // console.log(error.response.status);
+                // console.log(error.response.headers);
+            }
+            
             
           });
         
