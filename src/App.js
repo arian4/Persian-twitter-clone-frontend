@@ -13,7 +13,8 @@ import TweetLikes from './pages/TweetLikes/TweetLikes'
 import Settings from './components/settings/Settings'
 import Sm_newtweet from './pages/Home/sm_newtweet'
 import Explore from './components/Explore/Explore'
-
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -24,6 +25,7 @@ const App = (props) =>{
     
     return (
     <>
+            <ToastContainer />
     
     
             <BrowserRouter>

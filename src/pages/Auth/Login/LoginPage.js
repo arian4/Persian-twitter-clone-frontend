@@ -1,8 +1,7 @@
 import React, { useState,useEffect,useContext} from 'react'
 import axios from 'axios'
 import './login.css'
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 import  { useHistory } from 'react-router-dom'
 import { ThemeContext } from '../../../context/Theme-context';
 
@@ -95,7 +94,7 @@ function LoginPage(props) {
         
         <div className={'outer-container'}>
             
-            <ToastContainer />
+            
 
         
             <div className={"login-container"}>

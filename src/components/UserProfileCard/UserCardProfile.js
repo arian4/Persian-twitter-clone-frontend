@@ -1,5 +1,5 @@
 import React,{useContext} from 'react'
-import  {useHistory} from 'react-router-dom'
+import  {Link, useHistory} from 'react-router-dom'
 import './card.css'
 import { AuthContext } from './../../context/Auth-context';
 import { useTweetState } from '../../context/TweetContext';
@@ -8,7 +8,7 @@ import { ThemeContext } from '../../context/Theme-context';
 
 export default function UserProfileCard() {
     const {Fullname,username,image,Followers,Followings,Ispending,LogOutUser} = useContext(AuthContext)
-    const {Reset} = useContext(ThemeContext)
+    const {Reset,IsLightTheme,light,dark} = useContext(ThemeContext)
     const {tweets} = useTweetState()
     const history = useHistory()
 
@@ -31,10 +31,11 @@ export default function UserProfileCard() {
             {Ispending && <div className='loader'></div>}
             {!Ispending && 
                 
-                <div class="user-profile-card">
+                <div class="user-profile-card" style={{backgroundColor:IsLightTheme?light.backgroundColor:'#555'}}>
                     
                     
                     <div className={'header-banner'}>
+                        
                         <img src='/images/twitter-banner.jpg' alt='banner' className='banner'/>
                     </div>
                     <div class="user-bio">
@@ -45,10 +46,14 @@ export default function UserProfileCard() {
 
                         </div> */}
                         <i onClick={LogOut} class="material-icons">logout</i>
-                        <img src={image} class="card-image" />
-                        <p>{Fullname}</p>
-                        <p>@{username}</p>
-                        <p>
+                        <Link to={`/username/${username}`}>
+                            <img src={image} class="card-image" />
+                            
+                        </Link>
+                        
+                        <p style={{color:IsLightTheme?light.color:dark.color}}>{Fullname}</p>
+                        <p style={{color:IsLightTheme?light.color:dark.color}}>@{username}</p>
+                        <p style={{color:IsLightTheme?light.color:dark.color}}>
                             <span className="material-icons" style={{fontSize:'18px'}}>location_on</span>
                             Tehran , Iran
                         </p>
@@ -56,18 +61,18 @@ export default function UserProfileCard() {
                     </div>
                     <div class="profile-data">
                         
-                        <span>
-                            <p>توییت</p>
-                            <p>{getUserTweetsLenght(tweets,username)}</p>
+                        <span onClick={()=>history.push(`/username/${username}`)}>
+                            <p style={{color:IsLightTheme?light.color:dark.color}}>توییت</p>
+                            <p style={{color:IsLightTheme?light.color:dark.color}}>{getUserTweetsLenght(tweets,username)}</p>
                         </span>
                         
-                        <span>
-                            <p>دنبال کننده ها</p>
-                            <p>{Followers.length}</p>
+                        <span onClick={()=>history.push(`/${username}/followers`)}>
+                            <p style={{color:IsLightTheme?light.color:dark.color}}>دنبال کننده ها</p>
+                            <p style={{color:IsLightTheme?light.color:dark.color}}>{Followers.length}</p>
                         </span>
-                        <span>
-                            <p>دنبال شونده ها </p>
-                            <p>{Followings.length}</p>
+                        <span onClick={()=>history.push(`/${username}/followings`)}>
+                            <p style={{color:IsLightTheme?light.color:dark.color}}>دنبال شونده ها </p>
+                            <p style={{color:IsLightTheme?light.color:dark.color}}>{Followings.length}</p>
                         </span>
                     </div>
                 </div>

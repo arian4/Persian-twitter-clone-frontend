@@ -1,23 +1,25 @@
-import React, {useState,useContext} from 'react'
+import React, {useState,useContext,useEffect} from 'react'
 import './home.css'
 import Newtweet from './newtweet'
 import Header from './header'
 import Tweet from './tweet'
-import { useTweetState} from '../../context/TweetContext'
-import useFetch from '../../components/useFetch/useFetch'
+import { setTweets, useTweetDispatch, useTweetState} from '../../context/TweetContext'
 import TabList from '../../components/TabList/TabList'
 import SORT_TYPES from '../../constant/sort_type'
 import { ThemeContext } from '../../context/Theme-context'
 import { useMediaQuery } from 'react-responsive'
-import { AuthContext } from '../../context/Auth-context'
+import { getHomeFeed } from '../../api/api_tweet'
+import { toast } from 'react-toastify';
 
 
 
 function Home() {
+    const [HomeFeedPending, SetHomeFeedPending] = useState(true)
+    const token = localStorage.getItem('access_token')
    
     
     const {IsLightTheme} = useContext(ThemeContext)
-    const {username} = useContext(AuthContext)
+    
     
     // console.log("🚀 ~ file: home.js ~ line 19 ~ Home ~ Theme", IsLightTheme, dark, light)
     
@@ -26,12 +28,24 @@ function Home() {
     const[sortType,setsortType] = useState(SORT_TYPES.NEW_TWEETS)
     
     const {tweets} = useTweetState()
+    const TweetDispatch = useTweetDispatch()
+    
+    useEffect(() => {
+        getHomeFeed(token,(isOk,data)=>{
+            if (!isOk){
+                toast.warn('مشکلی از سمت سرور پیش آمده . ناموفق در گرفتن توییت ها ')
+                return
+            }
+            setTweets(TweetDispatch , data)
+            SetHomeFeedPending(false)
+        })
+
+    }, [])
     
     
-    
-    
-    const { data:handleLike} = useFetch('http://127.0.0.1:8000/twitter/api/handlelike/')
-    const { data:handleRetweet } = useFetch('http://127.0.0.1:8000/twitter/api/retweets/')
+    // getCurrentUserLikedMedia
+    // const { data:handleLike} = useFetch(`http://127.0.0.1:8000/twitter/api/handlelike/?username=${username}`)
+    // const { data:handleRetweet } = useFetch('http://127.0.0.1:8000/twitter/api/retweets/')
     
     
     
@@ -53,8 +67,7 @@ function Home() {
 
     
     
-    const Liked_tweet = handleLike.filter((item => item.senders.includes(username)))
-    const Retweeted_tweets = handleRetweet.filter((item)=>item.user.username.includes(username) && !item.IsEdited)
+    // const Liked_tweet = All_Likes.filter((item => item.senders.includes(username)))
     
     
     
@@ -75,16 +88,28 @@ function Home() {
             <TabList setsortType={setsortType} />
             
             
+            
+            {HomeFeedPending && <div className='loader'></div>}
 
-
-            {
+            {!HomeFeedPending &&
                 getSortedTweets(sortType, tweets).map((twt)=>{
                     
-                    const checkLikes = Liked_tweet.some(L => L.tweet === twt.id);
-                    const checkRetweet = Retweeted_tweets.some(R => R.tweet.id === twt.id);
-                    let IsLiked = checkLikes?true:false
-                    let IsRetweeted = checkRetweet?true:false
-                    return <Tweet key={twt.id}  twtId={twt.id} senderId={twt.sender.id} id={twt.sender.username} username={twt.sender.Fullname} image={twt.sender.image} tweet={twt.Text} likes = {twt.likes} key={twt.id} twtImg={twt.image} Liked_tweet={IsLiked} IsRetweet={twt.IsRetweet} IsRetweeted={IsRetweeted} retweets={twt.retweets}   />
+                    // const checkLikes = Liked_tweet.some(L => L.tweet === twt.id);
+                    // const checkRetweet = All_Retweets.filter(R => R.tweet.id === twt.id);
+                    // let IsLiked = checkLikes?true:false
+                    
+                    return <Tweet key={twt.id}  
+                                twtId={twt.id} 
+                                senderId={twt.sender.id} 
+                                id={twt.sender.username} 
+                                username={twt.sender.Fullname} 
+                                image={twt.sender.image} 
+                                tweet={twt.Text} 
+                                likes = {twt.likes} 
+                                twtImg={twt.image}
+                                tweetActions={twt.tweetActions} 
+                                IsRetweet={twt.IsRetweet} 
+                                retweets={twt.retweets}   />
                 })
             }
             

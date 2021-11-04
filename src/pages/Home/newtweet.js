@@ -1,12 +1,11 @@
-import React, { useState,useRef,useContext} from 'react'
+import React, { useState,useRef,useContext,useEffect} from 'react'
 import './homecss/newtweet.css'
-import 'react-toastify/dist/ReactToastify.css';
 import classnames from 'classnames'
-import { ToastContainer, toast } from 'react-toastify';
+import {  toast } from 'react-toastify';
 import { useTweetDispatch, useTweetState,setnewTweets,setRetweet,setTweets,setHashtags } from '../../context/TweetContext';
 import { ThemeContext } from '../../context/Theme-context';
 import { AuthContext } from '../../context/Auth-context';
-import { newTweetRequest , getAllTweets, AddHashtags, updateHashtags } from '../../api/api_tweet';
+import { newTweetRequest , getAllTweets, AddHashtags, updateHashtags, getHomeFeed } from '../../api/api_tweet';
 
 
 function Newtweet() {
@@ -15,7 +14,12 @@ function Newtweet() {
     const {IsLightTheme, dark, light} = useContext(ThemeContext)
     const [addtweetImg,setaddtweetImg] = useState('')
     const [sendtwtImg,setsendtwtImg] = useState('')
-    
+    useEffect(() => {
+        console.log('NewTweet components ran ...!');
+        return () => {
+            console.log('clean up ran ...!')
+        }
+    }, [])
     
     
     const UTextarea = useRef()
@@ -61,7 +65,7 @@ function Newtweet() {
             }
             toast.success("توییت شما با موفقیت ارسال گردید");
             
-            getAllTweets((isOk,data)=>{
+            getHomeFeed(localStorage.getItem('access_token'),(isOk,data)=>{
                 if(!isOk){
                     toast.warn('مشکلی در بروزرسانی توییت ها پیش آمده !')
                     return
@@ -134,7 +138,7 @@ function Newtweet() {
     return (
         <div className={"twt-box"}>
             
-                <ToastContainer />
+                
                 
                 
                 <div className={"twt-box-header"}>

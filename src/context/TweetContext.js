@@ -9,8 +9,11 @@ function TweetReducer(state, action) {
       return {...state, tweets: action.payload};
     case "setnewTweets":
       return {...state, newtweet: action.payload};
-    case "GET_USER_DATA":
-      return {...state, loggedInUser: action.payload};
+    
+    case "GET_RETWEET_DATA":
+      return {...state, All_Retweets: action.payload};
+    case "GET_LIKES_DATA":
+      return {...state, All_Likes: action.payload};
     case "GET_Hashtags":
       return {...state, hashtags: action.payload};
     
@@ -31,8 +34,10 @@ function TweetProvider({children}) {
     newtweet: '',
     retweet:'',
     tweets:[],
+    All_Retweets :[],
+    All_Likes:[],
     hashtags:[],
-    loggedInUser:null
+    
     
   });
   return (
@@ -60,7 +65,16 @@ function useTweetDispatch() {
   return context;
 }
 
-export {TweetProvider, useTweetState, useTweetDispatch,setnewTweets,setTweets,GetUserData,setHashtags,setRetweet};
+export {TweetProvider, 
+        useTweetState, 
+        useTweetDispatch,
+        setnewTweets,
+        setTweets,
+        setHashtags,
+        setRetweet,
+        setRetweetsData,
+        setLikesData
+      };
 
 // ###########################################################
 
@@ -85,12 +99,18 @@ function setTweets(dispatch, data) {
     payload: data
   });
 }
-
-function GetUserData(dispatch, data) {
+function setRetweetsData(dispatch , data){
   dispatch({
-    type: "GET_USER_DATA",
-    payload: data
-  });
+    type : 'GET_RETWEET_DATA',
+    payload : data
+  })
+}
+
+function setLikesData(dispatch , data){
+  dispatch({
+    type : 'GET_LIKES_DATA',
+    payload : data
+  })
 }
 
 function setHashtags(dispatch, data) {

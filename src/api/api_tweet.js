@@ -12,7 +12,34 @@ export const getAllTweets = (callback)=>{
         callback(false,error)
     })
 }
+export const getHomeFeed = (token,callback)=>{
+    getAxiosInstance().get(`tweets/?sort_type=home`,{
+        headers: {
+          Authorization: 'Bearer ' + token
+        }
+      })
+    .then(response => {
+        const data = response.data
+        callback(true,data)
+    })
+    .catch(error =>{
+        console.log(error);
+        callback(false,error)
+    })
+}
 
+export const getTweetById = (tweetId,callback)=>{
+    getAxiosInstance().get(`tweets/?id=${tweetId}`)
+    .then(response => {
+        const data = response.data
+        
+        callback(true,data)
+    })
+    .catch(error =>{
+        console.log(error);
+        callback(false,error)
+    })
+}
 export const newTweetRequest = (data,callback)=>{
     getAxiosInstance().post('tweets/',data)
     .then(response => {
@@ -21,7 +48,7 @@ export const newTweetRequest = (data,callback)=>{
     })
     .catch(error =>{
         console.log(error);
-        callback(false)
+        callback(false,error)
     })
 }
 export const EditTweetRequest = (data,callback)=>{
@@ -85,12 +112,28 @@ export const getAllRetweets = (callback)=>{
         callback(false,error)
     })
 }
+export const getCurrentUserRetweetedMedias = (token,callback) =>{
+    getAxiosInstance().get(`retweets/?sort_type=current-user-retweets`,{
+        headers: {
+          Authorization: 'Bearer ' + token
+        }
+      })
+    .then(response => {
+        const data = response.data
+        callback(true,data)
+    })
+    .catch(error =>{
+        console.log(error);
+        callback(false,error)
+    })
+
+}
 export const newRetweetRequest = (data,user,callback)=>{
     getAxiosInstance().post('tweets/'+user,data)
     .then(response => {
-        console.log(response);
-        // const status = response.status
-        callback(true)
+        
+        const response_data = response.data
+        callback(true,response_data)
     })
     .catch(error =>{
         console.log(error);
@@ -162,14 +205,28 @@ export const getAllLikes = (callback)=>{
         callback(false,error)
     })
 }
+export const getCurrentUserLikedMedias = (token,callback) =>{
+    getAxiosInstance().get(`handlelike/?sort_type=current-user-likes`,{
+        headers: {
+          Authorization: 'Bearer ' + token
+        }
+      })
+    .then(response => {
+        const data = response.data
+        callback(true,data)
+    })
+    .catch(error =>{
+        console.log(error);
+        callback(false,error)
+    })
 
+}
 export const LikeTweetRequest = (data,callback)=>{
     getAxiosInstance().post('handlelike/',data)
     .then(response => {
         // console.log(response);
-        const status = response.status
-        console.log(status);
-        callback(true,status)
+        const response_data = response.data
+        callback(true,response_data)
     })
     
     .catch(error =>{

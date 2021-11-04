@@ -1,8 +1,7 @@
 import React, { useState , useRef} from 'react'
 import './register.css'
 import axios from 'axios'
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 import  { useHistory } from 'react-router-dom'
 function Register() {
     const ImageInput = useRef()
@@ -107,7 +106,7 @@ function Register() {
     
     return (
         <div className={'outer-container'}>
-            <ToastContainer />
+            
             {/* {isRegistered && <Redirect to='/login' />} */}
             <div className={"register-container"}>
                 <header>

@@ -1,4 +1,4 @@
-import React,{useContext,useEffect} from 'react'
+import React,{useContext,useEffect,useState} from 'react'
 
 import Leftsidebar from '../leftsidebar/leftsidebar'
 import Rightsidebar from '../rightsidebar/rightsidebar'
@@ -13,9 +13,11 @@ import { ThemeContext } from '../../context/Theme-context'
 import AddTweetBtn from '../floating-button/AddTweetBtn'
 import Nav_Icons from '../nav-icon/Nav_Icons'
 import { AuthContext } from './../../context/Auth-context';
-import useFetch from './../useFetch/useFetch';
-import { useTweetDispatch , setTweets } from '../../context/TweetContext'
+import { useTweetDispatch ,  setRetweetsData , setLikesData } from '../../context/TweetContext'
 import LoadingPage from '../LoadingPage/LoadingPage'
+import { getCurrentUserRetweetedMedias } from '../../api/api_tweet'
+import { toast } from 'react-toastify';
+import { getCurrentUserLikedMedias } from './../../api/api_tweet';
 
 
 function Layout(props) {
@@ -25,21 +27,42 @@ function Layout(props) {
     const token  = localStorage.getItem('access_token')
     // console.log(token);
     
-    const {FetchUserData} = useContext(AuthContext)
+    const {FetchUserData,Ispending} = useContext(AuthContext)
     
-    const {data:all_tweets , ispending , error } = useFetch('http://127.0.0.1:8000/twitter/api/tweets/')
     const tweetDispatch = useTweetDispatch()
-
+    const [retweetsIspending, SetretweetsIspending] = useState(true)
+    const [likesIspending, SetlikesIspending] = useState(true)
+    
     useEffect(() => {
         FetchUserData(token)
         
     }, [])
 
     useEffect(() => {
-        setTweets(tweetDispatch,all_tweets)
+        getCurrentUserRetweetedMedias(token,(isOk,data)=>{
+            if (!isOk){
+                toast.warn('ناموفق در گرفتن ریتوییت ها')
+                return
+            }
+            setRetweetsData(tweetDispatch,data)
+            SetretweetsIspending(false)
+        })
+
+        getCurrentUserLikedMedias(token,(isOk,data)=>{
+            if (!isOk ){
+                toast.warn('ناموفق در گرفتن لایک ها')
+                return
+            }
+            setLikesData(tweetDispatch , data)
+            SetlikesIspending(false)
+        })
+        // setTweets(tweetDispatch,all_tweets)
+        // setRetweetsData(tweetDispatch , all_retweets)
+        // setLikesData(tweetDispatch , all_likes)
+        console.log('changed something ...')
         
         
-    }, [JSON.stringify(all_tweets)])
+    }, [])
     
     
     const isTabletDevice = useMediaQuery({ minWidth: 481, maxWidth: 768 })
@@ -50,9 +73,10 @@ function Layout(props) {
            
         
             
-            {error && <p>{error}</p>}
-            {ispending && <LoadingPage />}
-            {!ispending &&
+            
+            
+            {(Ispending||retweetsIspending || likesIspending) && <LoadingPage />}
+            {!(Ispending && retweetsIspending && likesIspending) &&
                 <>
                     {isMobileDevice && <div className='container' style={{flexDirection:'column',backgroundColor:IsLightTheme?light.backgroundColor:dark.backgroundColor}}> <H_navbar/> {props.children} <AddTweetBtn /> <Nav_Icons /> <HamburgerMenu/> </div> }
                     {isTabletDevice && <div className='container' style={{backgroundColor:IsLightTheme?light.backgroundColor:dark.backgroundColor}}> <HamburgerMenu/> {props.children}  <MiniLeftsidebar/></div> }

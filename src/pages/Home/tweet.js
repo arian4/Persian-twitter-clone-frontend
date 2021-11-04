@@ -1,20 +1,33 @@
 import React, {useRef,useState,useContext } from 'react'
-import  { Link, useHistory} from 'react-router-dom'
+import  { Link, useHistory,useLocation} from 'react-router-dom'
 import classnames from 'classnames'
-import { useTweetDispatch,setRetweet, useTweetState,setTweets,setHashtags } from '../../context/TweetContext';
+import { useTweetDispatch,setRetweet, useTweetState,setTweets,setHashtags, setRetweetsData, setLikesData } from '../../context/TweetContext';
 import Swal from 'sweetalert2'
 import { ThemeContext } from '../../context/Theme-context';
 import './homecss/tweet.css'
-import { heartIcon, QuoteTweetIcon, retweetIcon } from './icons';
-import { DeleteRetweetRequest, EditTweetRequest, LikeTweetRequest, newRetweetRequest } from '../../api/api_tweet';
+import {QuoteTweetIcon, retweetIcon } from './icons';
+import { DeleteRetweetRequest, EditTweetRequest, getCurrentUserRetweetedMedias, LikeTweetRequest, newRetweetRequest } from '../../api/api_tweet';
 import { AuthContext } from './../../context/Auth-context';
-import { DeleteTweetRequest, updateHashtags } from './../../api/api_tweet';
+import { DeleteTweetRequest, updateHashtags, getAllRetweets, getAllLikes, getAllTweets } from './../../api/api_tweet';
+import RetweetModal from '../../components/Modals/RetweetModal';
+import CommentModal from '../../components/Modals/CommentModal';
+import { toast } from 'react-toastify';
 
 
+function Tweet({twtId,
+                id,
+                username,
+                image,
+                tweet,
+                twtImg,
+                tweetActions,
+                IsRetweet,
+                retweets,
+                retweetFlag,}) {
 
-function Tweet({twtId,id,username,image,tweet,likes,twtImg,Liked_tweet,IsRetweeted,IsRetweet,retweets,retweetFlag,retweet_id}) {
     const history = useHistory()
     const {IsLightTheme, dark, light} = useContext(ThemeContext)
+    const {pathname} = useLocation()
     // const {Theme} = useContext(ThemeContext)
     const {username:current_user_username} = useContext(AuthContext)
     const RenderTweet =(text)=>{
@@ -29,32 +42,45 @@ function Tweet({twtId,id,username,image,tweet,likes,twtImg,Liked_tweet,IsRetweet
         return '<a href=/username/'+noSymbol.toString() +' '+ 'class="mention">'+matchedString+'</a>'
     })}
     };
-    const handleLike = useRef()
+    const {tweets,retweet,All_Retweets , All_Likes} = useTweetState()
+    const TweetDispatch = useTweetDispatch()
+    
     const retweet_actin = useRef()
     const retweet_btn = useRef()
     const tweet_Body = useRef()
+    
+    const Related_Retweets = All_Retweets.filter((item)=>item.tweet.id === twtId)
+    const Related_Likes = All_Likes.filter((item) => item.tweet === twtId)
+    
+    
+    const [numLikes, SetnumLikes] = useState(tweetActions.numLikes)
+    const [numRetweets, SetnumRetweets] = useState(tweetActions.numRetweets)
+    const [numComments, setnumComments] = useState(tweetActions.numComments)
     const [checkPermissions,setcheckPermissions] = useState(false)
     const [isToggled,setisToggled] = useState(false)
     
+    const [Modal_IsOpen, setModal_IsOpen] = useState(false)
+    const [CommentModal_IsOpen, setCommentModal_IsOpen] = useState(false)
+    const [CommentModalData, setCommentModalData] = useState({})
     
-    const {tweets} = useTweetState()
-    const TweetDispatch = useTweetDispatch()
+    
+    
     
     const likebtn = (e) =>{
-        let current_num_likes =parseInt(handleLike.current.innerHTML)
+        
         
         if(e.target.classList.value==='fa fa-heart-o'){
             // setlike('fa-heart')
             e.target.classList.value = 'fa fa-heart'
-            current_num_likes +=1
-            handleLike.current.innerHTML = current_num_likes
+            SetnumLikes(prev => prev + 1)
+            
             
             
         }else{
             // setlike('fa-heart-o')
             e.target.classList.value = 'fa fa-heart-o'
-            current_num_likes -=1
-            handleLike.current.innerHTML = current_num_likes
+            SetnumLikes(prev => prev - 1)
+            
             
         }
         
@@ -63,41 +89,36 @@ function Tweet({twtId,id,username,image,tweet,likes,twtImg,Liked_tweet,IsRetweet
         LikeformData.append('twtId',twtId)
         LikeformData.append('access_token',token)
         
-        LikeTweetRequest(LikeformData,(isOk,status)=>{
+        LikeTweetRequest(LikeformData,(isOk,data)=>{
             if(!isOk){
+                if(e.target.classList.value==='fa fa-heart-o'){
+                    // setlike('fa-heart')
+                    e.target.classList.value = 'fa fa-heart'
+                    SetnumLikes(prev => prev + 1)
+                    
+                }
+                else{
+                    // setlike('fa-heart-o')
+                    e.target.classList.value = 'fa fa-heart-o'
+                    SetnumLikes(prev => prev - 1)
+                }
                 return
 
             }
             
-            if(status!==200){
-                if(e.target.classList.value==='fa fa-heart-o'){
-                    // setlike('fa-heart')
-                    e.target.classList.value = 'fa fa-heart'
-                    current_num_likes +=1
-                    handleLike.current.innerHTML = current_num_likes
-                    
-                    
-                }else{
-                    // setlike('fa-heart-o')
-                    e.target.classList.value = 'fa fa-heart-o'
-                    current_num_likes -=1
-                    handleLike.current.innerHTML = current_num_likes
-                    
-                }
-
-            }
-
+            setLikesData(TweetDispatch,data)
             
-
         })
         
         
-        
-        
     }
+
+    const kFormatter = (num) => {
+        return Math.abs(num) > 999 ? Math.sign(num)*((Math.abs(num)/1000).toFixed(1)) + 'k' : Math.sign(num)*Math.abs(num)
+    }
+
     
-    
-    
+
     const Quote_Tweet = () =>{
         const data = {}
         data['retweet_id'] = twtId
@@ -106,44 +127,82 @@ function Tweet({twtId,id,username,image,tweet,likes,twtImg,Liked_tweet,IsRetweet
         data['username'] = id
         console.log(data);
         retweet_actin.current.classList.toggle('show-retweet-choice')
-        
-        document.getElementsByClassName('main')[0].scrollTop = 0;
+        // pathname == '/' ? console.log('Pathname : Home') : console.log('Another')
         setRetweet(TweetDispatch,data)
         
-
+        pathname == '/' ? document.getElementsByClassName('main')[0].scrollTop = 0 : setModal_IsOpen(true)
+        
     }
+    
     const retweetClick = () =>{
         retweet_btn.current.style.color = '#66CC66'
+        SetnumRetweets(prev => prev + 1)
         retweet_actin.current.classList.toggle('show-retweet-choice')
         const formData = new FormData()
         formData.append('tweet_id',twtId)
         
-        newRetweetRequest(formData,current_user_username,(isOk)=>{
+        newRetweetRequest(formData,current_user_username,(isOk,data)=>{
             if(!isOk){
                 retweet_btn.current.style.color = '#111'
-                return alert('ری توییت شما ارسال نشد !!!!')
+                SetnumRetweets(prev => prev - 1)
+                toast.error('مشکلی پیش آمده . ریتوییت شما ارسال نشد')
+                return
+                
             }
+            setRetweetsData(TweetDispatch,data)
+            toast.info('ریتوییت شما ثبت گردید')
         })
         
         
     }
     const UndoRetweet = ()=>{
-        tweet_Body.current.style.display = 'none'
         retweet_actin.current.classList.toggle('show-retweet-choice')
+        retweet_btn.current.style.color = IsLightTheme?'#111':dark.color
+        SetnumRetweets(prev => prev - 1)
         const formData = new FormData()
-        formData.append('retweet_id',retweet_id)
+        let [{id :retweetId}] = Related_Retweets
+
+        formData.append('retweet_id',retweetId)
         DeleteRetweetRequest(formData,(isOk)=>{
             if(!isOk){
                 tweet_Body.current.style.display = 'block'
-                return alert('ریتوییت شما حذف نگردید !!!')
+                retweet_btn.current.style.color = '#66CC66'
+                SetnumRetweets(prev => prev + 1)
+                toast.error('ریتوییت شما حذف نگردید . لطفا مجددا تلاش کنید ')
+                return
 
             }
+            getCurrentUserRetweetedMedias(localStorage.getItem('access_token'),(isOk,data)=>{
+                if (!isOk){
+                    toast.error('مشکلی در برقراری ارتباط با سرور پیش آمده . ریتوییت ها واکاوی نشدند')
+                    return
+
+                }
+                
+                setRetweetsData(TweetDispatch , data)
+                retweetFlag ? 
+                        setTimeout(() => {
+                            toast.info('ریتوییت شما حذف گردید')
+                            tweet_Body.current.style.display = 'none'
+
+                            
+                        }, 1500)
+                        :toast.info('ریتوییت شما حذف گردید')
+            })
+            
+            
         })
 
     }
     const commentBtn = () =>{
-        
-        history.push('/tweet/status/'+twtId.toString()+'/#comment-section')
+        const comment_data = {}
+        comment_data['comment_id'] = twtId
+        comment_data['Fullname'] = username
+        comment_data['username'] = id
+        comment_data['text'] = tweet
+        comment_data['image'] = image
+        setCommentModalData(comment_data)
+        setCommentModal_IsOpen(true)
         
         
         
@@ -162,11 +221,9 @@ function Tweet({twtId,id,username,image,tweet,likes,twtImg,Liked_tweet,IsRetweet
     const showHiddenicons = ()=>{
         
         
-        if(!isToggled){
-            setisToggled(true)
-        }else{
-            setisToggled(false)
-        }
+        !isToggled ? setisToggled(true) : setisToggled(false)
+        
+        
         
         if (current_user_username==id){
             setcheckPermissions(true)
@@ -304,13 +361,16 @@ function Tweet({twtId,id,username,image,tweet,likes,twtImg,Liked_tweet,IsRetweet
         })
     }
     const retweet_action_handler = ()=>{
-        console.log(retweetFlag);
         
         retweet_actin.current.classList.toggle('show-retweet-choice')
     }
+    
     return (
         
         <div className={"tweets"} ref={tweet_Body}>
+                
+                <RetweetModal IsOpen ={Modal_IsOpen} setIsOpen ={setModal_IsOpen} ModalData ={retweet}  />
+                <CommentModal IsOpen ={CommentModal_IsOpen} setIsOpen ={setCommentModal_IsOpen} ModalData ={CommentModalData} setModalData={setCommentModalData}/>
                 {retweetFlag && <div className='retweetFlag'>
                     <span style={{color:IsLightTheme?'rgb(83, 100, 113)':dark.color}}>{retweetIcon}</span>
                     <p style={{fontSize:'10px',color:IsLightTheme?'rgb(83, 100, 113)':dark.color}}> {retweetFlag.Fullname} باز نشر کرد</p>
@@ -376,23 +436,36 @@ function Tweet({twtId,id,username,image,tweet,likes,twtImg,Liked_tweet,IsRetweet
                             
                 </div>}
                 {twtImg && <img src={twtImg} className={'twtImg'} style={{marginTop:'12px'}}></img>}
-                <p onClick={e=>history.push('/tweet/'+twtId.toString()+'/likes')} className={"num_like"}>{heartIcon} <span ref={handleLike}>{likes}</span>    نفر پسندیده اند </p>
+                {/* <p onClick={e=>history.push('/tweet/'+twtId.toString()+'/likes')} className={"num_like"}>{heartIcon} <span ref={handleLike}>{likes}</span>    نفر پسندیده اند </p> */}
                 <div className={"tweet-footer"} style={{color:IsLightTheme?'#111':dark.color}}>
-                    <span><i class="material-icons download">file_download</i></span>
-                    <span><i className="material-icons chat_bubble" onClick={commentBtn} >chat_bubble_outline</i></span>
-                    <span>
-                        {Liked_tweet && <i className={classnames("fa", 'fa-heart')}  onClick={likebtn}></i> }
-                        {!Liked_tweet && <i className={classnames("fa", 'fa-heart-o')}  onClick={likebtn}></i> }
+                    
+                    <span className ={'download-icon-section icon-section'}>
+                        <i class="material-icons download">file_download</i>
+                        
+                    </span>
+                    
+                    <span className ={'comment-icon-section icon-section'}>
+                        <i className="material-icons chat_bubble" onClick={commentBtn} >chat_bubble_outline</i>
+                        <span style={{color:IsLightTheme?'#111':dark.color}}>{numComments}</span>
+                    </span>
+                    
+                    <span className ={'like-icon-section icon-section'}>
+                        {
+                            Related_Likes.length > 0 ? <i className={classnames("fa", 'fa-heart')}  onClick={likebtn}/> : <i className={classnames("fa", 'fa-heart-o')}  onClick={likebtn}/> 
+                        }
+                        
+                        <span style={{color:IsLightTheme?'#111':dark.color}} onClick = {e=>history.push(`/tweet/${twtId.toString()}/likes`)}>{kFormatter(numLikes)}</span>
 
                     </span>
                     
                     
                     
                     
-                    <span  className='retweet-icon-section'>
-                        <i className={classnames("fa", "fa-retweet")} style={{color:IsRetweeted&&'#66CC66'}} onClick={retweet_action_handler} ref={retweet_btn}></i>
-                        <div className='retweet-choices' ref={retweet_actin}>
-                            {!IsRetweeted ?
+                    <span  className='retweet-icon-section icon-section'>
+                        <i className={classnames("fa", "fa-retweet")} style={{color:Related_Retweets.length > 0 ? '#66CC66':IsLightTheme?light.color:dark.color}} onClick={retweet_action_handler} ref={retweet_btn}></i>
+                        <span style={{color:IsLightTheme?'#111':dark.color}}>{numRetweets}</span>
+                        <div className={IsLightTheme?'retweet-choices':'retweet-choices-dark'} ref={retweet_actin}>
+                            {(Related_Retweets.length === 0) ?
                                 <p onClick={retweetClick}>
                                     {retweetIcon}
                                     ریتوییت

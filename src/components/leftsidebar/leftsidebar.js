@@ -133,7 +133,7 @@ function Leftsidebar() {
                 <h3 style={{margin:'10px 12px',color:IsLightTheme?light.color:dark.color}}>بهترین خبرنگاران</h3>
                 <hr></hr>
                 
-                {
+                {!ispending &&
                     users.map(tweeters=>{
                         return(
                             // '/username/'+tweeters.username
@@ -165,7 +165,7 @@ function Leftsidebar() {
                 
                 
             </div>
-            {ispending && <img src='/images/dots-loading.gif' alt='dots-loading' style={{width:'60px',marginRight:'30px'}}></img>}
+            {ispending && <div className={'loader'}></div>}
             
         </div>
     )

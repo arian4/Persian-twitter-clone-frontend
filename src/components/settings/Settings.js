@@ -6,11 +6,16 @@ import './settings.css'
 import Input from '../Input/Input'
 import VALIDATIONS from '../../constant/validation_types'
 import { ThemeContext } from '../../context/Theme-context'
+
+
 export default function Settings() {
     const {IsLightTheme, dark, light} = useContext(ThemeContext)
     
+    
+    
     return (
         <div className='main'>
+            
             <Header title={'تنظیمات'} icon={IsLightTheme?'https://img.icons8.com/ios/30/000000/settings.png':'https://img.icons8.com/ios/30/ffffff/settings.png'} />
             
             <div className='settings-wrapper'>
@@ -19,6 +24,7 @@ export default function Settings() {
                     <ToggleBtn toggleType={'Theme'} />
 
                 </div>
+                {/* <button onClick = {ModalHandler}>Modal</button> */}
 
                 {/* <div className={classnames('settings-wrapper-div','private-account-wrapper')}>
                     <label className='settings-label' style={{color:IsLightTheme?light.color:dark.color}}>حساب خصوصی</label>
