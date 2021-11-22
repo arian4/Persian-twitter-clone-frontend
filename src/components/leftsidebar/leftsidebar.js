@@ -1,7 +1,7 @@
 import React,{useState,useContext,useEffect} from 'react'
 import './leftsidebar.css'
 import useFetch from '../useFetch/useFetch';
-import Dropdown from '../dropdownMenu/Dropdown';
+// import Dropdown from '../dropdownMenu/Dropdown';
 import axios from 'axios'
 import { Link } from 'react-router-dom';
 import { ThemeContext } from '../../context/Theme-context';
@@ -13,7 +13,7 @@ import UserProfileCard from '../UserProfileCard/UserCardProfile';
 function Leftsidebar() {
     
     const {Fullname,username,image,Ispending} = useContext(AuthContext)
-    
+    const [CurPage, setCurPage] = useState(5)
     const {IsLightTheme, dark, light} = useContext(ThemeContext)
     const [Notifications, setNotifications] = useState([])
     const [showCounter, setshowCounter] = useState(false)
@@ -57,6 +57,9 @@ function Leftsidebar() {
         
         
         
+    }
+    const showMore = () =>{
+        setCurPage(prevState => prevState + 3)
     }
     
 
@@ -134,7 +137,8 @@ function Leftsidebar() {
                 <hr></hr>
                 
                 {!ispending &&
-                    users.map(tweeters=>{
+                    users.map((tweeters,index)=>{
+                        if ( index >= CurPage )return
                         return(
                             // '/username/'+tweeters.username
                             // <a href={'/username/'+tweeters.username} key={tweeters.id}>
@@ -161,9 +165,16 @@ function Leftsidebar() {
                         )
                     })
                 }
+                {CurPage >= users.length ? null :
+                    <div onClick={showMore} style={{paddingTop:'12px',fontSize:'12px',display:'flex',alignItems:'center',justifyContent:'center',color:IsLightTheme?light.color:dark.color,cursor:'pointer'}} href='#'>
+                        نمایش بیشتر
+                    
+                    </div>
+                }
                 
                 
                 
+               
             </div>
             {ispending && <div className={'loader'}></div>}
             

@@ -13,10 +13,11 @@ import { toast } from 'react-toastify';
 
 
 
+
 function Home() {
     const [HomeFeedPending, SetHomeFeedPending] = useState(true)
     const token = localStorage.getItem('access_token')
-   
+    
     
     const {IsLightTheme} = useContext(ThemeContext)
     
@@ -36,6 +37,7 @@ function Home() {
                 toast.warn('مشکلی از سمت سرور پیش آمده . ناموفق در گرفتن توییت ها ')
                 return
             }
+            
             setTweets(TweetDispatch , data)
             SetHomeFeedPending(false)
         })
@@ -43,9 +45,7 @@ function Home() {
     }, [])
     
     
-    // getCurrentUserLikedMedia
-    // const { data:handleLike} = useFetch(`http://127.0.0.1:8000/twitter/api/handlelike/?username=${username}`)
-    // const { data:handleRetweet } = useFetch('http://127.0.0.1:8000/twitter/api/retweets/')
+    
     
     
     

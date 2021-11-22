@@ -1,20 +1,25 @@
-import React,{useContext} from 'react'
+import React,{useContext,useState} from 'react'
 import  {Link, useHistory} from 'react-router-dom'
 import './card.css'
 import { AuthContext } from './../../context/Auth-context';
-import { useTweetState } from '../../context/TweetContext';
 import { ThemeContext } from '../../context/Theme-context';
-
+import { NewtweetIcon } from '../../pages/Home/icons';
+import TweetModal from '../Modals/TweetModal';
 
 export default function UserProfileCard() {
-    const {Fullname,username,image,Followers,Followings,Ispending,LogOutUser} = useContext(AuthContext)
+    const {Fullname,username,image,numTweets,Followers,Followings,Ispending,LogOutUser} = useContext(AuthContext)
     const {Reset,IsLightTheme,light,dark} = useContext(ThemeContext)
-    const {tweets} = useTweetState()
+    
     const history = useHistory()
-
-    const getUserTweetsLenght = (tweetArr,username) =>{
-        let user_tweets = tweetArr.filter((t)=> t.sender.username == username)
-        return user_tweets.length
+    const [IsOpen, setIsOpen] = useState(false)
+    
+    const getUserFollowersLenght = (FollowersList) =>{
+        
+        return FollowersList.length
+    }
+    const getUserFollowingsLenght = (FollowingsList) =>{
+        
+        return FollowingsList.length
     }
     const LogOut = () =>{
         LogOutUser()
@@ -26,8 +31,14 @@ export default function UserProfileCard() {
         history.push('/login')
 
     }
+    const NewTweetHandler = () =>{
+        setIsOpen(true)
+
+    }
     return (
         <>
+            <TweetModal IsOpen={IsOpen} setIsOpen={setIsOpen} />
+            
             {Ispending && <div className='loader'></div>}
             {!Ispending && 
                 
@@ -63,18 +74,25 @@ export default function UserProfileCard() {
                         
                         <span onClick={()=>history.push(`/username/${username}`)}>
                             <p style={{color:IsLightTheme?light.color:dark.color}}>توییت</p>
-                            <p style={{color:IsLightTheme?light.color:dark.color}}>{getUserTweetsLenght(tweets,username)}</p>
+                            <p style={{color:IsLightTheme?light.color:dark.color}}>{numTweets}</p>
                         </span>
                         
                         <span onClick={()=>history.push(`/${username}/followers`)}>
                             <p style={{color:IsLightTheme?light.color:dark.color}}>دنبال کننده ها</p>
-                            <p style={{color:IsLightTheme?light.color:dark.color}}>{Followers.length}</p>
+                            <p style={{color:IsLightTheme?light.color:dark.color}}>{getUserFollowersLenght(Followers)}</p>
                         </span>
                         <span onClick={()=>history.push(`/${username}/followings`)}>
                             <p style={{color:IsLightTheme?light.color:dark.color}}>دنبال شونده ها </p>
-                            <p style={{color:IsLightTheme?light.color:dark.color}}>{Followings.length}</p>
+                            <p style={{color:IsLightTheme?light.color:dark.color}}>{getUserFollowingsLenght(Followings)}</p>
                         </span>
                     </div>
+                    <div className={IsLightTheme?'card-newTweet-btn':'card-newTweet-btn-dark'} onClick={NewTweetHandler}>
+                            {NewtweetIcon}
+                            <span>ایجاد توییت جدید</span>
+                            
+                            
+                    </div>
+                    
                 </div>
             }
             

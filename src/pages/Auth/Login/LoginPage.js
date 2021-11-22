@@ -4,21 +4,28 @@ import './login.css'
 import { toast } from 'react-toastify';
 import  { useHistory } from 'react-router-dom'
 import { ThemeContext } from '../../../context/Theme-context';
+import { HashLoader } from 'react-spinners';
 
 
 function LoginPage(props) {
     
     const [username,setUsername] = useState('')
     const [password,setPassword] = useState('')
-    const[loggedIn,setloggedIn] = useState(false)
+    // const[loggedIn,setloggedIn] = useState(false)
     const {Reset} = useContext(ThemeContext)
-    
+    const override ={
+        margin: '4rem auto',
+
+        
+    }
+    const [HashLoaderHandler, SetHashLoaderHandler] = useState(false)
     const history = useHistory()
     
     // const {loggedInUser} = useTweetState()
     
     
     const HandleLogin = () =>{
+        SetHashLoaderHandler(true)
         
         
         
@@ -40,10 +47,12 @@ function LoginPage(props) {
             localStorage.setItem('IsLightTheme',true)
             setTimeout(() => {
                 Reset()
-                setloggedIn(true)
+                // setloggedIn(true)
+                SetHashLoaderHandler(false)
+                history.push('/')
                 
             
-            }, 2000);
+            }, 2500);
             
             
             
@@ -60,7 +69,8 @@ function LoginPage(props) {
             
             const notify = () => toast.error("کاربری با مشخصات وارد شده یافت نشد");
             notify()
-            setloggedIn(false)
+            // setloggedIn(false)
+            SetHashLoaderHandler(false)
             
             
             
@@ -74,15 +84,15 @@ function LoginPage(props) {
     }
     
     
-    useEffect(() => {
-        console.log('useEffect ran !');
-        if(loggedIn){
-            history.push('/')
+    // useEffect(() => {
+    //     console.log('useEffect ran !');
+    //     if(loggedIn){
+    //         history.push('/')
 
-        }
+    //     }
         
         
-    }, [loggedIn])
+    // }, [loggedIn])
     
     
    
@@ -110,6 +120,8 @@ function LoginPage(props) {
                 <input placeholder={"رمز عبور"} type={"password"} className={'login-input'} name={'password'} onChange={e =>setPassword(e.target.value)}></input>
                 
                 <button type={"button"} onClick={HandleLogin}>ورود</button>
+                {HashLoaderHandler && <HashLoader color='#319FD9' css={override} />}
+                
                 
                 
             </div>

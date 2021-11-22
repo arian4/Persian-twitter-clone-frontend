@@ -25,3 +25,55 @@
 }
 
 
+.settings-table{
+    /* display: table; */
+    border-collapse: collapse;
+    width: 90%;
+    margin: auto;
+    
+}
+.settings-table tr{
+    text-align: center;
+    font-size: 0.8rem;
+    border-radius: 20px;
+    
+}
+.settings-table td{
+    text-align: center;
+    padding: 0.5rem;
+    
+    
+}
+.settings-table th{
+    padding: 0.5rem 1rem;
+    color: #fff;
+    background-color: rgb(51, 131, 255);
+    line-height: 2;
+    font-weight: 700;
+    letter-spacing: 0.15rem;
+    /* word-spacing: 30px; */
+    
+}
+.settings-table tr:nth-child(even){
+    background-color: #f2f2f2;
+}
+.tools{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.tools svg{
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+.tools svg:nth-of-type(1):hover{
+    color: green;
+}
+.tools svg:nth-of-type(2):hover{
+    color: gold;
+}
+.tools svg:nth-of-type(3):hover{
+    color: tomato;
+}

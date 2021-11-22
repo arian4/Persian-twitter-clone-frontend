@@ -1,10 +1,11 @@
-import React,{useContext} from 'react'
+import React,{useContext,useEffect} from 'react'
 import Header from '../Home/header'
 import Tweet from '../Home/tweet'
 import '../Home/home.css'
 import useFetch from '../../components/useFetch/useFetch';
 import User_profile from '../../components/User_profile/User_profile';
 import { ThemeContext } from '../../context/Theme-context';
+import { useTweetDispatch,setTweets ,useTweetState} from '../../context/TweetContext';
 
 
 
@@ -15,14 +16,28 @@ function Tweetbyusername(props) {
     const {IsLightTheme} = useContext(ThemeContext)
     
     const username  = props.match.params['username']
-    
+    const {tweets:Related_Tweets} = useTweetState()
+    const TweetDispatch = useTweetDispatch()
     
     const {data , ispending , error } = useFetch('http://127.0.0.1:8000/twitter/api/tweets/' + username)
+    // const tweetsCopy = data.tweets
+    const retweetsCopy = data.retweets
+    
+    useEffect(() => {
+        setTweets(TweetDispatch,data.tweets)
+        
+
+        
+        return () => {
+            setTweets(TweetDispatch,[])
+        }
+    }, [JSON.stringify(data)])
+    
     
    
     // const Liked_tweet = All_Likes.filter((item => item.senders.includes(current_user)))
     // ############################
-
+    
     
     
     
@@ -36,9 +51,10 @@ function Tweetbyusername(props) {
             <User_profile user_data={username} />
             
             
+            
             {ispending && <div className='loader'></div>}
             <div className='tweets-wrapper' style={{minHeight:'100vh',marginBottom:'2rem'}}>
-                {!ispending && !!( data.retweets.length > 0 ) && data.retweets.map(twt =>{
+                {!ispending && !!( retweetsCopy.length > 0 ) && retweetsCopy.map(twt =>{
                     
                     
                     // const checkLikes = Liked_tweet.some(L => L.tweet === twt.tweet.id);
@@ -61,7 +77,8 @@ function Tweetbyusername(props) {
                                 retweetFlag={twt.user} />
                     )
                 })}
-                {!ispending && !!( data.tweets.length > 0 ) && data.tweets.map(twt =>{
+                {!ispending && !!( Related_Tweets.length > 0 ) && Related_Tweets.map(twt =>{
+                    
                     
                     
                     // const checkLikes = Liked_tweet.some(L => L.tweet === twt.id);

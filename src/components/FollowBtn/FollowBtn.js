@@ -4,6 +4,7 @@ import './followbtn.css'
 import { ThemeContext } from '../../context/Theme-context'
 import classnames from 'classnames'
 import { UserProfileContext } from '../../context/User-profile-context'
+import { AuthContext } from './../../context/Auth-context';
 
 
 export default function FollowBtn({data,current_user_id,style}) {
@@ -13,6 +14,8 @@ export default function FollowBtn({data,current_user_id,style}) {
     
     const[checkFollowStatus,setcheckFollowStatus] = useState('Follow')
     const{handleUserData} = useContext(UserProfileContext)
+    const {FetchUserData} = useContext(AuthContext)
+
     const[followBtnClass,setfollowBtnClass] = useState(IsLightTheme?'follow-btn':'follow-btn-dark')
     const[showButton,setshowButton] = useState(true)
     
@@ -74,6 +77,7 @@ export default function FollowBtn({data,current_user_id,style}) {
           .then(()=>{
               
               handleUserData(data.username)
+              FetchUserData(localStorage.getItem('access_token'))
               
               
               

@@ -33,12 +33,10 @@ function Layout(props) {
     const [retweetsIspending, SetretweetsIspending] = useState(true)
     const [likesIspending, SetlikesIspending] = useState(true)
     
-    useEffect(() => {
-        FetchUserData(token)
-        
-    }, [])
+    
 
     useEffect(() => {
+        FetchUserData(token)
         getCurrentUserRetweetedMedias(token,(isOk,data)=>{
             if (!isOk){
                 toast.warn('ناموفق در گرفتن ریتوییت ها')
@@ -76,7 +74,7 @@ function Layout(props) {
             
             
             {(Ispending||retweetsIspending || likesIspending) && <LoadingPage />}
-            {!(Ispending && retweetsIspending && likesIspending) &&
+            {!Ispending && !retweetsIspending && !likesIspending &&
                 <>
                     {isMobileDevice && <div className='container' style={{flexDirection:'column',backgroundColor:IsLightTheme?light.backgroundColor:dark.backgroundColor}}> <H_navbar/> {props.children} <AddTweetBtn /> <Nav_Icons /> <HamburgerMenu/> </div> }
                     {isTabletDevice && <div className='container' style={{backgroundColor:IsLightTheme?light.backgroundColor:dark.backgroundColor}}> <HamburgerMenu/> {props.children}  <MiniLeftsidebar/></div> }

@@ -1,15 +1,18 @@
-import React,{useState,useContext} from 'react'
+import React,{useState,useContext,useReducer} from 'react'
 import Header from '../../pages/Home/header'
 import ToggleBtn from '../ToggleBtn/ToggleBtn'
 import classnames from 'classnames'
 import './settings.css'
-import Input from '../Input/Input'
-import VALIDATIONS from '../../constant/validation_types'
 import { ThemeContext } from '../../context/Theme-context'
+
 
 
 export default function Settings() {
     const {IsLightTheme, dark, light} = useContext(ThemeContext)
+    
+    
+   
+
     
     
     
@@ -24,37 +27,17 @@ export default function Settings() {
                     <ToggleBtn toggleType={'Theme'} />
 
                 </div>
-                {/* <button onClick = {ModalHandler}>Modal</button> */}
-
-                {/* <div className={classnames('settings-wrapper-div','private-account-wrapper')}>
-                    <label className='settings-label' style={{color:IsLightTheme?light.color:dark.color}}>حساب خصوصی</label>
-                    <ToggleBtn />
-
-                </div> */}
-
-                {/* <div className={classnames('settings-wrapper-div',IsLightTheme?"twitter-data":'twitter-data-dark')}>
-                    <label className='settings-label' style={{color:IsLightTheme?light.color:dark.color}}>اطلاعات شما در توییتر فارسی</label>
-                    <i className='material-icons' style={{color:IsLightTheme?'#222':'#fff',fontSize:'20px'}}>keyboard_arrow_down</i>
-                    
-                </div>
                 
-                <div className={'settings-wrapper-div'}>
-                    <Input  label={'نام و نام خانوادگی'} validations={[VALIDATIONS.REQUIRED]} />
-                    
-
-                </div>
-
-                <div className={'settings-wrapper-div'}>
-                    <Input  label={'نام کاربری'} validations={[VALIDATIONS.REQUIRED,VALIDATIONS.LENGTH]} />
-                    
-
-                </div> */}
+                <br/>
+                
                 
                 
                 
                 
 
             </div>
+            
+            
             
             
         </div>

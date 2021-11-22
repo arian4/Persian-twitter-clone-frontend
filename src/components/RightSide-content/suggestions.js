@@ -36,7 +36,7 @@ export default function Suggestions() {
     
         })
         
-    }, [Followers.length])
+    }, [])
     
     
     const Suggestions_Users = AllUsers.filter(user => Followers.includes(user.id) && !Followings.includes(user.id))
@@ -50,7 +50,9 @@ export default function Suggestions() {
     }
     
     return (
-        <aside style={{backgroundColor:IsLightTheme?'#ebebebeb':'#555'}}>
+        <>
+            {Suggestions_Users.length !==0 ?
+            <aside style={{backgroundColor:IsLightTheme?'#ebebebeb':'#555'}}>
             
             <h4 style={{color:IsLightTheme?light.color:dark.color}}>ممکنه خوشت بیاد</h4>
             {
@@ -83,5 +85,11 @@ export default function Suggestions() {
             
 
         </aside>
+        :
+        null
+        }
+        </>
+        
+        
     )
 }

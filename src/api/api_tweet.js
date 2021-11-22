@@ -40,6 +40,18 @@ export const getTweetById = (tweetId,callback)=>{
         callback(false,error)
     })
 }
+export const getTweetByHashtag= (hashtag,callback)=>{
+    getAxiosInstance().get(`tweets/?hashtag=${hashtag}`)
+    .then(response => {
+        const data = response.data
+        
+        callback(true,data)
+    })
+    .catch(error =>{
+        console.log(error);
+        callback(false,error)
+    })
+}
 export const newTweetRequest = (data,callback)=>{
     getAxiosInstance().post('tweets/',data)
     .then(response => {
@@ -66,6 +78,7 @@ export const EditTweetRequest = (data,callback)=>{
 export const DeleteTweetRequest = (tweetId,callback)=>{
     getAxiosInstance().delete('tweets/',{ data: { 'twtId': tweetId }})
     .then(response => {
+        
         const data = response.data
         callback(true,data)
     })
@@ -120,6 +133,7 @@ export const getCurrentUserRetweetedMedias = (token,callback) =>{
       })
     .then(response => {
         const data = response.data
+        console.log('data is : ' , data)
         callback(true,data)
     })
     .catch(error =>{
@@ -167,8 +181,11 @@ export const getAllComments = (callback)=>{
         callback(false,error)
     })
 }
-export const NewCommentRequest = (data,callback)=>{
-    getAxiosInstance().post('comments/',data)
+export const NewCommentRequest = (token,data,callback)=>{
+    getAxiosInstance().post('comments/',data,{headers:{
+        Authorization: 'Bearer ' + token
+
+    }})
     .then(response => {
         // console.log(response);
         // const status = response.status
@@ -262,7 +279,31 @@ export const GetLoggedInUserData = (token,callback)=>{
     getAxiosInstance().post(`user-authentication/`,{'access_token':token})
     .then(response => {
         const data = response.data
-        console.log(data);
+        // console.log(data);
+        callback(true,data)
+    })
+    .catch(error =>{
+        console.log(error);
+        callback(false,error)
+    })
+}
+export const GetTopTweeters = (callback)=>{
+    getAxiosInstance().get(`best-twitters/`)
+    .then(response => {
+        const data = response.data
+        // console.log(data);
+        callback(true,data)
+    })
+    .catch(error =>{
+        console.log(error);
+        callback(false,error)
+    })
+}
+export const getUser_Followers_OR_Followings = (username ,type,callback)=>{
+    getAxiosInstance().get(`${username}/${type}`)
+    .then(response => {
+        const data = response.data
+        // console.log(data);
         callback(true,data)
     })
     .catch(error =>{

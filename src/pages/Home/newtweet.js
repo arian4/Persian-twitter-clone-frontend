@@ -130,6 +130,12 @@ function Newtweet() {
         }
         setsendtwtImg(e.target.files[0])
     }
+
+    const AddtweetImgClose = () =>{
+        setaddtweetImg(null)
+        setsendtwtImg(false)
+
+    }
     
     
     
@@ -144,7 +150,7 @@ function Newtweet() {
                 <div className={"twt-box-header"}>
                     <img src={Ispending?'/images/person.png':image} alt={'avatar-usr'} className={"avatar-usr"}></img>
                     <div className={'twt-box-content'}>
-                        <textarea className={'twt-box-header-textarea'} style={{backgroundColor:IsLightTheme?light.backgroundColor:dark.backgroundColor,color:IsLightTheme?light.color:dark.color}} placeholder={'توییت کن ...'} rows={'7'} id={'textarea'} value={newtweet} onChange={e=>setnewTweets(TweetDispatch,e.target.value)} ref={UTextarea}></textarea>
+                        <textarea className={'twt-box-header-textarea'} style={{backgroundColor:IsLightTheme?'#f2f2f2':'#444',color:IsLightTheme?light.color:dark.color}} placeholder={'توییت کن ...'} rows={'7'} id={'textarea'} value={newtweet} onChange={e=>setnewTweets(TweetDispatch,e.target.value)} ref={UTextarea}></textarea>
                         {addtweetImg && <br></br>}
                         {retweet && <div className={'retweet-section'} >
                             <div style={{display:'flex',alignItems:'center'}}>
@@ -161,7 +167,15 @@ function Newtweet() {
                             
                         </div>}
                         
-                        {addtweetImg && <img className={'addtweetImg'} contentEditable={false} src={addtweetImg} alt={'uploaded-img'} ></img>}
+                        {addtweetImg && 
+                        <div style={{position:'relative'}}>
+                            <img className={'addtweetImg'} contentEditable={false} src={addtweetImg} alt={'uploaded-img'} />
+                            <svg onClick={AddtweetImgClose} xmlns="http://www.w3.org/2000/svg" className={'addtweetImg-close'}  viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </div>
+                        
+                        }
                          
                     </div>
                     

@@ -7,6 +7,10 @@ function TweetReducer(state, action) {
   switch (action.type) {
     case "setTweets":
       return {...state, tweets: action.payload};
+    case "UPDATE_TWEETS":
+      return {...state , tweets  : [action.payload,...state.tweets]}
+      
+
     case "setnewTweets":
       return {...state, newtweet: action.payload};
     
@@ -70,6 +74,7 @@ export {TweetProvider,
         useTweetDispatch,
         setnewTweets,
         setTweets,
+        UpdateTweets,
         setHashtags,
         setRetweet,
         setRetweetsData,
@@ -98,6 +103,12 @@ function setTweets(dispatch, data) {
     type: "setTweets",
     payload: data
   });
+}
+function UpdateTweets(dispatch , data ){
+  dispatch({
+    type:'UPDATE_TWEETS',
+    payload : data
+  })
 }
 function setRetweetsData(dispatch , data){
   dispatch({

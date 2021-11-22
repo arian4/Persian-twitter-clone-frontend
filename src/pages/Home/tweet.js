@@ -1,4 +1,4 @@
-import React, {useRef,useState,useContext } from 'react'
+import React, {useRef,useState,useContext,useEffect } from 'react'
 import  { Link, useHistory,useLocation} from 'react-router-dom'
 import classnames from 'classnames'
 import { useTweetDispatch,setRetweet, useTweetState,setTweets,setHashtags, setRetweetsData, setLikesData } from '../../context/TweetContext';
@@ -8,7 +8,7 @@ import './homecss/tweet.css'
 import {QuoteTweetIcon, retweetIcon } from './icons';
 import { DeleteRetweetRequest, EditTweetRequest, getCurrentUserRetweetedMedias, LikeTweetRequest, newRetweetRequest } from '../../api/api_tweet';
 import { AuthContext } from './../../context/Auth-context';
-import { DeleteTweetRequest, updateHashtags, getAllRetweets, getAllLikes, getAllTweets } from './../../api/api_tweet';
+import { DeleteTweetRequest, updateHashtags } from './../../api/api_tweet';
 import RetweetModal from '../../components/Modals/RetweetModal';
 import CommentModal from '../../components/Modals/CommentModal';
 import { toast } from 'react-toastify';
@@ -42,20 +42,21 @@ function Tweet({twtId,
         return '<a href=/username/'+noSymbol.toString() +' '+ 'class="mention">'+matchedString+'</a>'
     })}
     };
-    const {tweets,retweet,All_Retweets , All_Likes} = useTweetState()
+    const {retweet,All_Retweets , All_Likes , tweets} = useTweetState()
     const TweetDispatch = useTweetDispatch()
     
     const retweet_actin = useRef()
     const retweet_btn = useRef()
     const tweet_Body = useRef()
     
+    
     const Related_Retweets = All_Retweets.filter((item)=>item.tweet.id === twtId)
     const Related_Likes = All_Likes.filter((item) => item.tweet === twtId)
     
-    
+    const [tweetText, SetTweetText] = useState(tweet)
     const [numLikes, SetnumLikes] = useState(tweetActions.numLikes)
     const [numRetweets, SetnumRetweets] = useState(tweetActions.numRetweets)
-    const [numComments, setnumComments] = useState(tweetActions.numComments)
+    const [numComments, SetnumComments] = useState(tweetActions.numComments)
     const [checkPermissions,setcheckPermissions] = useState(false)
     const [isToggled,setisToggled] = useState(false)
     
@@ -63,6 +64,14 @@ function Tweet({twtId,
     const [CommentModal_IsOpen, setCommentModal_IsOpen] = useState(false)
     const [CommentModalData, setCommentModalData] = useState({})
     
+    useEffect(() => {
+
+        SetnumLikes(tweetActions.numLikes)
+        SetnumRetweets(tweetActions.numRetweets)
+        SetnumComments(tweetActions.numComments)
+        SetTweetText(tweet)
+
+    }, [JSON.stringify(tweetActions),tweet])
     
     
     
@@ -122,6 +131,7 @@ function Tweet({twtId,
     const Quote_Tweet = () =>{
         const data = {}
         data['retweet_id'] = twtId
+        data['tweetImage'] = twtImg ? twtImg :null
         data['text'] = tweet
         data['image'] = image
         data['username'] = id
@@ -196,10 +206,10 @@ function Tweet({twtId,
     }
     const commentBtn = () =>{
         const comment_data = {}
-        comment_data['comment_id'] = twtId
+        comment_data['tweetId'] = twtId
         comment_data['Fullname'] = username
         comment_data['username'] = id
-        comment_data['text'] = tweet
+        comment_data['text'] = tweetText
         comment_data['image'] = image
         setCommentModalData(comment_data)
         setCommentModal_IsOpen(true)
@@ -219,6 +229,7 @@ function Tweet({twtId,
 
     
     const showHiddenicons = ()=>{
+        
         
         
         !isToggled ? setisToggled(true) : setisToggled(false)
@@ -264,6 +275,8 @@ function Tweet({twtId,
                         })
                         return
                     }
+                    // console.log(tweets)
+                    
                     let current_tweets = (tweets.filter((item => item.id !== twtId)));
                     setTweets(TweetDispatch,current_tweets)
 
@@ -330,7 +343,7 @@ function Tweet({twtId,
                         const EditformData = new FormData()
                         EditformData.append('id' , twtId)
                         EditformData.append('Text',result.value)
-                        EditTweetRequest(EditformData,(isOk)=>{
+                        EditTweetRequest(EditformData,(isOk,data)=>{
                             if(!isOk){
                                 Swal.fire({
                                     icon: 'error',
@@ -340,9 +353,9 @@ function Tweet({twtId,
                                 return
 
                             }
-                            const found_index = tweets.findIndex((item)=>item.id===twtId);
-                            const edited_data = [...tweets.slice(0,found_index),{...tweets[found_index],'Text':result.value},...tweets.slice(found_index+1)]
-                            setTweets(TweetDispatch,edited_data)
+                            // console.log(data.data.Text)
+                            SetTweetText(data.data.Text)
+                            
 
                             Swal.fire({
                                 icon:'success',
@@ -370,7 +383,7 @@ function Tweet({twtId,
         <div className={"tweets"} ref={tweet_Body}>
                 
                 <RetweetModal IsOpen ={Modal_IsOpen} setIsOpen ={setModal_IsOpen} ModalData ={retweet}  />
-                <CommentModal IsOpen ={CommentModal_IsOpen} setIsOpen ={setCommentModal_IsOpen} ModalData ={CommentModalData} setModalData={setCommentModalData}/>
+                <CommentModal IsOpen ={CommentModal_IsOpen} setIsOpen ={setCommentModal_IsOpen} ModalData ={CommentModalData} setModalData={setCommentModalData} SetnumComments={SetnumComments}/>
                 {retweetFlag && <div className='retweetFlag'>
                     <span style={{color:IsLightTheme?'rgb(83, 100, 113)':dark.color}}>{retweetIcon}</span>
                     <p style={{fontSize:'10px',color:IsLightTheme?'rgb(83, 100, 113)':dark.color}}> {retweetFlag.Fullname} باز نشر کرد</p>
@@ -410,8 +423,8 @@ function Tweet({twtId,
                 </div>
                 <div className={"tweet-body"} style={{color:IsLightTheme?light.color:dark.color}}>
                 {
-                    tweet.split("\n").map((text)=>{
-                        return(<div onClick={tweetDetails}  dangerouslySetInnerHTML={RenderTweet(text)}/>)
+                    tweetText.split("\n").map((text)=>{
+                        return(<div onClick={tweetDetails} dangerouslySetInnerHTML={RenderTweet(text)}/>)
                     })
                 }
 
@@ -432,6 +445,7 @@ function Tweet({twtId,
                                 {retweets.tweet.Text}
 
                             </p>
+                            <a href={retweets.tweet.image} target={'_blank'} style={{fontSize:'10px',marginTop:'6px'}}>{retweets.tweet.image}</a>
                             
                             
                 </div>}

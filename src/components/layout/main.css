@@ -43,10 +43,13 @@ body{
     height: 55px;
     border-radius: 50%;
     margin-left: 0.5rem;
+    transition: all 0.5s;
     
     
 }
-
+.avatar:hover{
+    opacity: 0.75;
+}
 .hashtag{
     color: #00b3e9;
     cursor: pointer;
