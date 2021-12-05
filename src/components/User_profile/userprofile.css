@@ -1,24 +1,63 @@
 .profile-container{
   flex: 1;
 }
-.profile-h{
-  margin: 0.5rem 0.2rem 0.5rem 0.5rem;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+.profile-header-container{
+  margin-bottom: 5rem;
   
-  /* align-items: baseline; */
+}
+.profile-header-image{
+  position: relative;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 180px;
+  
+  
+}
+.profile-h{
+  position: absolute;
+  bottom: -75px;
+  right: 25px;
+}
+
+.prof--image{
+  /* padding: 1rem; */
+  width: 125px;
+  height: 125px;
+  border-radius: 50%;
+  cursor: pointer;
   
   
   
 }
-.prof--image{
-  /* padding: 1rem; */
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
+.edit-profile-btn{
+  font-size: 12px;
   cursor: pointer;
-  
+  outline: unset;
+  border: 2px solid #BBBCB6;
+  color: #746D69;
+  background-color: #fff;
+  padding: 6px 8px;
+  border-radius: 6px;
+  transition: all 0.5s;
+}
+.edit-profile-btn-dark{
+  font-size: 12px;
+  cursor: pointer;
+  outline: unset;
+  border: 2px solid #777;
+  color: #ccc;
+  background-color: transparent;
+  padding: 6px 8px;
+  border-radius: 6px;
+  transition: all 0.5s;
+}
+.edit-profile-btn:hover{
+  background-color: #E8E9EB;
+}
+.edit-profile-btn-dark:hover{
+  background-color: #555;
 }
 .prof-fullname{
   padding-right: 1.5rem;

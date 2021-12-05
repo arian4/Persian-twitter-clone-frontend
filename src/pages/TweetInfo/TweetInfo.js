@@ -96,7 +96,7 @@ export default function TweetInfo(props) {
     
     return (
         
-        <div className={'main'}>
+        <div className={'main'} id={'main'}>
             
             
             

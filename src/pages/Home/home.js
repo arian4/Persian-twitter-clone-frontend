@@ -10,6 +10,7 @@ import { ThemeContext } from '../../context/Theme-context'
 import { useMediaQuery } from 'react-responsive'
 import { getHomeFeed } from '../../api/api_tweet'
 import { toast } from 'react-toastify';
+import { AuthContext } from './../../context/Auth-context';
 
 
 
@@ -20,7 +21,7 @@ function Home() {
     
     
     const {IsLightTheme} = useContext(ThemeContext)
-    
+    const {image:userImage} = useContext(AuthContext)
     
     // console.log("🚀 ~ file: home.js ~ line 19 ~ Home ~ Theme", IsLightTheme, dark, light)
     
@@ -74,18 +75,25 @@ function Home() {
     return (
         
 
-        <div className={'main'}>
+        <div className={'main'} id={'main'}>
             
             
+            {isMobileDevice &&
+                <Header title={'خانه'} icon={userImage} />
+
+            }
+            {!isMobileDevice &&
+                <Header title={'خانه'} icon={IsLightTheme?'/images/home-page.png':'/images/home-page-w.png'} />
+            }
             
-            <Header title={'خانه'} icon={IsLightTheme?'/images/home-page.png':'/images/home-page-w.png'} />
             
             
             {!isMobileDevice && <Newtweet /> }
             
+            {!isMobileDevice && <TabList setsortType={setsortType} /> }
             
             
-            <TabList setsortType={setsortType} />
+            
             
             
             
@@ -94,9 +102,6 @@ function Home() {
             {!HomeFeedPending &&
                 getSortedTweets(sortType, tweets).map((twt)=>{
                     
-                    // const checkLikes = Liked_tweet.some(L => L.tweet === twt.id);
-                    // const checkRetweet = All_Retweets.filter(R => R.tweet.id === twt.id);
-                    // let IsLiked = checkLikes?true:false
                     
                     return <Tweet key={twt.id}  
                                 twtId={twt.id} 

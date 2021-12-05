@@ -55,7 +55,7 @@ export default function FollowPage(props) {
         
     }, [type])
     return (
-        <div className={'main'} style={{backgroundColor:IsLightTheme?light.backgroundColor:dark.backgroundColor}}>
+        <div className={'main'} id={'main'} style={{backgroundColor:IsLightTheme?light.backgroundColor:dark.backgroundColor}}>
             {type==='followers'?<Header title={'دنبال کنندگان'} icon={IsLightTheme?'https://img.icons8.com/fluency-systems-regular/48/000000/add-user-male.png':'https://img.icons8.com/fluency-systems-regular/48/ffffff/add-user-male.png'} />:<Header title={'دنبال شوندگان'} icon={'https://img.icons8.com/fluency-systems-regular/48/000000/add-user-male.png'} />}
             
             <div className={'follow-data-container'}>

@@ -17,7 +17,7 @@ export default function Settings() {
     
     
     return (
-        <div className='main'>
+        <div className='main' id={'main'}>
             
             <Header title={'تنظیمات'} icon={IsLightTheme?'https://img.icons8.com/ios/30/000000/settings.png':'https://img.icons8.com/ios/30/ffffff/settings.png'} />
             
@@ -36,6 +36,12 @@ export default function Settings() {
                 
 
             </div>
+            
+                
+
+            
+            
+            
             
             
             

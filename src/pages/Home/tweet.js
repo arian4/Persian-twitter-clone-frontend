@@ -445,7 +445,7 @@ function Tweet({twtId,
                                 {retweets.tweet.Text}
 
                             </p>
-                            <a href={retweets.tweet.image} target={'_blank'} style={{fontSize:'10px',marginTop:'6px'}}>{retweets.tweet.image}</a>
+                            <a className={'image-link'} href={retweets.tweet.image} target={'_blank'}>{retweets.tweet.image}</a>
                             
                             
                 </div>}

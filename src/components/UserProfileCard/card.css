@@ -11,7 +11,14 @@
     
 
 }
+.header-banner{
+    
+    position: relative;
+    overflow: hidden;
+}
+
 .banner{
+    overflow: hidden;
     border-radius: 7px;
     width: 100%;
     height: 120px;

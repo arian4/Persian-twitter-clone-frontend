@@ -1,20 +1,52 @@
-import React,{useContext} from 'react'
-
-import { useMediaQuery } from 'react-responsive'
-import Search from '../../components/Search/Search';
+import React,{useContext,useEffect,useRef,useState} from 'react'
+// import Search from '../../components/Search/Search';
 import { ThemeContext } from '../../context/Theme-context';
 
 import './homecss/header.css'
 function Header({title,icon}) {
-    const {IsLightTheme} = useContext(ThemeContext)
+    const {IsLightTheme,dark} = useContext(ThemeContext)
+    
+    const header = useRef()
+    const [scrollTop, setScrollTop] = useState(0);
+    // const [Scrolling, setScrolling] = useState(false)
     
 
-    const isTabletDevice = useMediaQuery({
-        query: "(max-device-width: 768px)",
-    });
-    const isSmallDevice = useMediaQuery({
-        query: "(max-device-width: 281px)",
-    });
+    useEffect(() => {
+        
+        
+        let main = document.getElementById('main');
+        
+        if (scrollTop > header.current.offsetHeight){
+            // console.log('Yes')
+            header.current.classList.add('sticky')
+            // console.log('main.offsetWidth:',main.offsetWidth)
+            // header.current.setAttribute('style',`width: ${main.offsetWidth}px`) 
+            header.current.style.width = `${main.offsetWidth}px`
+            
+        }
+        else{
+            // console.log('No')
+            header.current.classList.remove('sticky')
+
+        }
+        
+        const onScroll = e => {
+            setScrollTop(main.scrollTop);
+            
+        };
+        main.addEventListener("scroll", onScroll);
+        
+        
+        return () => window.removeEventListener("scroll", onScroll);
+       
+
+        
+        
+    }, [scrollTop])
+    
+
+    
+    
     
     
     
@@ -25,19 +57,20 @@ function Header({title,icon}) {
         
         <>
             
-            <div className={"main-header"} >
+            <div className={"main-header"} id={"main-header"} ref={header} style={{backgroundColor:IsLightTheme?'#fff':dark.backgroundColor}} >
+                    
+                    
+                    <div className={'header-container'}>
+                        <div className={'iconImg'} style={{backgroundImage:`url(${icon})`}}></div>
+                        {/* <img className={'iconImg'} src={icon}  alt={'icon'} ></img> */}
+                        <h4 className={'header-title'} style={{color:IsLightTheme?'#111':'#adbac7'}}> {title} </h4>
+                    
+                        {/* <Search /> */}
+
+                    </div>
                     
                     
                     
-                    <img className={'iconImg'} src={icon}  alt={'icon'} ></img>
-                    
-                    
-                    
-                    <h4 className={'header-title'} style={{color:IsLightTheme?'#111':'#adbac7'}}> {title} </h4>
-                    {/* <input className={IsLightTheme?'search-box':'search-box-dark'} placeholder={'جستجو کنید ...'}></input> */}
-                    <Search />
-                    
-                    {/* <img src="https://img.icons8.com/windows/32/000000/search--v1.png"/> */}
                     
                     
                     

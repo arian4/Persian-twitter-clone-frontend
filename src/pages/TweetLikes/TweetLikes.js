@@ -56,7 +56,7 @@ export default function TweetLikes(props) {
         
     }, [])
     return (
-        <div className={'main'} style={{backgroundColor:IsLightTheme?light.backgroundColor:dark.backgroundColor}}>
+        <div className={'main'} id={'main'} style={{backgroundColor:IsLightTheme?light.backgroundColor:dark.backgroundColor}}>
             
             <Header title={'پسندیده اند'} icon={'https://img.icons8.com/material-outlined/24/fa314a/like--v1.png'}/>
             <div className={'like-data-container'}>

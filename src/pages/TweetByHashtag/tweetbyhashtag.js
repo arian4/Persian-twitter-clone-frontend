@@ -39,12 +39,12 @@ function Tweetbyhashtag(props) {
     }, [hashtag])
     
     return (
-        <div className={'main'}>
+        <div className={'main'} id={'main'}>
             
             <Header title={props.match.params.hashtag} icon={'/images/hashtag.png'} />
             
             {ispending && <div className='loader'></div>}
-            <div className='tweets-wrapper' style={{minHeight:'100vh',marginBottom:'2rem'}}>
+            <div className='tweets-wrapper'>
                 {!ispending &&
                     
                     

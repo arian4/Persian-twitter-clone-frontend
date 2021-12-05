@@ -6,12 +6,18 @@ import { ThemeContext } from '../../context/Theme-context';
 import { NewtweetIcon } from '../../pages/Home/icons';
 import TweetModal from '../Modals/TweetModal';
 
+
 export default function UserProfileCard() {
-    const {Fullname,username,image,numTweets,Followers,Followings,Ispending,LogOutUser} = useContext(AuthContext)
+    const {Fullname,username,image,header_image,numTweets,Followers,Followings,Ispending,LogOutUser} = useContext(AuthContext)
     const {Reset,IsLightTheme,light,dark} = useContext(ThemeContext)
-    
     const history = useHistory()
     const [IsOpen, setIsOpen] = useState(false)
+    // const [headerImage, setheaderImage] = useState('/images/banner-default.jpg')
+    
+    const getHeaderImage = () =>{
+        if(!header_image)return '/images/banner-default.jpg'
+        return header_image
+    }
     
     const getUserFollowersLenght = (FollowersList) =>{
         
@@ -47,15 +53,12 @@ export default function UserProfileCard() {
                     
                     <div className={'header-banner'}>
                         
-                        <img src='/images/twitter-banner.jpg' alt='banner' className='banner'/>
+                        <img src={getHeaderImage()} alt='banner' className='banner'/>
+                        
+                        
                     </div>
                     <div class="user-bio">
-                        {/* <div className='image-wrapper'>
-                            <i class="material-icons">power_settings_new</i>
-                            <img src={image} class="card-image" />
-                            
-
-                        </div> */}
+                        
                         <i onClick={LogOut} class="material-icons">logout</i>
                         <Link to={`/username/${username}`}>
                             <img src={image} class="card-image" />

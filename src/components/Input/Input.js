@@ -1,35 +1,67 @@
-import React,{useState,useContext} from 'react'
+import React,{useContext,useRef,useState,useEffect} from 'react'
+import VALIDATIONS from '../../constant/validation_types';
+import validation from './validations';
 import { ThemeContext } from '../../context/Theme-context';
 import './input.css'
-import validation from './validations';
 
-export default function Input({label,validations}) {
+
+
+export default function Input({IsContentEditable,IsModalOpen ,input_label,InputValue,setInputValue,setButtonDisabled }) {
     const {IsLightTheme, dark, light} = useContext(ThemeContext)
-    const[InputText,setInputText] = useState('')
-    const[err,seterr] = useState(null)
-    const ChangeInputHandler = (e)=>{
-        setInputText(e.target.value)
+    const InputWrapperRef = useRef()
+    
+    
+    const [Errors, setErrors] = useState(null)
+    useEffect(() => {
         
-        
+        if (!IsModalOpen)setErrors(null)
+
+    }, [IsModalOpen])
+    
+    const TestFocus = () =>{
+        // InputWrapperRef.current.classList.remove('input-wrapper')
+        InputWrapperRef.current.classList.add('selected-input')
+
     }
-    const onBlurHandler = ()=>{
+    const TestBlur = () =>{
+        // if (!InputText)InputWrapperRef.current.classList.add('blank-error')
+        InputWrapperRef.current.classList.remove('selected-input')
+        let validate_input = validation([VALIDATIONS.REQUIRED,VALIDATIONS.LENGTH],InputValue)
         
-        seterr(validation(validations,InputText))
+        if (validate_input){
+            setErrors(validate_input)
+            setButtonDisabled(true)
+        }
+        else{
+            setErrors(null)
+            setButtonDisabled(false)
+        }
+        
         
 
     }
+   
+    
     return (
-        <div className='Input-container'>
-            <label className={'Input-label'} style={{color:IsLightTheme?light.color:dark.color}}>{label} :</label>
-            <input className={err?'Input-box-err':'Input-box'} value={InputText} onChange={ChangeInputHandler} onBlur={onBlurHandler} style={{backgroundColor:IsLightTheme?light.backgroundColor:'#282D33'}}/>
-            {err &&
-                err.map(e=>{
-                    return(
-                        <li className='error-text'>{label} {e}</li>
-                    )
+        <>
+            <div ref={InputWrapperRef} className={IsContentEditable?'input-Editable':'input-wrapper'} wrapper-label = {input_label}>
+                <input
+                    style={{color:IsLightTheme?light.color:dark.color}}
+                    value={InputValue}
+                    onFocus={TestFocus} 
+                    onBlur={TestBlur} 
+                    onChange={(e)=>setInputValue(e.target.value)} 
+                    className='inner-input'
+                />
+
+            </div>
+            {Errors &&
+                Errors.map((err,index )=>{
+                    return <li key={index} style={{color:'tomato',margin:'10px 20px',fontSize:'12px'}}> {input_label} {err}</li>
                 })
             }
-            
-        </div>
+        </>
+        
+        
     )
 }

@@ -311,3 +311,16 @@ export const getUser_Followers_OR_Followings = (username ,type,callback)=>{
         callback(false,error)
     })
 }
+
+export const EditProfileRequest = (data ,username,callback)=>{
+    getAxiosInstance().patch(`username/${username}`,data)
+    .then(response => {
+        const data = response.data
+        console.log(data);
+        callback(true,data)
+    })
+    .catch(error =>{
+        console.log(error);
+        callback(false,error)
+    })
+}

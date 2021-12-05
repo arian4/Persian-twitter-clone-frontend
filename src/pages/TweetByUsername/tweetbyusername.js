@@ -42,7 +42,7 @@ function Tweetbyusername(props) {
     
     
     return (
-        <div className={'main'}>
+        <div className={'main'} id={'main'}>
             
             
             {error && <div>{error}</div>}

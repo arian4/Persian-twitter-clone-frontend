@@ -12,7 +12,7 @@ export default function Explore() {
         console.log('Explore ...');
     }, [])
     return (
-        <div className='main'>
+        <div className='main' id={'main'}>
             {console.log(Trends)}
             <Header title={'هشتگ های پربازدید'} icon={'/images/hashtag.png'} />
             {error && <p style={{'color':'red'}}>{error}</p>}

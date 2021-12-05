@@ -76,7 +76,7 @@ function Layout(props) {
             {(Ispending||retweetsIspending || likesIspending) && <LoadingPage />}
             {!Ispending && !retweetsIspending && !likesIspending &&
                 <>
-                    {isMobileDevice && <div className='container' style={{flexDirection:'column',backgroundColor:IsLightTheme?light.backgroundColor:dark.backgroundColor}}> <H_navbar/> {props.children} <AddTweetBtn /> <Nav_Icons /> <HamburgerMenu/> </div> }
+                    {isMobileDevice && <div className='container' style={{backgroundColor:IsLightTheme?light.backgroundColor:dark.backgroundColor}}> {props.children} <AddTweetBtn /> <Nav_Icons /> <HamburgerMenu/> </div> }
                     {isTabletDevice && <div className='container' style={{backgroundColor:IsLightTheme?light.backgroundColor:dark.backgroundColor}}> <HamburgerMenu/> {props.children}  <MiniLeftsidebar/></div> }
                     {isDesktop && <div className='container' style={{backgroundColor:IsLightTheme?light.backgroundColor:dark.backgroundColor}}><Rightsidebar/> {props.children} <Leftsidebar /></div>}
                 </>
