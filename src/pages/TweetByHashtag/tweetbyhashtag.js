@@ -5,6 +5,7 @@ import '../Home/home.css'
 import { getTweetByHashtag } from '../../api/api_tweet';
 import { toast } from 'react-toastify';
 import { useTweetDispatch, useTweetState , setTweets } from '../../context/TweetContext';
+import { HashtagIcon } from '../Home/icons';
 
 
 function Tweetbyhashtag(props) {
@@ -41,7 +42,7 @@ function Tweetbyhashtag(props) {
     return (
         <div className={'main'} id={'main'}>
             
-            <Header title={props.match.params.hashtag} icon={'/images/hashtag.png'} />
+            <Header title={props.match.params.hashtag} icon={HashtagIcon} />
             
             {ispending && <div className='loader'></div>}
             <div className='tweets-wrapper'>

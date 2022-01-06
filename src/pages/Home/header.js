@@ -3,13 +3,16 @@ import React,{useContext,useEffect,useRef,useState} from 'react'
 import { ThemeContext } from '../../context/Theme-context';
 
 import './homecss/header.css'
-function Header({title,icon}) {
+function Header({title,icon,userImage}) {
     const {IsLightTheme,dark} = useContext(ThemeContext)
     
     const header = useRef()
     const [scrollTop, setScrollTop] = useState(0);
     // const [Scrolling, setScrolling] = useState(false)
-    
+    const hamburgerhandler =()=>{
+        document.getElementsByClassName('ham-container')[0].style.transform ="translateX(0px)";
+        // document.getElementById("mySidenav").style.transform = "translateX(0px)";
+    }
 
     useEffect(() => {
         
@@ -61,12 +64,12 @@ function Header({title,icon}) {
                     
                     
                     <div className={'header-container'}>
-                        <div className={'iconImg'} style={{backgroundImage:`url(${icon})`}}></div>
-                        {/* <img className={'iconImg'} src={icon}  alt={'icon'} ></img> */}
+                        {/* <div onClick={hamburgerhandler} className={'iconImg'} style={{backgroundImage:`url(${icon})`}}></div> */}
+                        {userImage ? <img onClick={hamburgerhandler} className='userImage' src={userImage} alt='userImage'/> : <span style={{color:IsLightTheme?'#333':dark.color}} className={'iconImg'}>{icon}</span>}
+                        
                         <h4 className={'header-title'} style={{color:IsLightTheme?'#111':'#adbac7'}}> {title} </h4>
                     
-                        {/* <Search /> */}
-
+                        
                     </div>
                     
                     

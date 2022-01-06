@@ -69,32 +69,17 @@
 
 }
 @media screen and (max-width : 480px) {
-    .follow-btn{
-        padding: 8px 10px;
-        font-size: 11px;
-        margin-left: 5px;
-    }
-    .f-follow-btn{
-        padding: 8px 10px;
-        font-size: 11px;
-        margin-left: 5px;
-    }
-    .follow-btn-dark{
-        padding: 8px 10px;
-        font-size: 11px;
-        margin-left: 5px;
-    }
-    .f-follow-btn-dark{
-        padding: 8px 10px;
-        font-size: 11px;
-        margin-left: 5px;
-    }
-    
-    
-    
+    .followBtn-I{
 
+        align-self: center;
+        cursor: pointer;
+        outline: none;
     
-    
+        border-radius: 15px;
+        padding: 6px 16px !important;
+        font-size: 14px !important;
+        margin-left: 1rem;
+    }
     
     
 }

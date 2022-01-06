@@ -6,11 +6,11 @@ import Tweet from './tweet'
 import { setTweets, useTweetDispatch, useTweetState} from '../../context/TweetContext'
 import TabList from '../../components/TabList/TabList'
 import SORT_TYPES from '../../constant/sort_type'
-import { ThemeContext } from '../../context/Theme-context'
 import { useMediaQuery } from 'react-responsive'
 import { getHomeFeed } from '../../api/api_tweet'
 import { toast } from 'react-toastify';
 import { AuthContext } from './../../context/Auth-context';
+import { HomeIcon } from './icons'
 
 
 
@@ -20,7 +20,7 @@ function Home() {
     const token = localStorage.getItem('access_token')
     
     
-    const {IsLightTheme} = useContext(ThemeContext)
+    
     const {image:userImage} = useContext(AuthContext)
     
     // console.log("🚀 ~ file: home.js ~ line 19 ~ Home ~ Theme", IsLightTheme, dark, light)
@@ -79,11 +79,11 @@ function Home() {
             
             
             {isMobileDevice &&
-                <Header title={'خانه'} icon={userImage} />
+                <Header title={'خانه'} icon={null} userImage={userImage} />
 
             }
             {!isMobileDevice &&
-                <Header title={'خانه'} icon={IsLightTheme?'/images/home-page.png':'/images/home-page-w.png'} />
+                <Header title={'خانه'} icon={HomeIcon} />
             }
             
             

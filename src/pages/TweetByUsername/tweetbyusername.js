@@ -6,6 +6,7 @@ import useFetch from '../../components/useFetch/useFetch';
 import User_profile from '../../components/User_profile/User_profile';
 import { ThemeContext } from '../../context/Theme-context';
 import { useTweetDispatch,setTweets ,useTweetState} from '../../context/TweetContext';
+import { TagIcon } from './../Home/icons';
 
 
 
@@ -47,7 +48,7 @@ function Tweetbyusername(props) {
             
             {error && <div>{error}</div>}
             
-            <Header title={props.match.params.username} icon={IsLightTheme?'/images/user-icon.png':'/images/user-w.png'} />
+            <Header title={props.match.params.username} icon={TagIcon} />
             <User_profile user_data={username} />
             
             

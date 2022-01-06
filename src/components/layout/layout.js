@@ -62,10 +62,12 @@ function Layout(props) {
         
     }, [])
     
-    
-    const isTabletDevice = useMediaQuery({ minWidth: 481, maxWidth: 768 })
-    const isDesktop = useMediaQuery({ minWidth: 769 })
     const isMobileDevice  = useMediaQuery({maxWidth: 480})
+    const isTabletDevice = useMediaQuery({ minWidth: 481, maxWidth: 768 })
+    const isLaptopDevice = useMediaQuery({ minWidth: 769, maxWidth: 1024 })
+    const isDesktop = useMediaQuery({ minWidth: 1025 , maxWidth:1200 })
+    const isExtraLarge = useMediaQuery({ minWidth: 1200 })
+    
     return (
         <>
            
@@ -78,7 +80,9 @@ function Layout(props) {
                 <>
                     {isMobileDevice && <div className='container' style={{backgroundColor:IsLightTheme?light.backgroundColor:dark.backgroundColor}}> {props.children} <AddTweetBtn /> <Nav_Icons /> <HamburgerMenu/> </div> }
                     {isTabletDevice && <div className='container' style={{backgroundColor:IsLightTheme?light.backgroundColor:dark.backgroundColor}}> <HamburgerMenu/> {props.children}  <MiniLeftsidebar/></div> }
-                    {isDesktop && <div className='container' style={{backgroundColor:IsLightTheme?light.backgroundColor:dark.backgroundColor}}><Rightsidebar/> {props.children} <Leftsidebar /></div>}
+                    {isLaptopDevice && <div className='container' style={{backgroundColor:IsLightTheme?light.backgroundColor:dark.backgroundColor}}> {props.children}  <MiniLeftsidebar/></div> }
+                    {isDesktop && <div className='container' style={{backgroundColor:IsLightTheme?light.backgroundColor:dark.backgroundColor}}><Rightsidebar/> {props.children} <MiniLeftsidebar/></div>}
+                    {isExtraLarge && <div className='container' style={{backgroundColor:IsLightTheme?light.backgroundColor:dark.backgroundColor}}><Rightsidebar/> {props.children} <Leftsidebar /></div>}
                 </>
             }
             

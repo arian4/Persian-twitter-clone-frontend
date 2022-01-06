@@ -82,3 +82,21 @@ a{
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+
+@media screen and (max-width : 1024px) {
+    .main{
+        border: 1px solid #ccc;
+        margin-right: calc(100% / 4);
+        
+    }
+    
+}
+
+@media screen and (max-width : 770.98px) {
+    .main{
+        border: none;
+        margin-right: 0;
+        
+    }
+    
+}

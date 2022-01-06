@@ -1,32 +1,97 @@
 .ham-container{
-            
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, .5);
-    display: none;
-    top:0;
-    left: 0;
-    z-index: 998;
-    
-
-    
-}
-.sidenav {
-    height: 100%;
-    width: 65%;
-    transform:translateX(250px);
+    background: #222;
     position: absolute;
-    z-index: 999;
     top: 0;
     right: 0;
+    width: 300px;
+    height: 100vh;
     background-color: #fff;
-    overflow: hidden;
+    z-index: 5;
+    transform: translateX(300px);
+    transition: transform 0.5s;
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
     
-    transition: transform 1s;
-    padding-top: 10px;
-    border-radius: 5px;
-    box-shadow: 0 3px 10px -1px rgba(0,0,0,0.65);
+    
+    
+    
+    
+}
+.ham-header{
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #ccc;
+}
+
+.ham-header h4{
+    margin-right: 8px;
+}
+.ham-header span svg{
+    
+    width: 30px;
+    height: 30px;
+    color: #333;
+    cursor: pointer;
+    margin-left: 8px;
     
 }
 
+.ham-user-data{
+    padding: 10px 0;
+}
+.ham-user-data img {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    margin-right: 8px;
+
+}
+.ham-user-data h4{
+    margin: 10px 8px;
+
+}
+.ham-user-data p{
+    margin-right: 8px;
+    color: #858585;
+
+
+}
+.ham-follow-data{
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    
+}
+.ham-follow-data p span{
+    color: #222;
+    font-weight: bold;
+}
+.ham-follow-data p{
+    font-size: 13px;
+    padding: 0 8px;
+}
+
+
+.menu-item{
+    width: 100%;
+    padding: 1rem;
+    cursor: pointer;
+    list-style-type: none;
+
+}
+
+.menu-item-link{
+    display: flex;
+    
+    align-items: center;
+    text-decoration: none;
+    color: #333;
+    
+}
+.menu-item-link svg{
+    width: 20px;
+    height: 20px;
+    margin-left: 5px;
+}

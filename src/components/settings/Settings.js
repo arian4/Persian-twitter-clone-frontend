@@ -4,6 +4,7 @@ import ToggleBtn from '../ToggleBtn/ToggleBtn'
 import classnames from 'classnames'
 import './settings.css'
 import { ThemeContext } from '../../context/Theme-context'
+import { SettingsIcon } from './../../pages/Home/icons';
 
 
 
@@ -19,7 +20,7 @@ export default function Settings() {
     return (
         <div className='main' id={'main'}>
             
-            <Header title={'تنظیمات'} icon={IsLightTheme?'https://img.icons8.com/ios/30/000000/settings.png':'https://img.icons8.com/ios/30/ffffff/settings.png'} />
+            <Header title={'تنظیمات'} icon={SettingsIcon} />
             
             <div className='settings-wrapper'>
                 <div className={classnames('settings-wrapper-div','theme-wrapper')}>

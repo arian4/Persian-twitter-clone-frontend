@@ -196,26 +196,23 @@
     font-size: 10px;
     color:rgb(83, 100, 113) ;
   }
-  .follow-btn {
   
-    align-self: center;
-    cursor: pointer;
-    outline: none;
-    
-    border-radius: 8px;
-    padding: 6px 10px;
-    font-size: 12px;
-    margin-left: 1rem;
-    
-  }
   .profile-h{
     margin: 0;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    /* align-items: baseline; */
     
     
+    
+    
+  }
+  .prof--image{
+    padding: unset;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    cursor: pointer;
     
   }
   .prof-fullname{

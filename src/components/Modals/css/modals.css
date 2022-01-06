@@ -4,8 +4,8 @@
     z-index: 1;
     left: 0;
     top: 0;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     background-color: rgba(0,0,0,0.4);
     
 }
@@ -13,11 +13,16 @@
     
     position: absolute;
     z-index: 2;
-    width: 45%;
-    
-    top: -300px;
+    width: 60vw;
     left: 50%;
-    transform: translate(-50%, -50%);
+    
+    
+    /* transform: translateY(20px); */
+    /* top: -300px; */
+   
+     
+    transform: translate(-50%, -100%);  
+    /* margin: auto; */
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
@@ -28,8 +33,8 @@
 }
 
 @keyframes animatetop {
-    from {top:-300px; opacity:0}
-    to {top:45%; opacity:1}
+    from {transform: translate(-50%, -100%); opacity:0}
+    to {transform: translate(-50%, 30%); opacity:1}
 }
 .tweet-modal-header{
     border-radius: 6px;
@@ -127,104 +132,7 @@
     align-items: center; 
     justify-content: flex-end;
 }
-.m-mention-box{
-    border-radius: 7px;
-    position: absolute;
-    left: 10px;
-    z-index: 1;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-    border: 1px solid #fff;
-    background-color: #fff;
-    min-width: 200px;
-    max-height: 300px;
-    overflow: auto;
-    
-}
-.m-mention-box-dark{
-    border-radius: 7px;
-    position: absolute;
-    left: 10px;
-    z-index: 1;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-    border: 1px solid #191919;
-    background-color: #191919;
-    min-width: 200px;
-    max-height: 300px;
-    overflow: auto;
-    
-}
-.m-mention-box-dark::-webkit-scrollbar{
-    display: none;
-}
-.m-mention-box::-webkit-scrollbar{
-    display: none;
-}
-.m-mention-box {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
-}
-.m-mention-box-dark {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
-}
-.m-mentionbox-search{
-    width: 90%;
-    display: block;
-    margin: 6px auto;
-    padding: 4px;
-    border: 1px solid #ccc;
-    outline: none;
-    background-color: #fff;
-    font-size: 12px;
-    border-radius: 5px;
-}
-.m-mentionbox-search-dark{
-    color: silver;
-    width: 90%;
-    display: block;
-    margin: 6px auto;
-    padding: 4px;
-    border: 1px solid #222;
-    outline: none;
-    background-color: #333;
-    font-size: 12px;
-    border-radius: 5px;
-}
-.mention-user-wrapper{
-    display: flex;
-    align-items: center;
-    justify-content: left;
-    margin: 7px;
-    cursor: pointer;
-    transition: all 0.4s;
-    padding: 5px;
-}
-.mention-user-wrapper-dark{
-    display: flex;
-    align-items: center;
-    justify-content: left;
-    margin: 7px;
-    cursor: pointer;
-    transition: all 0.4s;
-    padding: 5px;
-}
-.mention-user-wrapper:hover{
-    background-color: #ebebeb;
-}
-.mention-user-wrapper-dark:hover{
-    background-color: #333;
-}
-.mention-box-user-username{
-    font-size: 12px;
-    direction: ltr;
-   
-}
-.mention-box-user-img{
-    margin-right: 8px;
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-}
+
 .upload-medias span{
     padding: 6px;
     border-radius: 50px;
@@ -320,4 +228,20 @@
 
 .new-tweet-loading{
     opacity: 0.6;
+}
+
+@media screen and (max-width : 480px) {
+    .modal{
+        width: 100vw;
+        height: 100vh;
+        left: 0;
+        transform: translate(0, -100%); 
+        border-radius: unset;
+        
+    }
+    @keyframes animatetop {
+        from {transform: translate(0%, -100%); opacity:0}
+        to {transform: translate(0%, 0%);; opacity:1}
+    }
+
 }

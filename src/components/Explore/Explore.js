@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom'
 import Header from '../../pages/Home/header'
 import useFetch from '../useFetch/useFetch'
 import './explore.css'
+import { HashtagIcon } from '../../pages/Home/icons'
 export default function Explore() {
     const history = useHistory()
     const {data:Trends , ispending , error } = useFetch('http://127.0.0.1:8000/twitter/api/hashtags')
@@ -14,7 +15,7 @@ export default function Explore() {
     return (
         <div className='main' id={'main'}>
             {console.log(Trends)}
-            <Header title={'هشتگ های پربازدید'} icon={'/images/hashtag.png'} />
+            <Header title={'هشتگ های پربازدید'} icon={HashtagIcon} />
             {error && <p style={{'color':'red'}}>{error}</p>}
             {ispending && <div className='loader'></div>}
             {!ispending && Trends.map(trend =>{
